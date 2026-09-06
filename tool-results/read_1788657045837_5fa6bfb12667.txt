@@ -1,0 +1,302 @@
+     1→     1→
+     2→     2→<!doctype html>
+     3→     3→<html lang="es-CO">
+     4→     4→<head>
+     5→     5→        <meta charset="UTF-8">
+     6→     6→        <meta name="viewport" content="width=device-width, initial-scale=1">
+     7→     7→        <link rel="profile" href="https://gmpg.org/xfn/11">
+     8→     8→        <title>Cluvi &#8211; Digitaliza tu restaurante</title>
+     9→     9→<meta name='robots' content='max-image-preview:large' />
+    10→    10→
+    11→    11→<!-- Google Tag Manager by PYS -->
+    12→    12→    <script data-cfasync="false" data-pagespeed-no-defer>
+    13→    13→            window.dataLayerPYS = window.dataLayerPYS || [];
+    14→    14→        </script>
+    15→    15→<!-- End Google Tag Manager by PYS --><link rel="alternate" href="https://www.cluvi.com/en/home/" hreflang="en" />
+    16→    16→<link rel="alternate" href="https://www.cluvi.com/pt/home-2/" hreflang="pt" />
+    17→    17→<link rel="alternate" href="https://www.cluvi.com/" hreflang="es" />
+    18→    18→<script type='application/javascript' id='pys-version-script'>console.log('PixelYourSite PRO version 11.2.0.4');</script>
+    19→    19→<link rel="alternate" type="application/rss+xml" title="Cluvi &raquo; Feed" href="https://www.cluvi.com/feed/" />
+    20→    20→<link rel="alternate" type="application/rss+xml" title="Cluvi &raquo; RSS de los comentarios" href="https://www.cluvi.com/comments/feed/" />
+    21→    21→<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.cluvi.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.cluvi.com%2F" />
+    22→    22→<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.cluvi.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.cluvi.com%2F&#038;format=xml" />
+    23→    23→<style id="wp-img-auto-sizes-contain-inline-css">
+    24→    24→img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+    25→    25→/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+    26→    26→</style>
+    27→    27→<style id="wp-emoji-styles-inline-css">
+    28→    28→
+    29→    29→        img.wp-smiley, img.emoji {
+    30→    30→                display: inline !important;
+    31→    31→                border: none !important;
+    32→    32→                box-shadow: none !important;
+    33→    33→                height: 1em !important;
+    34→    34→                width: 1em !important;
+    35→    35→                margin: 0 0.07em !important;
+    36→    36→                vertical-align: -0.1em !important;
+    37→    37→                background: none !important;
+    38→    38→                padding: 0 !important;
+    39→    39→        }
+    40→    40→/*# sourceURL=wp-emoji-styles-inline-css */
+    41→    41→</style>
+    42→    42→<style id="classic-theme-styles-inline-css">
+    43→    43→/*! This file is auto-generated */
+    44→    44→.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+    45→    45→/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+    46→    46→</style>
+    47→    47→<style id="joinchat-button-style-inline-css">
+    48→    48→.wp-block-joinchat-button{align-items:center;display:flex;flex-flow:row nowrap}.wp-block-joinchat-button.is-vertical{flex-direction:column}.wp-block-joinchat-button.is-vertical.is-content-justification-left{align-items:flex-start}.wp-block-joinchat-button.is-vertical.is-content-justification-center{align-items:center}.wp-block-joinchat-button.is-vertical.is-content-justification-right{align-items:flex-end}.wp-block-joinchat-button:not(.is-vertical).is-content-justification-left{justify-content:flex-start}.wp-block-joinchat-button:not(.is-vertical).is-content-justification-center{justify-content:center}.wp-block-joinchat-button:not(.is-vertical).is-content-justification-right{justify-content:flex-end}.wp-block-joinchat-button:not(.is-vertical).is-content-justification-space-between{justify-content:space-between}.wp-block-joinchat-button figure{align-items:center;display:flex;flex-direction:column;flex-shrink:0;margin:0;padding:0}.wp-block-joinchat-button figcaption{font:normal normal 400 .6em/2em var(--wp--preset--font-family--system-font,sans-serif);margin:0;padding:0}.wp-block-joinchat-button .joinchat-button__qr{background-color:#fff;box-sizing:content-box;display:block;height:200px;overflow:hidden;padding:10px;width:200px}.wp-block-joinchat-button .joinchat-button__qr canvas,.wp-block-joinchat-button .joinchat-button__qr img{display:block;margin:auto}.wp-block-joinchat-button .wp-block-buttons{flex:1 1 auto;margin:0;max-width:100%;min-width:0;width:100%}.wp-block-joinchat-button .wp-block-button.wp-block-button__width-25{min-width:25%;width:calc(25% - var(--wp--style--block-gap, .5em)*.75)}.wp-block-joinchat-button .wp-block-button.wp-block-button__width-50{min-width:50%;width:calc(50% - var(--wp--style--block-gap, .5em)*.5)}.wp-block-joinchat-button .wp-block-button.wp-block-button__width-75{min-width:75%;width:calc(75% - var(--wp--style--block-gap, .5em)*.25)}.wp-block-joinchat-button .wp-block-button.wp-block-button__width-100{min-width:100%;width:100%}.wp-block-joinchat-button .joinchat-button__link,.wp-block-joinchat-button .wp-block-button__link{align-items:center;display:inline-flex;flex-flow:row nowrap;justify-content:center;width:100%}.wp-block-joinchat-button .joinchat-button__link:before,.wp-block-joinchat-button .wp-block-button__link:before{background:transparent var(--joinchat-ico) no-repeat center;background-size:100%;content:"";display:block;height:1.5em;margin:-.75em .75em -.75em 0;width:1.5em}.wp-block-joinchat-button .joinchat-button__link{width:auto}.wp-block-joinchat-button:has(.joinchat-button__link){border:none!important;display:flex;flex-direction:column}@media (orientation:landscape)and (height >= 481px),(orientation:portrait)and (width >= 481px){.wp-block-joinchat-button.joinchat-button--qr-only .wp-block-buttons{display:none}}@media (orientation:landscape)and (height <= 480px),(width <= 480px){.wp-block-joinchat-button figure{display:none}}
+    49→    49→
+    50→    50→/*# sourceURL=/wp-content/plugins/creame-whatsapp-me/gutenberg/build/style-index.css */
+    51→    51→</style>
+    52→    52→<style id="global-styles-inline-css">
+    53→    53→:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+    54→    54→:root :where(.wp-block-icon svg){width: 24px;}
+    55→    55→:where(.wp-block-gallery.is-layout-flex){gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );}:where(.wp-block-gallery.is-layout-grid){gap: var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) );}
+    56→    56→:where(.wp-block-latest-posts.is-layout-flex){gap: 1.25em;}:where(.wp-block-latest-posts.is-layout-grid){gap: 1.25em;}
+    57→    57→:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+    58→    58→:where(.wp-block-term-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-term-template.is-layout-grid){gap: 1.25em;}
+    59→    59→:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+    60→    60→:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+    61→    61→:where(.wp-block-joinchat-button.is-layout-flex){gap: 10px;}:where(.wp-block-joinchat-button.is-layout-grid){gap: 10px;}
+    62→    62→/*# sourceURL=global-styles-inline-css */
+    63→    63→</style>
+    64→    64→<link rel='stylesheet' id='hello-elementor-css' href='/wp-content/themes/hello-elementor/style.min.css?ver=3.0.1' media='all' />
+    65→    65→<link rel='stylesheet' id='hello-elementor-theme-style-css' href='/wp-content/themes/hello-elementor/theme.min.css?ver=3.0.1' media='all' />
+    66→    66→<link rel='stylesheet' id='hello-elementor-header-footer-css' href='/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.0.1' media='all' />
+    67→    67→<link rel='stylesheet' id='elementor-frontend-css' href='/wp-content/uploads/elementor/css/custom-frontend.min.css?ver=1788306791' media='all' />
+    68→    68→<link rel='stylesheet' id='elementor-post-13-css' href='/wp-content/uploads/elementor/css/post-13.css?ver=1788306793' media='all' />
+    69→    69→<link rel='stylesheet' id='eael-general-css' href='/wp-content/plugins/essential-addons-for-elementor-lite/assets/front-end/css/view/general.min.css?ver=5.9.15' media='all' />
+    70→    70→<link rel='stylesheet' id='eael-1405-css' href='/wp-content/uploads/essential-addons-elementor/eael-1405.css?ver=1764318146' media='all' />
+    71→    71→<link rel='stylesheet' id='elementor-pro-css' href='/wp-content/uploads/elementor/css/custom-pro-frontend.min.css?ver=1788306793' media='all' />
+    72→    72→<link rel='stylesheet' id='font-awesome-5-all-css' href='/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=4.2.4' media='all' />
+    73→    73→<link rel='stylesheet' id='font-awesome-4-shim-css' href='/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=4.2.4' media='all' />
+    74→    74→<link rel='stylesheet' id='widget-heading-css' href='/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.2.4' media='all' />
+    75→    75→<link rel='stylesheet' id='widget-spacer-css' href='/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.2.4' media='all' />
+    76→    76→<link rel='stylesheet' id='e-animation-float-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-float.min.css?ver=4.2.4' media='all' />
+    77→    77→<link rel='stylesheet' id='e-animation-grow-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-grow.min.css?ver=4.2.4' media='all' />
+    78→    78→<link rel='stylesheet' id='e-animation-bounceInLeft-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/bounceInLeft.min.css?ver=4.2.4' media='all' />
+    79→    79→<link rel='stylesheet' id='widget-image-css' href='/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.2.4' media='all' />
+    80→    80→<link rel='stylesheet' id='e-animation-fadeInUp-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInUp.min.css?ver=4.2.4' media='all' />
+    81→    81→<link rel='stylesheet' id='e-animation-fadeIn-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/fadeIn.min.css?ver=4.2.4' media='all' />
+    82→    82→<link rel='stylesheet' id='e-animation-fadeInLeft-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInLeft.min.css?ver=4.2.4' media='all' />
+    83→    83→<link rel='stylesheet' id='e-animation-fadeInRight-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInRight.min.css?ver=4.2.4' media='all' />
+    84→    84→<link rel='stylesheet' id='widget-video-css' href='/wp-content/plugins/elementor/assets/css/widget-video.min.css?ver=4.2.4' media='all' />
+    85→    85→<link rel='stylesheet' id='swiper-css' href='/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5' media='all' />
+    86→    86→<link rel='stylesheet' id='e-swiper-css' href='/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.2.4' media='all' />
+    87→    87→<link rel='stylesheet' id='widget-image-carousel-css' href='/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.2.4' media='all' />
+    88→    88→<link rel='stylesheet' id='e-animation-bounceInDown-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/bounceInDown.min.css?ver=4.2.4' media='all' />
+    89→    89→<link rel='stylesheet' id='e-animation-bounceInUp-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/bounceInUp.min.css?ver=4.2.4' media='all' />
+    90→    90→<link rel='stylesheet' id='e-animation-bounceInRight-css' href='/wp-content/plugins/elementor/assets/lib/animations/styles/bounceInRight.min.css?ver=4.2.4' media='all' />
+    91→    91→<link rel='stylesheet' id='elementor-post-1405-css' href='/wp-content/uploads/elementor/css/post-1405.css?ver=1788306797' media='all' />
+    92→    92→<link rel='stylesheet' id='elementor-post-14-css' href='/wp-content/uploads/elementor/css/post-14.css?ver=1788306798' media='all' />
+    93→    93→<link rel='stylesheet' id='elementor-post-434-css' href='/wp-content/uploads/elementor/css/post-434.css?ver=1788306798' media='all' />
+    94→    94→<link rel='stylesheet' id='elementor-post-696-css' href='/wp-content/uploads/elementor/css/post-696.css?ver=1788306799' media='all' />
+    95→    95→<link rel='stylesheet' id='hello-elementor-child-style-css' href='/wp-content/themes/hello-theme-child-master/style.css?ver=1.0.0' media='all' />
+    96→    96→<style id="joinchat-head-inline-css">
+    97→    97→:root{--joinchat-ico:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M3.516 3.516c4.686-4.686 12.284-4.686 16.97 0s4.686 12.283 0 16.97a12 12 0 0 1-13.754 2.299l-5.814.735a.392.392 0 0 1-.438-.44l.748-5.788A12 12 0 0 1 3.517 3.517zm3.61 17.043.3.158a9.85 9.85 0 0 0 11.534-1.758c3.843-3.843 3.843-10.074 0-13.918s-10.075-3.843-13.918 0a9.85 9.85 0 0 0-1.747 11.554l.16.303-.51 3.942a.196.196 0 0 0 .219.22zm6.534-7.003-.933 1.164a9.84 9.84 0 0 1-3.497-3.495l1.166-.933a.79.79 0 0 0 .23-.94L9.561 6.96a.79.79 0 0 0-.924-.445l-2.023.524a.797.797 0 0 0-.588.88 11.754 11.754 0 0 0 10.005 10.005.797.797 0 0 0 .88-.587l.525-2.023a.79.79 0 0 0-.445-.923L14.6 13.327a.79.79 0 0 0-.94.23z'/%3E%3C/svg%3E")}.joinchat{--sep:20px;--bottom:var(--sep);--s:60px;--h:calc(var(--s)/2);--ch:142;--cs:70%;--cl:49%;--bw:1;display:block;transform:scale3d(1,1,1);position:fixed;z-index:9000;right:var(--sep);bottom:var(--bottom);contain:style}.joinchat *{box-sizing:border-box}.joinchat__qr,.joinchat__chatbox{display:none}.joinchat__tooltip{opacity:0}.joinchat__button{position:absolute;z-index:2;bottom:8px;right:8px;height:var(--s);width:var(--s);background:#25d366 var(--joinchat-ico,none)center / 60% no-repeat;color:inherit;border-radius:50%;box-shadow:1px 6px 24px 0 rgba(7,94,84,0.24)}.joinchat--left{right:auto;left:var(--sep)}.joinchat--left .joinchat__button{right:auto;left:8px}.joinchat__button__ico{position:absolute;inset:0;display:flex;border-radius:50%;overflow:hidden;color:hsl(0deg 0% clamp(0%,var(--bw)*1000%,100%) / clamp(70%,var(--bw)*1000%,100%)) !important}.joinchat__button__ico svg{width:var(--ico-size,100%);height:var(--ico-size,100%);margin:calc((100% - var(--ico-size,100%))/2)}.joinchat__button:has(.joinchat__button__ico){background:hsl(var(--ch)var(--cs)var(--cl));box-shadow:1px 6px 24px 0 hsl(var(--ch)var(--cs)calc(var(--cl) - 10%) / 24%)}.joinchat__button:has(.joinchat__button__ico):hover,.joinchat__button:has(.joinchat__button__ico):active{background:hsl(var(--ch)var(--cs)calc(var(--cl) + 20%))}.joinchat__button__image{position:absolute;inset:1px;border-radius:50%;overflow:hidden;opacity:0}.joinchat__button__image img,.joinchat__button__image video{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.joinchat--img .joinchat__button__image{opacity:1;animation:none}@media(orientation:portrait)and(width>=481px),(orientation:landscape)and(height>=481px){.joinchat--mobile{display:none !important}}@media(width <=480px),(orientation:landscape)and(height <=480px){.joinchat{--sep:6px}}
+    98→    98→/*# sourceURL=joinchat-head-inline-css */
+    99→    99→</style>
+   100→   100→<script id="jquery-core-js" src="https://www.cluvi.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+   101→   101→<script id="jquery-migrate-js" src="https://www.cluvi.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+   102→   102→<script id="font-awesome-4-shim-js" src="/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=4.2.4"></script>
+   103→   103→<script id="js-cookie-pys-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/js.cookie-2.1.3.min.js?ver=2.1.3"></script>
+   104→   104→<script id="jquery-bind-first-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/jquery.bind-first-0.2.3.min.js?ver=7.1"></script>
+   105→   105→<script id="js-sha256-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/sha256.js?ver=0.11.0"></script>
+   106→   106→<script id="js-tld-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/tld.min.js?ver=2.3.1"></script>
+   107→   107→<script id="vimeo-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/vimeo.min.js?ver=7.1"></script>
+   108→   108→<script id="pys-js-extra">
+   109→   109→var pysOptions = {"staticEvents":{"facebook":{"init_event":[{"delay":0,"type":"static","ajaxFire":false,"name":"PageView","eventID":"9759b4a3-d084-43c7-b2a0-8b308fbcb004","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"init_event","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}]}},"dynamicEvents":{"automatic_event_internal_link":{"facebook":{"delay":0,"type":"dyn","name":"InternalClick","eventID":"7a185cb2-b61c-409c-83d5-1d3a3e965240","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_internal_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"InternalClick","trackingIds":["G-SJJZLFMTCL"],"eventID":"7a185cb2-b61c-409c-83d5-1d3a3e965240","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_internal_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_outbound_link":{"facebook":{"delay":0,"type":"dyn","name":"OutboundClick","eventID":"c739aea7-fe5b-4014-bcba-415208c1639d","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_outbound_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"OutboundClick","trackingIds":["G-SJJZLFMTCL"],"eventID":"c739aea7-fe5b-4014-bcba-415208c1639d","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_outbound_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_video":{"facebook":{"delay":0,"type":"dyn","name":"WatchVideo","eventID":"b400d392-c9a8-4180-8d8f-90bdd851d8c0","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_video","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"WatchVideo","youtube_disabled":false,"trackingIds":["G-SJJZLFMTCL"],"eventID":"b400d392-c9a8-4180-8d8f-90bdd851d8c0","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_video","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_tel_link":{"facebook":{"delay":0,"type":"dyn","name":"TelClick","eventID":"76f14fad-347b-40a5-aa57-b06bdb90a413","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_tel_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"TelClick","trackingIds":["G-SJJZLFMTCL"],"eventID":"76f14fad-347b-40a5-aa57-b06bdb90a413","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_tel_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_email_link":{"facebook":{"delay":0,"type":"dyn","name":"EmailClick","eventID":"74bd9392-b7e3-4e12-af56-68bd408f4036","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_email_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"EmailClick","trackingIds":["G-SJJZLFMTCL"],"eventID":"74bd9392-b7e3-4e12-af56-68bd408f4036","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_email_link","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_form":{"facebook":{"delay":0,"type":"dyn","name":"Form","eventID":"4c6153ef-e308-49b6-95c6-2a7c9828d7d7","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_form","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Form","trackingIds":["G-SJJZLFMTCL"],"eventID":"4c6153ef-e308-49b6-95c6-2a7c9828d7d7","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_form","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_download":{"facebook":{"delay":0,"type":"dyn","name":"Download","extensions":["","doc","exe","js","pdf","ppt","tgz","zip","xls"],"eventID":"57f87e1c-0cc8-4549-8052-f1236c46b90c","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_download","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Download","extensions":["","doc","exe","js","pdf","ppt","tgz","zip","xls"],"trackingIds":["G-SJJZLFMTCL"],"eventID":"57f87e1c-0cc8-4549-8052-f1236c46b90c","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_download","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_comment":{"facebook":{"delay":0,"type":"dyn","name":"Comment","eventID":"ac2d419e-2e50-4f27-82ee-ae5019740725","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_comment","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"Comment","trackingIds":["G-SJJZLFMTCL"],"eventID":"ac2d419e-2e50-4f27-82ee-ae5019740725","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_comment","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_adsense":{"facebook":{"delay":0,"type":"dyn","name":"AdSense","eventID":"7f3a8cd5-c742-4c51-968c-1e1d6694b4c5","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_adsense","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"AdSense","trackingIds":["G-SJJZLFMTCL"],"eventID":"7f3a8cd5-c742-4c51-968c-1e1d6694b4c5","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_adsense","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_scroll":{"facebook":{"delay":0,"type":"dyn","name":"PageScroll","scroll_percent":29,"eventID":"56ad5665-1ff4-4dec-ba19-4a1ea5043649","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_scroll","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"PageScroll","scroll_percent":29,"trackingIds":["G-SJJZLFMTCL"],"eventID":"56ad5665-1ff4-4dec-ba19-4a1ea5043649","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_scroll","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}},"automatic_event_time_on_page":{"facebook":{"delay":0,"type":"dyn","name":"TimeOnPage","time_on_page":30,"eventID":"2016a2c4-5edd-4976-9bb3-1ba474dda8d9","pixelIds":["476269728088581"],"params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_time_on_page","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""},"ga":{"delay":0,"type":"dyn","name":"TimeOnPage","time_on_page":30,"trackingIds":["G-SJJZLFMTCL"],"eventID":"2016a2c4-5edd-4976-9bb3-1ba474dda8d9","params":{"page_title":"Cluvi","post_type":"page","post_id":1405,"plugin":"PixelYourSite","event_url":"www.cluvi.com/","user_role":"guest"},"e_id":"automatic_event_time_on_page","ids":[],"hasTimeWindow":false,"timeWindow":0,"woo_order":"","edd_order":""}}},"triggerEvents":[],"triggerEventTypes":[],"facebook":{"pixelIds":["476269728088581"],"advancedMatchingEnabled":true,"advancedMatching":{"external_id":"5942ff8f4983d3e169b201d46332ddf471355bdd36793df8b84d36281f26c14e"},"removeMetadata":false,"wooVariableAsSimple":false,"serverApiEnabled":true,"wooCRSendFromServer":false,"send_external_id":true,"enabled_medical":false,"do_not_track_medical_param":["event_url","post_title","page_title","landing_page","content_name","categories","tags"]},"ga":{"trackingIds":["G-SJJZLFMTCL"],"retargetingLogic":"ecomm","crossDomainEnabled":false,"crossDomainAcceptIncoming":false,"crossDomainDomains":[],"wooVariableAsSimple":true,"isDebugEnabled":[false],"serverContainerUrls":{"G-SJJZLFMTCL":{"enable_server_container":"","server_container_url":"","transport_url":""}},"additionalConfig":{"G-SJJZLFMTCL":{"first_party_collection":true}},"disableAdvertisingFeatures":false,"disableAdvertisingPersonalization":false,"url_passthrough":true,"url_passthrough_filter":true,"custom_page_view_event":false},"debug":"","siteUrl":"https://www.cluvi.com","ajaxUrl":"https://www.cluvi.com/wp-admin/admin-ajax.php","ajax_event":"3d38466842","trackUTMs":"1","trackTrafficSource":"1","user_id":"0","enable_lading_page_param":"1","cookie_duration":"7","enable_event_day_param":"1","enable_event_month_param":"1","enable_event_time_param":"1","enable_remove_target_url_param":"1","enable_remove_download_url_param":"1","visit_data_model":"first_visit","last_visit_duration":"60","enable_auto_save_advance_matching":"1","enable_success_send_form":"","enable_automatic_events":"1","enable_event_video":"1","ajaxForServerEvent":"1","ajaxForServerStaticEvent":"1","send_external_id":"1","external_id_expire":"180","track_cookie_for_subdomains":"1","google_consent_mode":"1","data_persistency":"keep_data","advance_matching_form":{"enable_advance_matching_forms":true,"advance_matching_fn_names":["first_name","first-name","first name","name"],"advance_matching_ln_names":["last_name","last-name","last name"],"advance_matching_tel_names":["phone","tel"],"advance_matching_em_names":[]},"advance_matching_url":{"enable_advance_matching_url":true,"advance_matching_fn_names":[],"advance_matching_ln_names":[],"advance_matching_tel_names":[],"advance_matching_em_names":[]},"track_dynamic_fields":[],"gdpr":{"ajax_enabled":false,"all_disabled_by_api":false,"facebook_disabled_by_api":false,"tiktok_disabled_by_api":false,"analytics_disabled_by_api":false,"google_ads_disabled_by_api":false,"pinterest_disabled_by_api":false,"bing_disabled_by_api":false,"externalID_disabled_by_api":false,"facebook_prior_consent_enabled":true,"tiktok_prior_consent_enabled":true,"analytics_prior_consent_enabled":true,"google_ads_prior_consent_enabled":true,"pinterest_prior_consent_enabled":true,"bing_prior_consent_enabled":true,"cookiebot_integration_enabled":false,"cookiebot_facebook_consent_category":"marketing","cookiebot_tiktok_consent_category":"marketing","cookiebot_analytics_consent_category":"statistics","cookiebot_google_ads_consent_category":"marketing","cookiebot_pinterest_consent_category":"marketing","cookiebot_bing_consent_category":"marketing","cookie_notice_integration_enabled":false,"cookie_law_info_integration_enabled":false,"real_cookie_banner_integration_enabled":false,"consent_magic_integration_enabled":false,"analytics_storage":{"enabled":true,"value":"granted","filter":false},"ad_storage":{"enabled":true,"value":"granted","filter":false},"ad_user_data":{"enabled":true,"value":"granted","filter":false},"ad_personalization":{"enabled":true,"value":"granted","filter":false}},"cookie":{"disabled_all_cookie":false,"disabled_start_session_cookie":false,"disabled_advanced_form_data_cookie":false,"disabled_landing_page_cookie":false,"disabled_first_visit_cookie":false,"disabled_trafficsource_cookie":false,"disabled_utmTerms_cookie":false,"disabled_utmId_cookie":false},"tracking_analytics":{"TrafficSource":"undefined","TrafficLanding":"undefined","TrafficUtms":[],"TrafficUtmsId":[],"userDataEnable":true,"userData":{"emails":[],"phones":[],"addresses":[]},"use_encoding_provided_data":true,"use_multiple_provided_data":true},"GATags":{"ga_datalayer_type":"default","ga_datalayer_name":"dataLayerPYS"},"automatic":{"enable_youtube":true,"enable_vimeo":true,"enable_video":true},"woo":{"enabled":false},"edd":{"enabled":false},"cache_bypass":"1788655749"};
+   110→   110→//# sourceURL=pys-js-extra
+   111→   111→</script>
+   112→   112→<script id="pys-js" src="/wp-content/plugins/pixelyoursite-pro/dist/scripts/public.js?ver=11.2.0.4"></script>
+   113→   113→<link rel="https://api.w.org/" href="https://www.cluvi.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.cluvi.com/wp-json/wp/v2/pages/1405" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.cluvi.com/xmlrpc.php?rsd" />
+   114→   114→<meta name="generator" content="WordPress 7.1" />
+   115→   115→<link rel="canonical" href="https://www.cluvi.com/" />
+   116→   116→<link rel='shortlink' href='https://www.cluvi.com/' />
+   117→   117→<meta name="cdp-version" content="1.4.6" /><meta name="generator" content="Elementor 4.2.4; features: e_font_icon_svg, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+   118→   118→<script>
+   119→   119→document.addEventListener('click', function(event) {
+   120→   120→    const miPopup = document.querySelector('.elementor-popup-modal');
+   121→   121→    const menuToggle = document.getElementById('menuToggle');
+   122→   122→    const dialogContent = document.querySelector('.dialog-widget-content');
+   123→   123→
+   124→   124→    // Verificar si el popup de Elementor está visible
+   125→   125→    const popupVisible = window.getComputedStyle(miPopup).display !== 'none';
+   126→   126→
+   127→   127→    // Si el clic se produce dentro del contenido del popup, no hacemos nada
+   128→   128→    if (popupVisible && dialogContent.contains(event.target)) {
+   129→   129→        return;
+   130→   130→    }
+   131→   131→
+   132→   132→    // Si el popup de Elementor está oculto, quitamos la clase '.change' del botón de hamburguesa
+   133→   133→    if (!popupVisible) {
+   134→   134→        menuToggle.classList.remove('change');
+   135→   135→        return; // No se realiza ninguna otra acción si el popup está oculto
+   136→   136→    }
+   137→   137→
+   138→   138→    // Si el clic se produce fuera del botón de hamburguesa y el popup está abierto, cerramos el popup y cambiamos el icono a la hamburguesa
+   139→   139→    if (!menuToggle.contains(event.target) && popupVisible) {
+   140→   140→        miPopup.classList.add('elementor-hidden');
+   141→   141→        menuToggle.classList.remove('change'); // Cambia el icono a la hamburguesa
+   142→   142→        return; // No realizamos más acciones para evitar el desplazamiento
+   143→   143→    }
+   144→   144→
+   145→   145→    // Si se hace clic en el botón de hamburguesa y el popup está cerrado, abrimos el popup y cambiamos el icono a la "X"
+   146→   146→    if (menuToggle.contains(event.target) && !popupVisible) {
+   147→   147→        miPopup.classList.remove('elementor-hidden');
+   148→   148→        menuToggle.classList.add('change'); // Cambia el icono a la "X"
+   149→   149→        return; // No realizamos más acciones para evitar el desplazamiento
+   150→   150→    }
+   151→   151→});
+   152→   152→
+   153→   153→</script>
+   154→   154→<script>
+   155→   155→        
+   156→   156→!function (w, d, t) {
+   157→   157→    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++
+   158→   158→)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=i+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+   159→   159→  
+   160→   160→    ttq.load('CPAHBBJC77U5GCM4QLMG');
+   161→   161→    ttq.page();
+   162→   162→  }(window, document, 'ttq');
+   163→   163→        
+   164→   164→window.onload = function() {
+   165→   165→    const botones = document.querySelectorAll('.btnwhatsappcomercial');
+   166→   166→    botones.forEach(boton => {
+   167→   167→        boton.addEventListener('click', function() {
+   168→   168→            fbq('track', 'Contact');
+   169→   169→        });
+   170→   170→    });
+   171→   171→        
+   172→   172→          const btnprogramar = document.querySelectorAll('.btnprogramar');
+   173→   173→    btnprogramar.forEach(boton => {
+   174→   174→        boton.addEventListener('click', function() {
+   175→   175→            fbq('track', 'programar');
+   176→   176→        });
+   177→   177→    });
+   178→   178→};
+   179→   179→        
+   180→   180→</script>
+   181→   181→                        <style>
+   182→   182→                                .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+   183→   183→                                .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+   184→   184→                                        background-image: none !important;
+   185→   185→                                }
+   186→   186→                                @media screen and (max-height: 1024px) {
+   187→   187→                                        .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+   188→   188→                                        .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+   189→   189→                                                background-image: none !important;
+   190→   190→                                        }
+   191→   191→                                }
+   192→   192→                                @media screen and (max-height: 640px) {
+   193→   193→                                        .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+   194→   194→                                        .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+   195→   195→                                                background-image: none !important;
+   196→   196→                                        }
+   197→   197→                                }
+   198→   198→                        </style>
+   199→   199→                        
+   200→   200→<script>
+   201→   201→                !function (w, d, t) {
+   202→   202→                  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++
+   203→   203→)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=i+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+   204→   204→                
+   205→   205→                  ttq.load('CPAHBBJC77U5GCM4QLMG');
+   206→   206→                  ttq.page();
+   207→   207→                }(window, document, 'ttq');
+   208→   208→        </script>
+   209→   209→<meta name="facebook-domain-verification" content="dl2lpl4ubczp5n006bdnc7d140h1ln" />
+   210→   210→<link rel="icon" href="/wp-content/uploads/2024/04/cropped-cropped-favicon-1-32x32.png" sizes="32x32" />
+   211→   211→<link rel="icon" href="/wp-content/uploads/2024/04/cropped-cropped-favicon-1-192x192.png" sizes="192x192" />
+   212→   212→<link rel="apple-touch-icon" href="/wp-content/uploads/2024/04/cropped-cropped-favicon-1-180x180.png" />
+   213→   213→<meta name="msapplication-TileImage" content="/wp-content/uploads/2024/04/cropped-cropped-favicon-1-270x270.png" />
+   214→   214→<style id="wp-custom-css">
+   215→   215→@@media only screen and (max-width: 1024px) {
+   216→   216→  .elementor-nav-menu--dropdown {
+   217→   217→    z-index: 999999 !important;
+   218→   218→    position: fixed !important;
+   219→   219→    top: 80px !important;
+   220→   220→    left: 0;
+   221→   221→    right: 0;
+   222→   222→    background: white;
+   223→   223→  }
+   224→   224→
+   225→   225→  /* Esto controla visibilidad basada en aria-hidden */
+   226→   226→  .elementor-nav-menu--dropdown[aria-hidden="true"] {
+   227→   227→    display: none !important;
+   228→   228→    pointer-events: none;
+   229→   229→  }
+   230→   230→
+   231→   231→  .elementor-nav-menu--dropdown[aria-hidden="false"] {
+   232→   232→    display: block !important;
+   233→   233→    pointer-events: auto;
+   234→   234→  }
+   235→   235→
+   236→   236→  /* Si usas sticky header */
+   237→   237→  .elementor-sticky--effects {
+   238→   238→    background-color: white !important;
+   239→   239→    color: black !important;
+   240→   240→  }
+   241→   241→
+   242→   242→  .elementor-sticky--effects a {
+   243→   243→    color: black !important;
+   244→   244→  }
+   245→   245→
+   246→   246→  /* Puedes revisar si este aún es necesario */
+   247→   247→  /*
+   248→   248→  #aprendeconcluvi {
+   249→   249→    display: none !important;
+   250→   250→  }
+   251→   251→
+   252→   252→</style>
+   253→   253→</head>
+   254→   254→<body class="home wp-singular page-template-default page page-id-1405 wp-custom-logo wp-theme-hello-elementor wp-child-theme-hello-theme-child-master elementor-default elementor-kit-13 elementor-page elementor-page-1405">
+   255→   255→
+   256→   256→
+   257→   257→<a class="skip-link screen-reader-text" href="#content">Saltar al contenido</a>
+   258→   258→
+   259→   259→                <div data-elementor-type="header" data-elementor-id="14" class="elementor elementor-14 elementor-location-header" data-elementor-post-type="elementor_library">
+   260→   260→                                        <section class="elementor-section elementor-top-section elementor-element elementor-element-76c53c11 elementor-section-height-min-height cluvi-header elementor-section-full_width elementor-hidden-desktop elementor-hidden-laptop elementor-hidden-tablet elementor-hidden-mobile elementor-section-height-default elementor-section-items-middle" data-id="76c53c11" data-element_type="section" data-e-type="section" data-settings="{&quot;sticky&quot;:&quot;top&quot;,&quot;sticky_effects_offset&quot;:100,&quot;background_background&quot;:&quot;classic&quot;,&quot;sticky_offset&quot;:40,&quot;sticky_on&quot;:[&quot;desktop&quot;,&quot;laptop&quot;,&quot;tablet&quot;,&quot;mobile&quot;]}">
+   261→   261→                                                <div class="elementor-container elementor-column-gap-default">
+   262→   262→                                        <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-700c378f" data-id="700c378f" data-element_type="column" data-e-type="column">
+   263→   263→                        <div class="elementor-widget-wrap elementor-element-populated">
+   264→   264→                                                <div class="elementor-element elementor-element-11c06513 logo elementor-widget__width-auto elementor-widget elementor-widget-image" data-id="11c06513" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+   265→   265→                                <div class="elementor-widget-container">
+   266→   266→                                                                                                                                <a href="https://www.cluvi.com">
+   267→   267→                                                        <img width="85" height="32" src="/wp-content/uploads/2024/03/Logo_cluvipay.png" class="attachment-large size-large wp-image-17" alt="" />                                                               </a>
+   268→   268→                                                                                                                        </div>
+   269→   269→                                </div>
+   270→   270→                                        </div>
+   271→   271→                </div>
+   272→   272→                                <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-5b8dc88d" data-id="5b8dc88d" data-element_type="column" data-e-type="column">
+   273→   273→                        <div class="elementor-widget-wrap elementor-element-populated">
+   274→   274→                                                <div class="elementor-element elementor-element-9831295 elementor-widget__width-auto elementor-hidden-tablet elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="9831295" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+   275→   275→                                <div class="elementor-widget-container">
+   276→   276→                                                                        <div class="elementor-button-wrapper">
+   277→   277→                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="https://otto.cluvi.ai/">
+   278→   278→                                                <span class="elementor-button-content-wrapper">
+   279→   279→                                                                        <span class="elementor-button-text">Otto</span>
+   280→   280→                                        </span>
+   281→   281→                                        </a>
+   282→   282→                                </div>
+   283→   283→                                                                </div>
+   284→   284→                                </div>
+   285→   285→                                <div class="elementor-element elementor-element-64c45aa elementor-widget__width-auto elementor-hidden-tablet elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="64c45aa" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+   286→   286→                                <div class="elementor-widget-container">
+   287→   287→                                                                        <div class="elementor-button-wrapper">
+   288→   288→                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="/contacto?utm_content=home_header_obten">
+   289→   289→                                                <span class="elementor-button-content-wrapper">
+   290→   290→                                                                        <span class="elementor-button-text">Obtén tu menú </span>
+   291→   291→                                        </span>
+   292→   292→                                        </a>
+   293→   293→                                </div>
+   294→   294→                                                                </div>
+   295→   295→                                </div>
+   296→   296→                                <div class="elementor-element elementor-element-5f0cac0 elementor-widget__width-auto elementor-hidden-tablet elementor-hidden-mobile elementor-widget elementor-widget-button" data-id="5f0cac0" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+   297→   297→                                <div class="elementor-widget-container">
+   298→   298→                                                                        <div class="elementor-button-wrapper">
+   299→   299→                                        <a class="elementor-button elementor-button-link elementor-size-sm" href="http://cluvi.com/blog">
+   300→   300→                                                <span class="elementor-button-content-wrapper">
+
+[showing lines 1-300 of 1817; use offset=301 with limit to continue reading]
