@@ -57,7 +57,7 @@ export function HomeView() {
     if (search.trim()) params.set("q", search.trim());
     if (category !== "all") params.set("category", category);
     let active = true;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setLoading(true);
     fetch(`/api/stores?${params.toString()}`)
       .then((r) => r.json())

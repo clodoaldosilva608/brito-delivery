@@ -91,7 +91,7 @@ export function useGeocode(address: string | null) {
 
   useEffect(() => {
     if (!address || address.trim().length < 5) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+       
       setCoords(null);
       return;
     }

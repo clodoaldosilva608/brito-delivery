@@ -15,7 +15,24 @@ export type View =
   | "owner-orders"
   | "owner-menu"
   | "owner-settings"
-  | "create-store";
+  | "create-store"
+  // New admin views
+  | "admin-customize"
+  | "admin-info"
+  | "admin-status"
+  | "admin-delivery"
+  | "admin-drivers"
+  | "admin-messages"
+  | "admin-printer"
+  | "admin-payment"
+  | "admin-kitchen"
+  | "admin-kds"
+  | "admin-domain"
+  | "admin-integrations"
+  | "admin-users"
+  | "admin-customers"
+  | "admin-reports"
+  | "admin-stock";
 
 interface NavState {
   view: View;

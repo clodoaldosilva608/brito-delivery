@@ -21,9 +21,10 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  roles  UserRole[]
-  stores Store[]
-  orders Order[]
+  roles       UserRole[]
+  stores      Store[]
+  orders      Order[]
+  memberships StoreMember[]
 }
 
 model UserRole {
@@ -45,20 +46,60 @@ model Store {
   slug          String   @unique
   name          String
   description   String?
-  category      String   // pizza, burger, japones, doces, saudavel, mexicano, etc.
+  category      String
   logoUrl       String?
   coverUrl      String?
   address       String?
   cep           String?
+  street        String?
+  number        String?
+  complement    String?
+  neighborhood  String?
+  city          String?
+  state         String?
   phone         String?
+  whatsapp      String?
+  email         String?
   openingHours  String?
   deliveryFee   Float    @default(0)
   minOrder      Float    @default(0)
   avgDeliveryMin Int     @default(30)
   rating        Float    @default(4.5)
+  // Redes sociais
+  instagram     String?
+  tiktok        String?
+  facebook      String?
+  // Banners (JSON array de {url, link})
+  banners       String?
+  // Horário por dia (JSON: {mon: {open: true, from: "18:00", to: "23:00"}, ...})
+  businessHours String?
+  // Config de entrega
+  deliveryActive     Boolean @default(true)
+  deliveryMode       String  @default("FIXED") // FIXED | BASE_KM | AREAS
+  deliveryBaseFee    Float   @default(0)
+  deliveryPerKm      Float   @default(0)
+  deliveryMaxKm      Float   @default(10)
+  freeDeliveryAbove  Float?
   // Pagamento
   pixKey        String?
-  paymentLink   String?  // link de checkout de cartão (ex: Stripe, Mercado Pago)
+  paymentLink   String?
+  paymentGateway String? // "stripe" | "mercadopago" | null
+  paymentConnected Boolean @default(false)
+  // Impressora
+  printerMode       String  @default("BROWSER") // BROWSER | PRINTNODE | QZ
+  printerCopies     Int     @default(1)
+  printerWidth      String  @default("80mm")
+  printerAutoPrint  Boolean @default(false)
+  printerAutoReport Boolean @default(false)
+  // Mensagens auto WhatsApp
+  autoMessagesEnabled Boolean @default(false)
+  autoMessages  String? // JSON com templates por status
+  trackingText  String?
+  // Domínio próprio
+  customDomain  String?
+  domainVerified Boolean @default(false)
+  // Trial
+  trialEndsAt   DateTime?
   // Estado
   isActive      Boolean  @default(true)
   isOpen        Boolean  @default(true)
@@ -69,6 +110,9 @@ model Store {
   menuSections MenuSection[]
   menuItems   MenuItem[]
   orders      Order[]
+  drivers     DeliveryDriver[]
+  kitchenAreas KitchenArea[]
+  members     StoreMember[]
 
   @@index([category])
   @@index([isActive])
@@ -109,6 +153,52 @@ model MenuItem {
   @@index([sectionId])
 }
 
+// ====== DELIVERY ======
+
+model DeliveryDriver {
+  id        String   @id @default(cuid())
+  storeId   String
+  name      String
+  phone     String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([storeId])
+}
+
+// ====== KITCHEN ======
+
+model KitchenArea {
+  id        String   @id @default(cuid())
+  storeId   String
+  name      String
+  color     String   @default("#E85D2C")
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+
+  store Store @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([storeId])
+}
+
+// ====== STORE MEMBERS (Users & Permissions) ======
+
+model StoreMember {
+  id        String   @id @default(cuid())
+  storeId   String
+  profileId String
+  role      String   @default("OWNER") // OWNER | MANAGER | STAFF
+  createdAt DateTime @default(now())
+
+  store    Store   @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  profile  Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  @@unique([storeId, profileId])
+  @@index([storeId])
+}
+
 // ====== ORDERS ======
 
 model Order {
@@ -117,20 +207,16 @@ model Order {
   storeId       String
   customerId    String
   status        String   @default("PENDING") // PENDING, ACCEPTED, PREPARING, OUT_FOR_DELIVERY, DELIVERED, CANCELLED
-  // Dados do cliente (snapshot)
   customerName  String
   customerPhone String
-  // Endereço de entrega
   cep           String
   street        String
   number        String
   complement    String?
   neighborhood  String
   city          String
-  // Pagamento
-  paymentMethod String   // PIX | CARD | ON_DELIVERY
-  paymentDetail String?  // ex: "Dinheiro, troco para R$ 50" ou "Pago via link"
-  // Valores
+  paymentMethod String
+  paymentDetail String?
   subtotal      Float
   deliveryFee   Float
   total         Float

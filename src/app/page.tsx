@@ -13,8 +13,13 @@ import { AuthView } from "@/components/auth-view";
 import { DashboardView } from "@/components/dashboard-view";
 import { CreateStoreView } from "@/components/create-store-view";
 import { OwnerMenuView } from "@/components/owner-menu-view";
-import { OwnerSettingsView } from "@/components/owner-settings-view";
 import { OwnerOrdersView } from "@/components/owner-orders-view";
+import {
+  AdminCustomizeView, AdminInfoView, AdminStatusView, AdminDeliveryView,
+  AdminDriversView, AdminMessagesView, AdminPrinterView, AdminPaymentView,
+  AdminKitchenView, AdminKdsView, AdminDomainView, AdminIntegrationsView,
+  AdminUsersView, AdminCustomersView, AdminReportsView, AdminStockView,
+} from "@/components/admin-views";
 
 export default function Home() {
   const { view } = useNav();
@@ -36,8 +41,25 @@ export default function Home() {
         {view === "dashboard" && <DashboardView />}
         {view === "create-store" && <CreateStoreView />}
         {view === "owner-menu" && <OwnerMenuView />}
-        {view === "owner-settings" && <OwnerSettingsView />}
         {view === "owner-orders" && <OwnerOrdersView />}
+        {view === "owner-settings" && <AdminInfoView />}
+        {/* Admin views */}
+        {view === "admin-customize" && <AdminCustomizeView />}
+        {view === "admin-info" && <AdminInfoView />}
+        {view === "admin-status" && <AdminStatusView />}
+        {view === "admin-delivery" && <AdminDeliveryView />}
+        {view === "admin-drivers" && <AdminDriversView />}
+        {view === "admin-messages" && <AdminMessagesView />}
+        {view === "admin-printer" && <AdminPrinterView />}
+        {view === "admin-payment" && <AdminPaymentView />}
+        {view === "admin-kitchen" && <AdminKitchenView />}
+        {view === "admin-kds" && <AdminKdsView />}
+        {view === "admin-domain" && <AdminDomainView />}
+        {view === "admin-integrations" && <AdminIntegrationsView />}
+        {view === "admin-users" && <AdminUsersView />}
+        {view === "admin-customers" && <AdminCustomersView />}
+        {view === "admin-reports" && <AdminReportsView />}
+        {view === "admin-stock" && <AdminStockView />}
       </main>
       <SiteFooter />
     </div>
