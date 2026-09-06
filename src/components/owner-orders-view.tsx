@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNav, formatBRL } from "@/lib/store";
+import { useRealtimeOrders } from "@/lib/realtime";
 import { toast } from "sonner";
 import {
   ChevronLeft, Loader2, Clock, MapPin, CheckCircle2, Flame, Package, Truck, X,
@@ -70,9 +71,34 @@ export function OwnerOrdersView() {
 
   useEffect(() => {
     load();
-    const i = setInterval(load, 15000);
-    return () => clearInterval(i);
   }, [load]);
+
+  // Tempo real: escutar novos pedidos e mudanças de status via SSE
+  useRealtimeOrders(activeStoreId ? [`store:${activeStoreId}`] : [], (event) => {
+    if (event.type === "order:new") {
+      if (event.order) {
+        setOrders((prev) => [event.order, ...prev]);
+      } else {
+        load();
+      }
+      toast.success("Novo pedido!", {
+        description: `#${event.orderNumber} · ${event.customerName}`,
+      });
+    } else if (event.type === "order:status") {
+      setOrders((prev) => {
+        const exists = prev.find((o) => o.id === event.orderId);
+        if (exists) {
+          return prev.map((o) =>
+            o.id === event.orderId ? { ...o, status: event.status } : o
+          );
+        }
+        if (event.order) {
+          return [event.order, ...prev];
+        }
+        return prev;
+      });
+    }
+  });
 
   const updateStatus = async (orderId: string, status: string) => {
     setUpdating(orderId);
@@ -112,7 +138,7 @@ export function OwnerOrdersView() {
       <div className="flex items-center justify-between gap-3 mb-5">
         <div>
           <h1 className="text-2xl font-bold">Pedidos da loja</h1>
-          <p className="text-sm text-muted-foreground">Atualização automática a cada 15s</p>
+          <p className="text-sm text-muted-foreground">Atualização em tempo real</p>
         </div>
       </div>
 

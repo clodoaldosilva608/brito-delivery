@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
+import { emitOrderEvent } from "@/lib/events";
 
 const CreateOrderSchema = z.object({
   storeId: z.string().min(1),
@@ -112,6 +113,18 @@ export async function POST(req: NextRequest) {
         items: { create: orderItemsData },
       },
       include: { items: true, store: true },
+    });
+
+    // Emitir evento de novo pedido em tempo real
+    emitOrderEvent({
+      type: "order:new",
+      orderId: order.id,
+      storeId: store.id,
+      customerId: session.sub,
+      status: "PENDING",
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      order,
     });
 
     return NextResponse.json({ order }, { status: 201 });

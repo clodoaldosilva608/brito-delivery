@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useCart, useNav, useSession, formatBRL } from "@/lib/store";
+import { MiniMap, useGeocode } from "@/components/mini-map";
 import { toast } from "sonner";
 import {
   ChevronLeft, Loader2, Copy, ExternalLink, Wallet, CreditCard, Truck, CheckCircle2, MapPin,
@@ -337,6 +338,9 @@ export function CheckoutView() {
             </CardContent>
           </Card>
 
+          {/* Mapa do endereço de entrega */}
+          <DeliveryMap form={form} />
+
           {/* Pagamento */}
           <Card>
             <CardContent className="p-5">
@@ -462,5 +466,55 @@ function PaymentOption({ active, onClick, icon: Icon, title, desc }: any) {
         {active && <div className="h-full w-full rounded-full bg-primary-foreground scale-50" />}
       </div>
     </button>
+  );
+}
+
+function DeliveryMap({ form }: { form: { street: string; number: string; neighborhood: string; city: string } }) {
+  const fullAddress = `${form.street}, ${form.number}, ${form.neighborhood}, ${form.city}, Brasil`;
+  const { coords, loading, error } = useGeocode(
+    form.street && form.number && form.city ? fullAddress : null
+  );
+
+  if (!form.street || !form.city) return null;
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="p-5">
+          <h3 className="font-bold mb-3 flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-primary" />
+            Localização da entrega
+          </h3>
+          <div className="h-[180px] rounded-xl bg-secondary animate-pulse grid place-items-center">
+            <span className="text-xs text-muted-foreground">Carregando mapa…</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error || !coords) {
+    return null;
+  }
+
+  return (
+    <Card>
+      <CardContent className="p-5">
+        <h3 className="font-bold mb-3 flex items-center gap-2">
+          <MapPin className="h-4 w-4 text-primary" />
+          Localização da entrega
+        </h3>
+        <MiniMap
+          lat={coords.lat}
+          lng={coords.lng}
+          zoom={16}
+          label={`${form.street}, ${form.number}`}
+          height="180px"
+        />
+        {coords.displayName && (
+          <p className="mt-2 text-xs text-muted-foreground line-clamp-2">{coords.displayName}</p>
+        )}
+      </CardContent>
+    </Card>
   );
 }

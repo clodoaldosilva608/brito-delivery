@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useNav, useSession, formatBRL } from "@/lib/store";
+import { useRealtimeOrders } from "@/lib/realtime";
 import { toast } from "sonner";
 import { Package, ChevronLeft, Clock, MapPin, Loader2, X } from "lucide-react";
 
@@ -72,6 +73,28 @@ export function OrdersView() {
     if (profile) load();
      
   }, [profile, sessionLoading]);
+
+  // Tempo real: escutar mudanças de status dos pedidos via SSE
+  useRealtimeOrders(profile ? [`customer:${profile.id}`] : [], (event) => {
+    if (event.type === "order:status") {
+      setOrders((prev) => {
+        const exists = prev.find((o) => o.id === event.orderId);
+        if (exists) {
+          return prev.map((o) =>
+            o.id === event.orderId ? { ...o, status: event.status } : o
+          );
+        }
+        load();
+        return prev;
+      });
+      const order = orders.find((o) => o.id === event.orderId);
+      if (order) {
+        toast.info(`Pedido #${order.orderNumber}: ${STATUS_CONFIG[event.status]?.label}`, {
+          description: order.store.name,
+        });
+      }
+    }
+  });
 
   const cancel = async (id: string) => {
     setCancelling(id);

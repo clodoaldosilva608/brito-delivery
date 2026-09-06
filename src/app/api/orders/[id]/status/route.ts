@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
+import { emitOrderEvent } from "@/lib/events";
 
 const VALID_STATUSES = ["PENDING", "ACCEPTED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"];
 
@@ -48,6 +49,18 @@ export async function PATCH(
       where: { id },
       data: { status },
       include: { items: true, store: true },
+    });
+
+    // Emitir mudança de status em tempo real para o cliente e a loja
+    emitOrderEvent({
+      type: "order:status",
+      orderId: id,
+      storeId: updated.storeId,
+      customerId: updated.customerId,
+      status,
+      orderNumber: updated.orderNumber,
+      customerName: updated.customerName,
+      order: updated,
     });
 
     return NextResponse.json({ order: updated });

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
 import { useNav, useCart, formatBRL } from "@/lib/store";
+import { MiniMap, useGeocode } from "@/components/mini-map";
 import { toast } from "sonner";
 import {
   Star, Clock, Truck, MapPin, Phone, ChevronLeft, Plus, Minus, X,
@@ -167,6 +168,11 @@ export function StoreView() {
             <MapPin className="h-3.5 w-3.5" />
             {store.address}
           </div>
+        )}
+
+        {/* Mapa da localização da loja */}
+        {store.address && (
+          <StoreLocationMap address={store.address} storeName={store.name} />
         )}
       </div>
 
@@ -347,5 +353,33 @@ function ItemModal({ item, store, onClose }: { item: MenuItem; store: StoreData;
         </div>
       </motion.div>
     </motion.div>
+  );
+}
+
+function StoreLocationMap({ address, storeName }: { address: string; storeName: string }) {
+  const { coords, loading, error } = useGeocode(address);
+
+  if (loading) {
+    return (
+      <div className="mt-3 h-[200px] rounded-xl bg-secondary animate-pulse grid place-items-center">
+        <span className="text-xs text-muted-foreground">Carregando mapa…</span>
+      </div>
+    );
+  }
+
+  if (error || !coords) {
+    return null;
+  }
+
+  return (
+    <div className="mt-3">
+      <MiniMap
+        lat={coords.lat}
+        lng={coords.lng}
+        zoom={16}
+        label={storeName}
+        height="200px"
+      />
+    </div>
   );
 }
