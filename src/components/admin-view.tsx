@@ -10,8 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { useNav, formatCOP } from "@/lib/store";
+import { useNav, formatBRL } from "@/lib/store";
 import { toast } from "sonner";
 import {
   TrendingUp, Wallet, ShoppingBag, Users, Clock, ChefHat,
@@ -37,11 +36,17 @@ interface Stats {
 }
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; next?: string }> = {
-  PENDING: { label: "Pendiente", color: "bg-chart-4/15 text-chart-4 border-chart-4/30", next: "PREPARING" },
+  PENDING: { label: "Pendente", color: "bg-chart-4/15 text-chart-4 border-chart-4/30", next: "PREPARING" },
   PREPARING: { label: "Preparando", color: "bg-chart-3/15 text-chart-3 border-chart-3/30", next: "READY" },
-  READY: { label: "Listo", color: "bg-chart-2/15 text-chart-2 border-chart-2/30", next: "DELIVERED" },
-  DELIVERED: { label: "Entregado", color: "bg-muted text-muted-foreground border-border", next: undefined },
+  READY: { label: "Pronto", color: "bg-chart-2/15 text-chart-2 border-chart-2/30", next: "DELIVERED" },
+  DELIVERED: { label: "Entregue", color: "bg-muted text-muted-foreground border-border", next: undefined },
   CANCELLED: { label: "Cancelado", color: "bg-destructive/10 text-destructive border-destructive/30", next: undefined },
+};
+
+const CHANNEL_LABELS: Record<string, string> = {
+  QR: "Mesa (QR)",
+  DELIVERY: "Delivery",
+  TAKEOUT: "Retirada",
 };
 
 const PIE_COLORS = ["#E85D2C", "#2D8B5B", "#7C5BC7", "#D4A028", "#C73E1D"];
@@ -55,7 +60,6 @@ export function AdminView() {
   const load = useCallback(async () => {
     let rid = restaurantId;
     if (!rid) {
-      // fetch default restaurant id
       const r = await fetch("/api/menu").then((r) => r.json());
       rid = r.restaurant.id;
       setRestaurantId(rid);
@@ -69,7 +73,7 @@ export function AdminView() {
     load().finally(() => setLoading(false));
   }, [load]);
 
-  // Auto refresh every 20s
+  // Auto refresh a cada 20s
   useEffect(() => {
     const interval = setInterval(() => {
       setRefreshing(true);
@@ -85,11 +89,11 @@ export function AdminView() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
-      if (!res.ok) throw new Error("Error al actualizar");
+      if (!res.ok) throw new Error("Erro ao atualizar");
       toast.success(`Pedido marcado como ${STATUS_CONFIG[status]?.label}`);
       await load();
     } catch (e: any) {
-      toast.error("No se pudo actualizar", { description: e.message });
+      toast.error("Não foi possível atualizar", { description: e.message });
     }
   };
 
@@ -100,11 +104,11 @@ export function AdminView() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
-      if (!res.ok) throw new Error("Error");
-      toast.success("Reserva actualizada");
+      if (!res.ok) throw new Error("Erro");
+      toast.success("Reserva atualizada");
       await load();
     } catch {
-      toast.error("No se pudo actualizar la reserva");
+      toast.error("Não foi possível atualizar a reserva");
     }
   };
 
@@ -112,7 +116,7 @@ export function AdminView() {
     return (
       <div className="container-cluvi py-20 flex flex-col items-center gap-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="text-muted-foreground">Cargando dashboard…</p>
+        <p className="text-muted-foreground">Carregando painel…</p>
       </div>
     );
   }
@@ -127,95 +131,95 @@ export function AdminView() {
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
         >
           <ChevronLeft className="h-3.5 w-3.5" />
-          Volver al inicio
+          Voltar ao início
         </button>
 
         <div className="flex items-center justify-between gap-4 mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold flex items-center gap-2">
-              Dashboard
+              Painel
               {refreshing && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
             </h1>
             <p className="text-sm text-muted-foreground">
-              El Balcón del Chef · Actualización automática cada 20s
+              A Varanda do Chef · Atualização automática a cada 20s
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={() => { setRefreshing(true); load().finally(() => setRefreshing(false)); }}>
-            Refrescar
+            Atualizar
           </Button>
         </div>
 
-        {/* KPI cards */}
+        {/* Cards de KPI */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
           <KpiCard
             icon={Wallet}
-            label="Ventas hoy"
-            value={formatCOP(kpis.todayRevenue)}
+            label="Vendas hoje"
+            value={formatBRL(kpis.todayRevenue)}
             color="text-primary"
             bg="bg-primary/10"
           />
           <KpiCard
             icon={ShoppingBag}
-            label="Pedidos hoy"
+            label="Pedidos hoje"
             value={String(kpis.todayOrdersCount)}
             color="text-chart-2"
             bg="bg-chart-2/10"
           />
           <KpiCard
             icon={TrendingUp}
-            label="Ticket prom."
-            value={formatCOP(kpis.avgTicket)}
+            label="Ticket médio"
+            value={formatBRL(kpis.avgTicket)}
             color="text-chart-3"
             bg="bg-chart-3/10"
           />
           <KpiCard
             icon={BellRing}
-            label="Pedidos activos"
+            label="Pedidos ativos"
             value={String(kpis.activeOrdersCount)}
             color="text-chart-4"
             bg="bg-chart-4/10"
           />
           <KpiCard
             icon={CalendarClock}
-            label="Reservas hoy"
+            label="Reservas hoje"
             value={String(kpis.todayReservationsCount)}
             color="text-chart-5"
             bg="bg-chart-5/10"
           />
           <KpiCard
             icon={Users}
-            label="Comensales"
+            label="Clientes"
             value={String(kpis.totalGuestsToday)}
             color="text-primary"
             bg="bg-primary/10"
           />
         </div>
 
-        {/* Tabs: Órdenes | Reservas | Analítica */}
+        {/* Abas */}
         <Tabs defaultValue="orders" className="space-y-4">
           <TabsList className="grid w-full grid-cols-3 max-w-md">
-            <TabsTrigger value="orders">Pedidos activos</TabsTrigger>
+            <TabsTrigger value="orders">Pedidos ativos</TabsTrigger>
             <TabsTrigger value="reservations">Reservas</TabsTrigger>
-            <TabsTrigger value="analytics">Analítica</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
-          {/* ORDERS TAB */}
+          {/* ABA PEDIDOS */}
           <TabsContent value="orders" className="space-y-4">
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                   <ChefHat className="h-4 w-4 text-primary" />
-                  Pantalla de cocina (KDS)
+                  Tela da cozinha (KDS)
                 </CardTitle>
                 <CardDescription>
-                  Pedidos en preparación. Avanza el estado con un clic.
+                  Pedidos em preparo. Avance o status com um clique.
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {stats.activeOrders.length === 0 ? (
                   <div className="py-12 text-center text-sm text-muted-foreground">
                     <CheckCircle2 className="h-10 w-10 mx-auto mb-3 text-chart-2/50" />
-                    No hay pedidos pendientes. ¡Todo al día!
+                    Não há pedidos pendentes. Tudo em dia!
                   </div>
                 ) : (
                   <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -231,7 +235,7 @@ export function AdminView() {
                           <div>
                             <div className="font-bold text-sm">#{order.orderNumber}</div>
                             <div className="text-[10px] text-muted-foreground">
-                              {order.table ? `Mesa ${order.table.code}` : order.channel === "DELIVERY" ? "Domicilio" : "Para llevar"}
+                              {order.table ? `Mesa ${order.table.code}` : order.channel === "DELIVERY" ? "Delivery" : "Para retirar"}
                               {order.customerName && ` · ${order.customerName}`}
                             </div>
                           </div>
@@ -249,9 +253,9 @@ export function AdminView() {
                         </div>
                         <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
                           <span className="flex items-center gap-1"><Clock className="h-3 w-3" />
-                            {new Date(order.createdAt).toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" })}
+                            {new Date(order.createdAt).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}
                           </span>
-                          <span className="font-bold text-foreground">{formatCOP(order.total)}</span>
+                          <span className="font-bold text-foreground">{formatBRL(order.total)}</span>
                         </div>
                         {STATUS_CONFIG[order.status]?.next && (
                           <Button
@@ -259,8 +263,8 @@ export function AdminView() {
                             className="w-full h-8"
                             onClick={() => updateOrderStatus(order.id, STATUS_CONFIG[order.status].next!)}
                           >
-                            {order.status === "PENDING" && <><Flame className="h-3 w-3 mr-1" /> Empezar a preparar</>}
-                            {order.status === "PREPARING" && <><Check className="h-3 w-3 mr-1" /> Marcar listo</>}
+                            {order.status === "PENDING" && <><Flame className="h-3 w-3 mr-1" /> Começar a preparar</>}
+                            {order.status === "PREPARING" && <><Check className="h-3 w-3 mr-1" /> Marcar pronto</>}
                             {order.status === "READY" && <><CheckCircle2 className="h-3 w-3 mr-1" /> Entregar</>}
                           </Button>
                         )}
@@ -282,20 +286,20 @@ export function AdminView() {
             </Card>
           </TabsContent>
 
-          {/* RESERVATIONS TAB */}
+          {/* ABA RESERVAS */}
           <TabsContent value="reservations" className="space-y-4">
             <Card>
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                   <CalendarClock className="h-4 w-4 text-primary" />
-                  Reservas de hoy
+                  Reservas de hoje
                 </CardTitle>
-                <CardDescription>{stats.todayReservations.length} reservas · {kpis.totalGuestsToday} comensales</CardDescription>
+                <CardDescription>{stats.todayReservations.length} reservas · {kpis.totalGuestsToday} clientes</CardDescription>
               </CardHeader>
               <CardContent>
                 {stats.todayReservations.length === 0 ? (
                   <div className="py-12 text-center text-sm text-muted-foreground">
-                    No hay reservas para hoy.
+                    Não há reservas para hoje.
                   </div>
                 ) : (
                   <div className="grid gap-2 md:grid-cols-2">
@@ -319,7 +323,7 @@ export function AdminView() {
                         <div className="flex-1 min-w-0">
                           <div className="font-semibold text-sm truncate">{r.customerName}</div>
                           <div className="text-xs text-muted-foreground flex items-center gap-2">
-                            <Users className="h-3 w-3" /> {r.partySize} pers.
+                            <Users className="h-3 w-3" /> {r.partySize} pessoas
                             {r.occasion && <span className="text-primary">· {r.occasion}</span>}
                           </div>
                           <div className="text-[10px] text-muted-foreground">{r.phone}</div>
@@ -341,14 +345,14 @@ export function AdminView() {
             </Card>
           </TabsContent>
 
-          {/* ANALYTICS TAB */}
+          {/* ABA ANALYTICS */}
           <TabsContent value="analytics" className="space-y-4">
             <div className="grid gap-4 lg:grid-cols-3">
-              {/* Revenue trend */}
+              {/* Tendência de receita */}
               <Card className="lg:col-span-2">
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Ventas últimos 7 días</CardTitle>
-                  <CardDescription>Ingresos y número de pedidos por día</CardDescription>
+                  <CardTitle className="text-base">Vendas últimos 7 dias</CardTitle>
+                  <CardDescription>Receita e número de pedidos por dia</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-[280px]">
@@ -366,12 +370,12 @@ export function AdminView() {
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="#eee" vertical={false} />
                         <XAxis dataKey="label" tick={{ fontSize: 11 }} stroke="#888" />
-                        <YAxis yAxisId="left" tick={{ fontSize: 11 }} stroke="#888" tickFormatter={(v) => `${(v / 1000000).toFixed(1)}M`} />
+                        <YAxis yAxisId="left" tick={{ fontSize: 11 }} stroke="#888" tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`} />
                         <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11 }} stroke="#888" />
                         <Tooltip
                           contentStyle={{ borderRadius: 12, border: "1px solid #eee", fontSize: 12 }}
                           formatter={(v: any, name: any) =>
-                            name === "revenue" ? [formatCOP(Number(v)), "Ingresos"] : [`${v} pedidos`, "Pedidos"]
+                            name === "revenue" ? [formatBRL(Number(v)), "Receita"] : [`${v} pedidos`, "Pedidos"]
                           }
                         />
                         <Area yAxisId="left" type="monotone" dataKey="revenue" stroke="#E85D2C" strokeWidth={2} fill="url(#colorRevenue)" />
@@ -382,20 +386,20 @@ export function AdminView() {
                 </CardContent>
               </Card>
 
-              {/* Channel breakdown */}
+              {/* Distribuição por canal */}
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Canales</CardTitle>
-                  <CardDescription>Origen de pedidos (7 días)</CardDescription>
+                  <CardTitle className="text-base">Canais</CardTitle>
+                  <CardDescription>Origem dos pedidos (7 dias)</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-[220px]">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
-                          data={stats.channelBreakdown}
+                          data={stats.channelBreakdown.map((c) => ({ ...c, label: CHANNEL_LABELS[c.name] || c.name }))}
                           dataKey="count"
-                          nameKey="name"
+                          nameKey="label"
                           cx="50%"
                           cy="50%"
                           innerRadius={45}
@@ -423,11 +427,11 @@ export function AdminView() {
             </div>
 
             <div className="grid gap-4 lg:grid-cols-2">
-              {/* Top products */}
+              {/* Top produtos */}
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Top 5 productos</CardTitle>
-                  <CardDescription>Más vendidos en los últimos 7 días</CardDescription>
+                  <CardTitle className="text-base">Top 5 produtos</CardTitle>
+                  <CardDescription>Mais vendidos nos últimos 7 dias</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="h-[260px]">
@@ -458,16 +462,16 @@ export function AdminView() {
                 </CardContent>
               </Card>
 
-              {/* Status breakdown */}
+              {/* Distribuição por status */}
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Estado de pedidos (hoy)</CardTitle>
-                  <CardDescription>Distribución por estado actual</CardDescription>
+                  <CardTitle className="text-base">Status dos pedidos (hoje)</CardTitle>
+                  <CardDescription>Distribuição por status atual</CardDescription>
                 </CardHeader>
                 <CardContent>
                   {stats.statusBreakdown.length === 0 ? (
                     <div className="py-12 text-center text-sm text-muted-foreground">
-                      Sin datos aún hoy.
+                      Sem dados ainda hoje.
                     </div>
                   ) : (
                     <div className="space-y-3">

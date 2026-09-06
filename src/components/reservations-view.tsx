@@ -8,11 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { useNav, formatCOP } from "@/lib/store";
+import { useNav, formatBRL } from "@/lib/store";
 import { toast } from "sonner";
 import {
-  Calendar, Clock, Users, Phone, Mail, User, MessageSquare,
-  ChevronLeft, Loader2, CheckCircle2, CalendarCheck, Sparkles, PartyPopper,
+  Calendar, Clock, Users, Phone, Mail, User,
+  ChevronLeft, Loader2, CalendarCheck, Sparkles, PartyPopper,
 } from "lucide-react";
 
 const TIME_SLOTS = [
@@ -21,12 +21,12 @@ const TIME_SLOTS = [
 ];
 
 const OCCASIONS = [
-  { id: "none", label: "Solo comer", icon: "🍽️" },
-  { id: "birthday", label: "Cumpleaños", icon: "🎂" },
-  { id: "anniversary", label: "Aniversario", icon: "💞" },
-  { id: "business", label: "Cena de negocios", icon: "💼" },
-  { id: "friends", label: "Con amigos", icon: "👥" },
-  { id: "romantic", label: "Cita romántica", icon: "🌹" },
+  { id: "none", label: "Só comer", icon: "🍽️" },
+  { id: "birthday", label: "Aniversário", icon: "🎂" },
+  { id: "anniversary", label: "Aniversário de namoro", icon: "💞" },
+  { id: "business", label: "Jantar de negócios", icon: "💼" },
+  { id: "friends", label: "Com amigos", icon: "👥" },
+  { id: "romantic", label: "Encontro romântico", icon: "🌹" },
 ];
 
 export function ReservationsView() {
@@ -48,7 +48,6 @@ export function ReservationsView() {
   const today = new Date().toISOString().slice(0, 10);
   const maxDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
-  // Fetch restaurant id on mount
   useEffect(() => {
     fetch("/api/menu")
       .then((r) => r.json())
@@ -59,11 +58,11 @@ export function ReservationsView() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!restaurantId) {
-      toast.error("Cargando restaurante…", { description: "Inténtalo de nuevo en 2 segundos" });
+      toast.error("Carregando restaurante…", { description: "Tente novamente em 2 segundos" });
       return;
     }
     if (!form.customerName || !form.phone || !form.date || !form.time) {
-      toast.error("Completa los campos obligatorios");
+      toast.error("Preencha os campos obrigatórios");
       return;
     }
     setSubmitting(true);
@@ -75,12 +74,12 @@ export function ReservationsView() {
       });
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error || "Error al crear reserva");
+        throw new Error(err.error || "Erro ao criar reserva");
       }
       setSuccess(true);
-      toast.success("¡Reserva confirmada!");
+      toast.success("Reserva confirmada!");
     } catch (e: any) {
-      toast.error("No se pudo crear la reserva", { description: e.message });
+      toast.error("Não foi possível criar a reserva", { description: e.message });
     } finally {
       setSubmitting(false);
     }
@@ -94,7 +93,7 @@ export function ReservationsView() {
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-4"
         >
           <ChevronLeft className="h-3.5 w-3.5" />
-          Volver al inicio
+          Voltar ao início
         </button>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -111,18 +110,18 @@ export function ReservationsView() {
               >
                 <PartyPopper className="h-8 w-8" />
               </motion.div>
-              <h2 className="text-2xl font-bold">¡Reserva confirmada!</h2>
-              <p className="opacity-90 text-sm mt-1">Te esperamos en El Balcón del Chef</p>
+              <h2 className="text-2xl font-bold">Reserva confirmada!</h2>
+              <p className="opacity-90 text-sm mt-1">Te esperamos na A Varanda do Chef</p>
             </div>
             <CardContent className="p-6 space-y-3">
               <div className="flex justify-between text-sm py-2 border-b">
-                <span className="text-muted-foreground">Nombre</span>
+                <span className="text-muted-foreground">Nome</span>
                 <span className="font-medium">{form.customerName}</span>
               </div>
               <div className="flex justify-between text-sm py-2 border-b">
-                <span className="text-muted-foreground">Fecha</span>
+                <span className="text-muted-foreground">Data</span>
                 <span className="font-medium">
-                  {new Date(form.date + "T00:00:00").toLocaleDateString("es-CO", {
+                  {new Date(form.date + "T00:00:00").toLocaleDateString("pt-BR", {
                     weekday: "long",
                     day: "numeric",
                     month: "long",
@@ -134,12 +133,12 @@ export function ReservationsView() {
                 <span className="font-medium">{form.time}</span>
               </div>
               <div className="flex justify-between text-sm py-2 border-b">
-                <span className="text-muted-foreground">Personas</span>
+                <span className="text-muted-foreground">Pessoas</span>
                 <span className="font-medium">{form.partySize}</span>
               </div>
               {form.occasion !== "none" && (
                 <div className="flex justify-between text-sm py-2 border-b">
-                  <span className="text-muted-foreground">Ocasión</span>
+                  <span className="text-muted-foreground">Ocasião</span>
                   <span className="font-medium">
                     {OCCASIONS.find((o) => o.id === form.occasion)?.label}
                   </span>
@@ -147,14 +146,14 @@ export function ReservationsView() {
               )}
               <div className="bg-secondary rounded-xl p-3 text-xs text-muted-foreground text-center">
                 <Mail className="h-3.5 w-3.5 inline mr-1" />
-                Enviar confirmación a {form.email || "tu correo"}
+                Enviar confirmação para {form.email || "seu e-mail"}
               </div>
               <div className="flex gap-2 pt-2">
                 <Button variant="outline" className="flex-1" onClick={() => setView("menu")}>
-                  Ver el menú
+                  Ver o cardápio
                 </Button>
                 <Button className="flex-1" onClick={() => { setSuccess(false); setForm({ ...form, customerName: "", phone: "" }); }}>
-                  Nueva reserva
+                  Nova reserva
                 </Button>
               </div>
             </CardContent>
@@ -171,11 +170,11 @@ export function ReservationsView() {
         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
       >
         <ChevronLeft className="h-3.5 w-3.5" />
-        Volver al inicio
+        Voltar ao início
       </button>
 
       <div className="grid gap-8 lg:grid-cols-2 items-start">
-        {/* Left: info */}
+        {/* Esquerda: info */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -186,20 +185,20 @@ export function ReservationsView() {
             Reservas online
           </Badge>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Reserva tu mesa en
-            <span className="block text-primary mt-1">El Balcón del Chef</span>
+            Reserve sua mesa na
+            <span className="block text-primary mt-1">A Varanda do Chef</span>
           </h1>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Cocina de autor con ingredientes locales. Confirmación inmediata por SMS y correo.
-            Para grupos mayores a 8 personas, contáctanos directamente.
+            Cozinha de autor com ingredientes locais. Confirmação imediata por SMS e e-mail.
+            Para grupos maiores que 8 pessoas, fale conosco diretamente.
           </p>
 
           <div className="mt-6 grid gap-3">
             {[
-              { icon: Clock, title: "Horario", desc: "Lun a Vie: 12:00 — 23:00 · Sáb y Dom: 11:00 — 00:00" },
-              { icon: Users, title: "Capacidad", desc: "Salón interior (40), terraza (24) y barra (6)" },
-              { icon: CalendarCheck, title: "Política", desc: "Cancela gratis hasta 2 horas antes. Llega 10 min antes." },
-              { icon: Sparkles, title: "Ocasiones especiales", desc: "Decoración y pastel disponible con 24h de anticipación" },
+              { icon: Clock, title: "Horário", desc: "Seg a Sex: 12:00 — 23:00 · Sáb e Dom: 11:00 — 00:00" },
+              { icon: Users, title: "Capacidade", desc: "Salão interno (40), terraço (24) e balcão (6)" },
+              { icon: CalendarCheck, title: "Política", desc: "Cancele grátis até 2 horas antes. Chegue 10 min antes." },
+              { icon: Sparkles, title: "Ocasiões especiais", desc: "Decoração e bolo disponíveis com 24h de antecedência" },
             ].map((item) => (
               <div key={item.title} className="flex gap-3 p-3 rounded-xl bg-secondary/50">
                 <div className="grid place-items-center h-10 w-10 rounded-lg bg-primary/10 text-primary shrink-0">
@@ -213,29 +212,29 @@ export function ReservationsView() {
             ))}
           </div>
 
-          {/* Featured dishes preview */}
+          {/* Pratos em destaque */}
           <div className="mt-6">
-            <h3 className="text-sm font-semibold mb-3">Platos destacados</h3>
+            <h3 className="text-sm font-semibold mb-3">Pratos em destaque</h3>
             <div className="grid grid-cols-3 gap-2">
               {[
-                { name: "Bandeja Paisa", price: 32000, emoji: "🍽️" },
-                { name: "Salmón Parrilla", price: 42000, emoji: "🐟" },
-                { name: "Ceviche Mango", price: 18500, emoji: "🥭" },
+                { name: "Feijoada Completa", price: 48, emoji: "🍲" },
+                { name: "Salmão na Parrilla", price: 62, emoji: "🐟" },
+                { name: "Ceviche de Manga", price: 28, emoji: "🥭" },
               ].map((d) => (
                 <div key={d.name} className="rounded-xl border p-3 text-center bg-card">
                   <div className="text-2xl mb-1">{d.emoji}</div>
                   <div className="text-[11px] font-medium leading-tight">{d.name}</div>
-                  <div className="text-[10px] text-primary font-bold mt-1">{formatCOP(d.price)}</div>
+                  <div className="text-[10px] text-primary font-bold mt-1">{formatBRL(d.price)}</div>
                 </div>
               ))}
             </div>
             <Button variant="link" size="sm" className="mt-2 px-0" onClick={() => setView("menu")}>
-              Ver menú completo →
+              Ver cardápio completo →
             </Button>
           </div>
         </motion.div>
 
-        {/* Right: form */}
+        {/* Direita: formulário */}
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -243,20 +242,20 @@ export function ReservationsView() {
         >
           <Card>
             <CardHeader>
-              <CardTitle>Completa tu reserva</CardTitle>
-              <CardDescription>Te tomará menos de 1 minuto</CardDescription>
+              <CardTitle>Complete sua reserva</CardTitle>
+              <CardDescription>Levará menos de 1 minuto</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label htmlFor="name" className="text-xs">Nombre *</Label>
+                    <Label htmlFor="name" className="text-xs">Nome *</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                       <Input
                         id="name"
                         className="pl-9 h-10"
-                        placeholder="Tu nombre"
+                        placeholder="Seu nome"
                         value={form.customerName}
                         onChange={(e) => setForm({ ...form, customerName: e.target.value })}
                         required
@@ -264,13 +263,13 @@ export function ReservationsView() {
                     </div>
                   </div>
                   <div>
-                    <Label htmlFor="phone" className="text-xs">Teléfono *</Label>
+                    <Label htmlFor="phone" className="text-xs">Telefone *</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                       <Input
                         id="phone"
                         className="pl-9 h-10"
-                        placeholder="+57 300 000 0000"
+                        placeholder="+55 41 99999-9999"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
                         required
@@ -280,14 +279,14 @@ export function ReservationsView() {
                 </div>
 
                 <div>
-                  <Label htmlFor="email" className="text-xs">Email (opcional)</Label>
+                  <Label htmlFor="email" className="text-xs">E-mail (opcional)</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
                     <Input
                       id="email"
                       type="email"
                       className="pl-9 h-10"
-                      placeholder="tu@correo.com"
+                      placeholder="seu@email.com"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                     />
@@ -296,7 +295,7 @@ export function ReservationsView() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label htmlFor="date" className="text-xs">Fecha *</Label>
+                    <Label htmlFor="date" className="text-xs">Data *</Label>
                     <div className="relative">
                       <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground pointer-events-none" />
                       <Input
@@ -330,7 +329,7 @@ export function ReservationsView() {
                 </div>
 
                 <div>
-                  <Label className="text-xs">Personas</Label>
+                  <Label className="text-xs">Pessoas</Label>
                   <div className="flex items-center gap-2 mt-1">
                     <Button
                       type="button"
@@ -355,7 +354,7 @@ export function ReservationsView() {
                 </div>
 
                 <div>
-                  <Label className="text-xs">Ocasión</Label>
+                  <Label className="text-xs">Ocasião</Label>
                   <div className="grid grid-cols-3 gap-1.5 mt-1">
                     {OCCASIONS.map((o) => (
                       <button
@@ -376,11 +375,11 @@ export function ReservationsView() {
                 </div>
 
                 <div>
-                  <Label htmlFor="notes" className="text-xs">Notas (alergias, preferencias)</Label>
+                  <Label htmlFor="notes" className="text-xs">Observações (alergias, preferências)</Label>
                   <Textarea
                     id="notes"
                     rows={2}
-                    placeholder="Ej. Mesa cerca a ventana, alergia a frutos secos…"
+                    placeholder="Ex. Mesa perto da janela, alergia a castanhas…"
                     value={form.notes}
                     onChange={(e) => setForm({ ...form, notes: e.target.value })}
                     className="text-sm resize-none"
@@ -396,7 +395,7 @@ export function ReservationsView() {
                 </Button>
 
                 <p className="text-[10px] text-center text-muted-foreground">
-                  Al reservar aceptas la política de cancelación. Recibirás confirmación por SMS.
+                  Ao reservar você aceita a política de cancelamento. Receberá confirmação por SMS.
                 </p>
               </form>
             </CardContent>

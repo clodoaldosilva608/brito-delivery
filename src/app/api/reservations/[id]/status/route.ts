@@ -12,7 +12,7 @@ export async function PATCH(
 
   const validStatuses = ["CONFIRMED", "SEATED", "CANCELLED", "NO_SHOW"];
   if (!validStatuses.includes(status)) {
-    return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    return NextResponse.json({ error: "Status inválido" }, { status: 400 });
   }
 
   const reservation = await db.reservation.update({

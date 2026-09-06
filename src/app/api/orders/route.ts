@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const status = req.nextUrl.searchParams.get("status");
 
   if (!restaurantId) {
-    return NextResponse.json({ error: "restaurantId required" }, { status: 400 });
+    return NextResponse.json({ error: "restaurantId obrigatório" }, { status: 400 });
   }
 
   const where: any = { restaurantId };
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     const { restaurantId, tableId, items, customerName, notes, channel, tip } = body;
 
     if (!restaurantId || !items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 });
     }
 
     // Validate products and compute total
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     for (const item of items) {
       const product = productMap.get(item.productId);
       if (!product) {
-        return NextResponse.json({ error: `Product ${item.productId} not found` }, { status: 400 });
+        return NextResponse.json({ error: `Produto ${item.productId} não encontrado` }, { status: 400 });
       }
       const qty = Math.max(1, Math.min(99, parseInt(item.quantity) || 1));
       subtotal += product.price * qty;
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ order }, { status: 201 });
   } catch (e: any) {
-    console.error("Create order error:", e);
+    console.error("Erro ao criar pedido:", e);
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }

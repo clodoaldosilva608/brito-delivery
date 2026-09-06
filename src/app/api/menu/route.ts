@@ -19,13 +19,14 @@ export async function GET(req: NextRequest) {
   }
 
   if (!restaurant) {
+    // Fallback: pega o primeiro restaurante disponível
     restaurant = await db.restaurant.findFirst({
-      where: { slug: "el-balcon-del-chef" },
+      orderBy: { createdAt: "asc" },
     });
   }
 
   if (!restaurant) {
-    return NextResponse.json({ error: "Restaurant not found" }, { status: 404 });
+    return NextResponse.json({ error: "Restaurante não encontrado" }, { status: 404 });
   }
 
   const categories = await db.category.findMany({

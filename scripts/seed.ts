@@ -1,11 +1,10 @@
 // scripts/seed.ts
-// Seed demo data for Cluvi platform
+// Seed demo data for Cluvi platform - Portuguese version
 import { db } from "../src/lib/db";
 
 async function main() {
-  console.log("🌱 Seeding Cluvi demo data...");
+  console.log("🌱 Seedando dados de demo Cluvi (PT-BR)...");
 
-  // Cleanup
   await db.contactMessage.deleteMany();
   await db.orderItem.deleteMany();
   await db.order.deleteMany();
@@ -15,34 +14,32 @@ async function main() {
   await db.table.deleteMany();
   await db.restaurant.deleteMany();
 
-  // Create demo restaurant
   const restaurant = await db.restaurant.create({
     data: {
-      name: "El Balcón del Chef",
-      slug: "el-balcon-del-chef",
+      name: "A Varanda do Chef",
+      slug: "a-varanda-do-chef",
       description:
-        "Cocina de autor con ingredientes locales. Un lugar donde la tradición se encuentra con la innovación gastronómica.",
+        "Cozinha de autor com ingredientes locais. Um lugar onde a tradição encontra a inovação gastronômica.",
       primaryColor: "#E85D2C",
-      address: "Calle 10 # 43-21, El Poblado, Medellín",
-      phone: "+57 304 442 6160",
-      email: "hola@elbalcondelchef.com",
-      currency: "COP",
+      address: "Rua das Flores, 123 - Jardim Botânico, Curitiba",
+      phone: "+55 41 3044 2616",
+      email: "ola@avarandadochef.com",
+      currency: "BRL",
     },
   });
 
-  console.log("✓ Restaurant created:", restaurant.name);
+  console.log("✓ Restaurante criado:", restaurant.name);
 
-  // Categories
   const categoriesData = [
     { name: "Entradas", slug: "entradas", icon: "🥗", position: 0 },
     { name: "Sopas", slug: "sopas", icon: "🍲", position: 1 },
-    { name: "Platos Principales", slug: "principales", icon: "🍽️", position: 2 },
-    { name: "Hamburguesas", slug: "hamburguesas", icon: "🍔", position: 3 },
-    { name: "Pasta", slug: "pasta", icon: "🍝", position: 4 },
-    { name: "Postres", slug: "postres", icon: "🍰", position: 5 },
+    { name: "Pratos Principais", slug: "principais", icon: "🍽️", position: 2 },
+    { name: "Hambúrgueres", slug: "hamburgueres", icon: "🍔", position: 3 },
+    { name: "Massas", slug: "massas", icon: "🍝", position: 4 },
+    { name: "Sobremesas", slug: "sobremesas", icon: "🍰", position: 5 },
     { name: "Bebidas", slug: "bebidas", icon: "🥤", position: 6 },
-    { name: "Café y Té", slug: "cafe", icon: "☕", position: 7 },
-    { name: "Cocteles", slug: "cocteles", icon: "🍸", position: 8 },
+    { name: "Café e Chá", slug: "cafe", icon: "☕", position: 7 },
+    { name: "Drinks", slug: "drinks", icon: "🍸", position: 8 },
   ];
 
   const categories = [];
@@ -52,81 +49,80 @@ async function main() {
     });
     categories.push(cat);
   }
-  console.log(`✓ ${categories.length} categories created`);
+  console.log(`✓ ${categories.length} categorias criadas`);
 
   const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
 
-  const productsData = [
+  const productsData: any[] = [
     // Entradas
-    { name: "Ceviche de Mango", description: "Mango verde marinado en limón, cilantro y ají, acompañado de chips de plátano.", price: 18500, category: "entradas", isVegan: true, isFeatured: true, prepTimeMin: 10, imageUrl: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600" },
-    { name: "Tostones con Guacamole", description: "Tostones crujientes con guacamole casero y pico de gallo.", price: 14000, category: "entradas", isVegan: true, prepTimeMin: 12 },
-    { name: "Arepa de Choclo", description: "Arepa dulce de maíz con queso campesino derretido.", price: 12000, category: "entradas", prepTimeMin: 10 },
-    { name: "Croquetas de Jamón", description: "Crocantes croquetas cremosas de jamón ibérico (6 unidades).", price: 16500, category: "entradas", prepTimeMin: 15 },
-    { name: "Tabla de Quesos", description: "Selección de quesos artesanales, frutas de temporada y mermelada de pimentón.", price: 28000, category: "entradas", isFeatured: true, prepTimeMin: 8 },
+    { name: "Ceviche de Manga", description: "Manga verde marinada em limão, coentro e pimenta, acompanhada de chips de banana-da-terra.", price: 28, category: "entradas", isVegan: true, isFeatured: true, prepTimeMin: 10 },
+    { name: "Tostones com Guacamole", description: "Tostones crocantes com guacamole caseiro e pico de gallo.", price: 22, category: "entradas", isVegan: true, prepTimeMin: 12 },
+    { name: "Bolo de Milho com Queijo", description: "Bolo de milho cremoso com queijo da serra derretido.", price: 18, category: "entradas", prepTimeMin: 10 },
+    { name: "Croquetas de Presunto", description: "Croquetas crocantes e cremosas de presunto ibérico (6 unidades).", price: 25, category: "entradas", prepTimeMin: 15 },
+    { name: "Tábola de Queijos", description: "Seleção de queijos artesanais, frutas da estação e geleia de pimentão.", price: 42, category: "entradas", isFeatured: true, prepTimeMin: 8 },
 
     // Sopas
-    { name: "Ajiaco Santafereño", description: "Tradicional sopa bogotana con tres papas, pollo desmechado, guascas y alcaparras.", price: 22000, category: "sopas", prepTimeMin: 20 },
-    { name: "Sancocho Trifásico", description: "Sopa sustanciosa de res, cerdo y pollo con yuca, plátano y mazorca.", price: 25000, category: "sopas", prepTimeMin: 25 },
-    { name: "Crema de Ahuyama", description: "Cremosa sopa de ahuyama con un toque de jengibre y crutones.", price: 16000, category: "sopas", isVegan: true, prepTimeMin: 12 },
-    { name: "Borscht", description: "Sopa de remolacha al estilo europeo del este con crema ácida.", price: 19000, category: "sopas", prepTimeMin: 15 },
+    { name: "Sopa de Feijão Preto", description: "Tradicional sopa de feijão preto com linguiça defumada, arroz e couve.", price: 32, category: "sopas", prepTimeMin: 20 },
+    { name: "Caldo de Mocotó", description: "Caldo substancioso de mocotó com legumes, hortelã e vinagrete.", price: 36, category: "sopas", prepTimeMin: 25 },
+    { name: "Creme de Abóbora", description: "Cremosa sopa de abóbora com toque de gengibre e croutons.", price: 24, category: "sopas", isVegan: true, prepTimeMin: 12 },
+    { name: "Borscht", description: "Sopa de beterraba no estilo leste-europeu com creme azedo.", price: 28, category: "sopas", prepTimeMin: 15 },
 
-    // Principales
-    { name: "Bandeja Paisa", description: "El clásico: fríjoles, arroz, chicharrón, carne molida, chorizo, huevo frito, plátano, arepa y aguacate.", price: 32000, category: "principales", isFeatured: true, prepTimeMin: 25 },
-    { name: "Pollo a la Plancha", description: "Pechuga marinada con hierbas, guarnición de papas rústicas y ensalada fresca.", price: 24500, category: "principales", prepTimeMin: 20 },
-    { name: "Salmón a la Parrilla", description: "Filete de salmón con salsa de maracuyá, quinoa y vegetales salteados.", price: 42000, category: "principales", isFeatured: true, prepTimeMin: 22 },
-    { name: "Lomo de Res al Vino", description: "Lomo de res en reducción de vino tinto, puré de papa trufado y espárragos.", price: 48000, category: "principales", prepTimeMin: 30 },
-    { name: "Risotto de Hongos", description: "Risotto cremoso con mezcla de hongos, parmesano y aceite de trufa.", price: 29000, category: "principales", prepTimeMin: 22 },
-    { name: "Costillas BBQ", description: "Costillas de cerdo glaseadas con BBQ de café, papas cambray y cebollas confitadas.", price: 36000, category: "principales", prepTimeMin: 28 },
+    // Pratos Principais
+    { name: "Feijoada Completa", description: "O clássico: feijão preto, carnes defumadas, arroz, couve, farofa, laranja e torresmo.", price: 48, category: "principais", isFeatured: true, prepTimeMin: 25 },
+    { name: "Frango Grelhado", description: "Filé de frango marinado com ervas, guarnição de batatas rústicas e salada fresca.", price: 38, category: "principais", prepTimeMin: 20 },
+    { name: "Salmão na Parrilla", description: "Filé de salmão com molho de maracujá, quinoa e legumes salteados.", price: 62, category: "principais", isFeatured: true, prepTimeMin: 22 },
+    { name: "Ancho ao Vinho", description: "Bife ancho em redução de vinho tinto, purê de batata trufado e aspargos.", price: 72, category: "principais", prepTimeMin: 30 },
+    { name: "Risoto de Cogumelos", description: "Risoto cremoso com mix de cogumelos, parmesão e azeite de trufa.", price: 44, category: "principais", prepTimeMin: 22 },
+    { name: "Costela BBQ", description: "Costela de porco glaceada com BBQ de café, batatas baby e cebolas confitadas.", price: 56, category: "principais", prepTimeMin: 28 },
 
-    // Hamburguesas
-    { name: "Vicio Doble", description: "Doble carne de 150g, queso cheddar, tocino, cebolla caramelizada, salsa de la casa.", price: 28000, category: "hamburguesas", isFeatured: true, prepTimeMin: 18 },
-    { name: "Burger de Pollo Crispy", description: "Filete de pollo empanizado, lechuga, tomate, mayo de chipotle.", price: 23000, category: "hamburguesas", isSpicy: true, prepTimeMin: 16 },
-    { name: "Burger Vegana", description: "Medallón de lentejas y remolacha, aguacate, rúcula y salsa de yogur vegano.", price: 25000, category: "hamburguesas", isVegan: true, prepTimeMin: 18 },
-    { name: "Burger Cluvi Especial", description: "Carne 200g, queso brie, jamón serrano, huevo de codorniz, pan brioche.", price: 32000, category: "hamburguesas", isFeatured: true, prepTimeMin: 20 },
+    // Hambúrgueres
+    { name: "Duplo Vício", description: "Duplo blend de 150g, cheddar, bacon, cebola caramelizada, molho da casa.", price: 42, category: "hamburgueres", isFeatured: true, prepTimeMin: 18 },
+    { name: "Burger de Frango Crocante", description: "Filé de frango empanado, alface, tomate, maionese de chipotle.", price: 34, category: "hamburgueres", isSpicy: true, prepTimeMin: 16 },
+    { name: "Burger Vegano", description: "Hambúrguer de lentilha e beterraba, abacate, rúcula e molho de iogurte vegano.", price: 38, category: "hamburgueres", isVegan: true, prepTimeMin: 18 },
+    { name: "Burger Cluvi Especial", description: "Blend 200g, queijo brie, presunto cru, ovo de codorna, pão brioche.", price: 48, category: "hamburgueres", isFeatured: true, prepTimeMin: 20 },
 
-    // Pasta
-    { name: "Spaghetti Carbonara", description: "Pasta con tocino, yema de huevo, queso pecorino y pimienta negra.", price: 26000, category: "pasta", prepTimeMin: 18 },
-    { name: "Lasaña Boloñesa", description: "Capas de pasta con ragú de res, bechamel y parmesano gratinado.", price: 28000, category: "pasta", prepTimeMin: 25 },
-    { name: "Fettuccine Alfredo", description: "Fettuccine en salsa cremosa de parmesano y mantequilla.", price: 24000, category: "pasta", prepTimeMin: 16 },
-    { name: "Ravioli de Espinaca", description: "Raviolis rellenos de espinaca y ricotta en salsa de tomate fresco.", price: 27000, category: "pasta", prepTimeMin: 18 },
+    // Massas
+    { name: "Spaghetti Carbonara", description: "Massa com bacon, gema de ovo, queijo pecorino e pimenta-do-reino.", price: 39, category: "massas", prepTimeMin: 18 },
+    { name: "Lasanha à Bolonhesa", description: "Camadas de massa com ragu de carne, bechamel e parmesão gratinado.", price: 42, category: "massas", prepTimeMin: 25 },
+    { name: "Fettuccine Alfredo", description: "Fettuccine em molho cremoso de parmesão e manteiga.", price: 36, category: "massas", prepTimeMin: 16 },
+    { name: "Ravioli de Espinafre", description: "Raviólis recheados com espinafre e ricota em molho de tomate fresco.", price: 41, category: "massas", prepTimeMin: 18 },
 
-    // Postres
-    { name: "Tres Leches", description: "Bizcocho bañado en tres leches con crema y caramelo.", price: 14000, category: "postres", isFeatured: true, prepTimeMin: 5 },
-    { name: "Flan de Caramelo", description: "Flan casero con caramelo líquido y nata montada.", price: 12000, category: "postres", prepTimeMin: 5 },
-    { name: "Tiramisú", description: "Clásico italiano con café espresso, mascarpone y cacao.", price: 15000, category: "postres", prepTimeMin: 5 },
-    { name: "Brownie con Helado", description: "Brownie de chocolate tibio con helado de vainilla y salsa de fresa.", price: 16000, category: "postres", prepTimeMin: 8 },
-    { name: "Cheesecake de Maracuyá", description: "Tarta de queso con coulis de maracuyá.", price: 15000, category: "postres", prepTimeMin: 5 },
+    // Sobremesas
+    { name: "Pudim de Leite", description: "Pudim clássico de leite condensado com calda de caramelo.", price: 18, category: "sobremesas", isFeatured: true, prepTimeMin: 5 },
+    { name: "Petit Gateau", description: "Bolo de chocolate quente com sorvete de creme e calda de frutas vermelhas.", price: 22, category: "sobremesas", prepTimeMin: 8 },
+    { name: "Tiramisù", description: "Clássico italiano com café espresso, mascarpone e cacau.", price: 20, category: "sobremesas", prepTimeMin: 5 },
+    { name: "Brigadeiro Gourmet", description: "Brigadeiro belga com chocolate 70% e flor de sal (3 unidades).", price: 16, category: "sobremesas", prepTimeMin: 5 },
+    { name: "Cheesecake de Maracujá", description: "Torta de queijo com coulis de maracujá.", price: 21, category: "sobremesas", prepTimeMin: 5 },
 
     // Bebidas
-    { name: "Limonada de Coco", description: "Refrescante limonada con crema de coco y hielo frappé.", price: 9000, category: "bebidas", isFeatured: true, prepTimeMin: 5 },
-    { name: "Limonada de Hierbabuena", description: "Limonada natural con hierbabuena fresca.", price: 7000, category: "bebidas", isVegan: true, prepTimeMin: 4 },
-    { name: "Jugo de Lulo", description: "Jugo natural de lulo con agua o leche.", price: 8000, category: "bebidas", isVegan: true, prepTimeMin: 4 },
-    { name: "Agua Tónica Premium", description: "Agua tónica con limón y pepino.", price: 6000, category: "bebidas", prepTimeMin: 2 },
-    { name: "Gaseosa 350ml", description: "Coca-Cola, Sprite o Fanta.", price: 5000, category: "bebidas", prepTimeMin: 2 },
+    { name: "Limondade de Coco", description: "Refrescante limonada com creme de coco e gelo batido.", price: 14, category: "bebidas", isFeatured: true, prepTimeMin: 5 },
+    { name: "Limonada com Hortelã", description: "Limonada natural com hortelã fresca.", price: 11, category: "bebidas", isVegan: true, prepTimeMin: 4 },
+    { name: "Suco de Maracujá", description: "Suco natural de maracujá com água ou leite.", price: 12, category: "bebidas", isVegan: true, prepTimeMin: 4 },
+    { name: "Água Tônica Premium", description: "Água tônica com limão e pepino.", price: 10, category: "bebidas", prepTimeMin: 2 },
+    { name: "Refrigerante 350ml", description: "Coca-Cola, Guaraná ou Fanta.", price: 8, category: "bebidas", prepTimeMin: 2 },
 
-    // Café y Té
-    { name: "Espresso", description: "Café espresso simple, beans de origen Huila.", price: 4500, category: "cafe", prepTimeMin: 3 },
-    { name: "Capuccino", description: "Espresso con leche vaporizada y espuma cremosa.", price: 7000, category: "cafe", prepTimeMin: 4 },
-    { name: "Latte Vainilla", description: "Latte con jarabe de vainilla y arte en leche.", price: 8500, category: "cafe", prepTimeMin: 5 },
-    { name: "Té Helado de Frutos Rojos", description: "Té negro con frutos rojos y menta.", price: 7000, category: "cafe", isVegan: true, prepTimeMin: 4 },
-    { name: "Chocolate Caliente", description: "Chocolate espeso con marshmallows y canela.", price: 8000, category: "cafe", prepTimeMin: 5 },
+    // Café e Chá
+    { name: "Espresso", description: "Café espresso simples, grãos de origem Cerrado Mineiro.", price: 7, category: "cafe", prepTimeMin: 3 },
+    { name: "Capuccino", description: "Espresso com leite vaporizado e espuma cremosa.", price: 11, category: "cafe", prepTimeMin: 4 },
+    { name: "Latte de Baunilha", description: "Latte com xarope de baunilha e arte no leite.", price: 13, category: "cafe", prepTimeMin: 5 },
+    { name: "Chá Gelado de Frutas Vermelhas", description: "Chá preto com frutas vermelhas e hortelã.", price: 11, category: "cafe", isVegan: true, prepTimeMin: 4 },
+    { name: "Chocolate Quente", description: "Chocolate espesso com marshmallows e canela.", price: 12, category: "cafe", prepTimeMin: 5 },
 
-    // Cocteles
-    { name: "Mojito Cubano", description: "Ron blanco, hierbabuena, limón, azúcar y soda.", price: 18000, category: "cocteles", isFeatured: true, prepTimeMin: 5 },
-    { name: "Margarita Clásica", description: "Tequila, triple sec, jugo de limón y sal.", price: 20000, category: "cocteles", prepTimeMin: 5 },
-    { name: "Aperol Spritz", description: "Aperol, prosecco y soda con naranja.", price: 22000, category: "cocteles", prepTimeMin: 4 },
-    { name: "Negroni", description: "Gin, vermut rojo y Campari con naranja.", price: 24000, category: "cocteles", prepTimeMin: 4 },
-    { name: "Pisco Sour", description: "Pisco, jugo de limón, clara de huevo y amargo de angostura.", price: 21000, category: "cocteles", prepTimeMin: 6 },
+    // Drinks
+    { name: "Caipirinha", description: "Cachaça artesanal, limão, açúcar e gelo. O clássico brasileiro.", price: 22, category: "drinks", isFeatured: true, prepTimeMin: 5 },
+    { name: "Mojito Cubano", description: "Rum branco, hortelã, limão, açúcar e soda.", price: 26, category: "drinks", prepTimeMin: 5 },
+    { name: "Margarita Clássica", description: "Tequila, triple sec, suco de limão e sal.", price: 28, category: "drinks", prepTimeMin: 5 },
+    { name: "Aperol Spritz", description: "Aperol, prosecco e soda com laranja.", price: 32, category: "drinks", prepTimeMin: 4 },
+    { name: "Negroni", description: "Gin, vermute tinto e Campari com laranja.", price: 34, category: "drinks", prepTimeMin: 4 },
   ];
 
   for (let i = 0; i < productsData.length; i++) {
-    const p = productsData[i] as any;
+    const p = productsData[i];
     await db.product.create({
       data: {
         name: p.name,
         description: p.description,
         price: p.price,
-        imageUrl: p.imageUrl ?? null,
         isFeatured: p.isFeatured ?? false,
         isVegan: p.isVegan ?? false,
         isSpicy: p.isSpicy ?? false,
@@ -137,20 +133,19 @@ async function main() {
       },
     });
   }
-  console.log(`✓ ${productsData.length} products created`);
+  console.log(`✓ ${productsData.length} produtos criados`);
 
-  // Tables
   const tablesData = [
-    { code: "M1", seats: 2, area: "Salón" },
-    { code: "M2", seats: 4, area: "Salón" },
-    { code: "M3", seats: 4, area: "Salón" },
-    { code: "M4", seats: 6, area: "Salón" },
-    { code: "T1", seats: 2, area: "Terraza" },
-    { code: "T2", seats: 4, area: "Terraza" },
-    { code: "T3", seats: 8, area: "Terraza" },
-    { code: "B1", seats: 2, area: "Barra" },
-    { code: "B2", seats: 2, area: "Barra" },
-    { code: "B3", seats: 2, area: "Barra" },
+    { code: "M1", seats: 2, area: "Salão" },
+    { code: "M2", seats: 4, area: "Salão" },
+    { code: "M3", seats: 4, area: "Salão" },
+    { code: "M4", seats: 6, area: "Salão" },
+    { code: "T1", seats: 2, area: "Terraço" },
+    { code: "T2", seats: 4, area: "Terraço" },
+    { code: "T3", seats: 8, area: "Terraço" },
+    { code: "B1", seats: 2, area: "Balcão" },
+    { code: "B2", seats: 2, area: "Balcão" },
+    { code: "B3", seats: 2, area: "Balcão" },
   ];
 
   for (const t of tablesData) {
@@ -159,9 +154,9 @@ async function main() {
       data: { ...t, qrToken, restaurantId: restaurant.id },
     });
   }
-  console.log(`✓ ${tablesData.length} tables created`);
+  console.log(`✓ ${tablesData.length} mesas criadas`);
 
-  // Demo orders for stats - last 7 days
+  // Pedidos demo dos últimos 7 dias
   const tables = await db.table.findMany({ where: { restaurantId: restaurant.id } });
   const products = await db.product.findMany({ where: { restaurantId: restaurant.id } });
 
@@ -201,7 +196,7 @@ async function main() {
           orderNumber,
           status: dayOffset === 0 ? statuses[Math.floor(Math.random() * statuses.length)] : "DELIVERED",
           channel: channels[Math.floor(Math.random() * channels.length)],
-          customerName: ["Carlos", "María", "Andrés", "Laura", "Juan", "Sofía", "Pedro", "Daniela"][Math.floor(Math.random() * 8)],
+          customerName: ["Carlos", "Maria", "André", "Laura", "João", "Sofia", "Pedro", "Daniela"][Math.floor(Math.random() * 8)],
           subtotal,
           tip,
           total,
@@ -211,18 +206,18 @@ async function main() {
       });
     }
   }
-  console.log(`✓ ~${orderNumber - 1000} demo orders created`);
+  console.log(`✓ ~${orderNumber - 1000} pedidos demo criados`);
 
-  // Reservations
+  // Reservas
   const customers = [
-    { name: "Camila Restrepo", phone: "+57 310 555 1212", email: "camila@example.com", size: 2, occasion: "Cita romántica" },
-    { name: "Andrés Gómez", phone: "+57 311 444 2323", email: "andres@example.com", size: 4, occasion: "Cena familiar" },
-    { name: "Laura Jiménez", phone: "+57 312 333 3434", email: "laura@example.com", size: 6, occasion: "Cumpleaños" },
-    { name: "Sebastián Ortiz", phone: "+57 313 222 4545", email: "sebas@example.com", size: 2 },
-    { name: "Valentina Ruiz", phone: "+57 314 111 5656", email: "valen@example.com", size: 3 },
-    { name: "Felipe Cárdenas", phone: "+57 315 999 6767", email: "felipe@example.com", size: 8, occasion: "Cena de negocios" },
-    { name: "Mariana López", phone: "+57 316 888 7878", email: "mari@example.com", size: 4 },
-    { name: "Santiago Vera", phone: "+57 317 777 8989", email: "santi@example.com", size: 2, occasion: "Aniversario" },
+    { name: "Camila Restrepo", phone: "+55 41 9555-1212", email: "camila@exemplo.com", size: 2, occasion: "Encontro romântico" },
+    { name: "André Gomes", phone: "+55 41 9444-2323", email: "andre@exemplo.com", size: 4, occasion: "Jantar em família" },
+    { name: "Laura Jimenez", phone: "+55 41 9333-3434", email: "laura@exemplo.com", size: 6, occasion: "Aniversário" },
+    { name: "Sebastião Ortiz", phone: "+55 41 9222-4545", email: "sebas@exemplo.com", size: 2 },
+    { name: "Valentina Ruiz", phone: "+55 41 9111-5656", email: "valen@exemplo.com", size: 3 },
+    { name: "Felipe Cardoso", phone: "+55 41 9999-6767", email: "felipe@exemplo.com", size: 8, occasion: "Jantar de negócios" },
+    { name: "Mariana Lopes", phone: "+55 41 9888-7878", email: "mari@exemplo.com", size: 4 },
+    { name: "Santiago Vera", phone: "+55 41 9777-8989", email: "santi@exemplo.com", size: 2, occasion: "Aniversário de namoro" },
   ];
 
   const times = ["12:30", "13:00", "13:30", "14:00", "19:00", "19:30", "20:00", "20:30", "21:00"];
@@ -247,10 +242,10 @@ async function main() {
       });
     }
   }
-  console.log("✓ Reservations created");
+  console.log("✓ Reservas criadas");
 
-  console.log("\n🎉 Seed completed!");
-  console.log(`Restaurant: ${restaurant.name} (slug: ${restaurant.slug})`);
+  console.log("\n🎉 Seed concluído!");
+  console.log(`Restaurante: ${restaurant.name} (slug: ${restaurant.slug})`);
 }
 
 main()

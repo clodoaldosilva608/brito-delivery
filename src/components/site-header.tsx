@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useNav } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,11 +17,11 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   const navItems: { label: string; view: typeof view; icon: any }[] = [
-    { label: "Inicio", view: "home", icon: UtensilsCrossed },
-    { label: "Menú QR", view: "menu", icon: QrCode },
+    { label: "Início", view: "home", icon: UtensilsCrossed },
+    { label: "Cardápio QR", view: "menu", icon: QrCode },
     { label: "Reservas", view: "reservations", icon: CalendarCheck },
-    { label: "Admin", view: "admin", icon: LayoutDashboard },
-    { label: "Contacto", view: "contact", icon: Phone },
+    { label: "Painel", view: "admin", icon: LayoutDashboard },
+    { label: "Contato", view: "contact", icon: Phone },
   ];
 
   const handleNav = (v: typeof view) => {
@@ -37,7 +36,7 @@ export function SiteHeader() {
         <button
           onClick={() => handleNav("home")}
           className="flex items-center gap-2 group"
-          aria-label="Cluvi inicio"
+          aria-label="Cluvi início"
         >
           <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-sm transition-transform group-hover:scale-105">
             C
@@ -50,7 +49,7 @@ export function SiteHeader() {
           </span>
         </button>
 
-        {/* Desktop nav */}
+        {/* Nav desktop */}
         <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <button
@@ -73,11 +72,11 @@ export function SiteHeader() {
             className="hidden sm:inline-flex"
             onClick={() => handleNav("menu")}
           >
-            Ver menú demo
+            Ver cardápio demo
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Abrir menú">
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Abrir menu">
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
@@ -110,7 +109,7 @@ export function SiteHeader() {
                 className="mt-6 w-full"
                 onClick={() => handleNav("menu")}
               >
-                Abrir menú digital
+                Abrir cardápio digital
               </Button>
             </SheetContent>
           </Sheet>

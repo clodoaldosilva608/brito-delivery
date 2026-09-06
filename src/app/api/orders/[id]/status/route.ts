@@ -12,7 +12,7 @@ export async function PATCH(
 
   const validStatuses = ["PENDING", "PREPARING", "READY", "DELIVERED", "CANCELLED"];
   if (!validStatuses.includes(status)) {
-    return NextResponse.json({ error: "Invalid status" }, { status: 400 });
+    return NextResponse.json({ error: "Status inválido" }, { status: 400 });
   }
 
   const order = await db.order.update({

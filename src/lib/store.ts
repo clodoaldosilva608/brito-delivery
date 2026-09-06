@@ -87,10 +87,20 @@ export const useCart = create<CartState>()(
 );
 
 export function formatCOP(amount: number): string {
-  return new Intl.NumberFormat("es-CO", {
+  // Mantido para compatibilidade, mas formatado em BRL
+  return new Intl.NumberFormat("pt-BR", {
     style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    currency: "BRL",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount);
+}
+
+export function formatBRL(amount: number): string {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
   }).format(amount);
 }

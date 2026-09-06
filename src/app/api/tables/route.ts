@@ -5,7 +5,7 @@ import { db } from "@/lib/db";
 export async function GET(req: NextRequest) {
   const restaurantId = req.nextUrl.searchParams.get("restaurantId");
   if (!restaurantId) {
-    return NextResponse.json({ error: "restaurantId required" }, { status: 400 });
+    return NextResponse.json({ error: "restaurantId obrigatório" }, { status: 400 });
   }
 
   const tables = await db.table.findMany({

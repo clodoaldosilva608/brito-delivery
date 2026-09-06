@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const date = req.nextUrl.searchParams.get("date");
 
   if (!restaurantId) {
-    return NextResponse.json({ error: "restaurantId required" }, { status: 400 });
+    return NextResponse.json({ error: "restaurantId obrigatório" }, { status: 400 });
   }
 
   const where: any = { restaurantId };
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     } = body;
 
     if (!restaurantId || !customerName || !phone || !partySize || !date || !time) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 });
     }
 
     const reservation = await db.reservation.create({
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ reservation }, { status: 201 });
   } catch (e: any) {
-    console.error("Create reservation error:", e);
+    console.error("Erro ao criar reserva:", e);
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }

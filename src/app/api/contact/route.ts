@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     const { name, email, phone, restaurantName, message } = body;
 
     if (!name || !email || !message) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+      return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 });
     }
 
     const msg = await db.contactMessage.create({
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true, id: msg.id }, { status: 201 });
   } catch (e: any) {
-    console.error("Contact error:", e);
+    console.error("Erro no contato:", e);
     return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }

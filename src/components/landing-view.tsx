@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,7 +10,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useNav } from "@/lib/store";
+import { useNav, formatBRL } from "@/lib/store";
 import {
   QrCode,
   Sparkles,
@@ -19,7 +18,6 @@ import {
   BarChart3,
   Bike,
   CalendarCheck,
-  Users,
   Star,
   ArrowRight,
   Check,
@@ -28,9 +26,6 @@ import {
   Wallet,
   Bell,
   ShoppingBag,
-  ChefHat,
-  Heart,
-  Zap,
   Globe,
 } from "lucide-react";
 
@@ -57,17 +52,17 @@ export function LandingView() {
             <motion.div {...fade(0)} className="flex flex-col items-start">
               <Badge className="mb-5 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15">
                 <Sparkles className="h-3.5 w-3.5 mr-1.5" />
-                Menús digitales con inteligencia artificial
+                Cardápios digitais com inteligência artificial
               </Badge>
               <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
-                Cluvi es el futuro
+                Cluvi é o futuro
                 <br />
-                de la <span className="text-primary">gastronomía</span>
+                da <span className="text-primary">gastronomia</span>
               </h1>
               <p className="mt-6 text-lg text-muted-foreground max-w-xl leading-relaxed">
-                Una plataforma todo-en-uno que digitaliza tu restaurante: menús QR, pedidos
-                en autoservicio, reservas, domicilios y analítica avanzada. Conecta con tus
-                comensales como nunca antes.
+                Uma plataforma all-in-one que digitaliza seu restaurante: cardápios QR, pedidos
+                em autosserviço, reservas, delivery e analytics avançado. Conecte-se com seus
+                clientes como nunca antes.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button
@@ -76,7 +71,7 @@ export function LandingView() {
                   className="h-12 px-6 text-base"
                 >
                   <QrCode className="h-5 w-5 mr-2" />
-                  Ver menú demo
+                  Ver cardápio demo
                 </Button>
                 <Button
                   size="lg"
@@ -85,28 +80,28 @@ export function LandingView() {
                   className="h-12 px-6 text-base"
                 >
                   <BarChart3 className="h-5 w-5 mr-2" />
-                  Dashboard en vivo
+                  Painel ao vivo
                 </Button>
               </div>
 
-              {/* Trust strip */}
+              {/* Faixa de confiança */}
               <div className="mt-10 grid grid-cols-3 gap-6 w-full max-w-md">
                 <div>
                   <div className="text-3xl font-bold text-primary">80%</div>
-                  <div className="text-xs text-muted-foreground mt-1">Menos tiempo de espera</div>
+                  <div className="text-xs text-muted-foreground mt-1">Menos tempo de espera</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-primary">+35%</div>
-                  <div className="text-xs text-muted-foreground mt-1">Ticket promedio</div>
+                  <div className="text-xs text-muted-foreground mt-1">Ticket médio</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-primary">2.5k</div>
-                  <div className="text-xs text-muted-foreground mt-1">Restaurantes activos</div>
+                  <div className="text-3xl font-bold text-primary">2,5 mil</div>
+                  <div className="text-xs text-muted-foreground mt-1">Restaurantes ativos</div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Hero illustration / phone mockup */}
+            {/* Mockup de celular */}
             <motion.div {...fade(0.15)} className="relative flex justify-center">
               <div className="relative w-full max-w-sm">
                 <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-primary/20 blur-3xl" />
@@ -120,15 +115,15 @@ export function LandingView() {
                           C
                         </span>
                         <div>
-                          <div className="text-sm font-bold">El Balcón del Chef</div>
-                          <div className="text-[10px] text-muted-foreground">Mesa M2 · 4 personas</div>
+                          <div className="text-sm font-bold">A Varanda do Chef</div>
+                          <div className="text-[10px] text-muted-foreground">Mesa M2 · 4 pessoas</div>
                         </div>
                       </div>
-                      <Badge variant="secondary" className="text-[10px]">Autoservicio</Badge>
+                      <Badge variant="secondary" className="text-[10px]">Autosserviço</Badge>
                     </div>
 
                     <div className="px-3 pb-3 flex gap-2 overflow-hidden">
-                      {["Entradas", "Principales", "Burger", "Postres"].map((c, i) => (
+                      {["Entradas", "Principais", "Burger", "Sobremesas"].map((c, i) => (
                         <span
                           key={c}
                           className={`text-[10px] px-2.5 py-1 rounded-full whitespace-nowrap ${
@@ -144,9 +139,9 @@ export function LandingView() {
 
                     <div className="px-3 space-y-2.5">
                       {[
-                        { name: "Ceviche de Mango", price: "$18.500", img: "🥭" },
-                        { name: "Bandeja Paisa", price: "$32.000", img: "🍽️" },
-                        { name: "Limonada de Coco", price: "$9.000", img: "🥥" },
+                        { name: "Ceviche de Manga", price: formatBRL(28), img: "🥭" },
+                        { name: "Feijoada Completa", price: formatBRL(48), img: "🍲" },
+                        { name: "Limondade de Coco", price: formatBRL(14), img: "🥥" },
                       ].map((p) => (
                         <div key={p.name} className="flex items-center gap-3 p-2.5 rounded-xl bg-card border border-border/60 shadow-sm">
                           <div className="grid place-items-center h-12 w-12 rounded-lg bg-secondary text-2xl shrink-0">
@@ -166,7 +161,7 @@ export function LandingView() {
                     <div className="mt-3 mx-3 mb-3 p-3 rounded-xl bg-accent text-accent-foreground flex items-center justify-between">
                       <div>
                         <div className="text-[10px] opacity-70">Total</div>
-                        <div className="text-sm font-bold">$59.500</div>
+                        <div className="text-sm font-bold">{formatBRL(90)}</div>
                       </div>
                       <div className="text-xs bg-primary text-primary-foreground px-3 py-1.5 rounded-lg font-semibold">
                         Pedir →
@@ -175,7 +170,7 @@ export function LandingView() {
                   </div>
                 </div>
 
-                {/* Floating stats badges */}
+                {/* Badges flutuantes */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -186,8 +181,8 @@ export function LandingView() {
                     <TrendingUp className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-muted-foreground">Ventas hoy</div>
-                    <div className="text-xs font-bold">$2.4M COP</div>
+                    <div className="text-[10px] text-muted-foreground">Vendas hoje</div>
+                    <div className="text-xs font-bold">R$ 18,2 mil</div>
                   </div>
                 </motion.div>
 
@@ -201,8 +196,8 @@ export function LandingView() {
                     <Bell className="h-4 w-4" />
                   </div>
                   <div>
-                    <div className="text-[10px] text-muted-foreground">Pedidos activos</div>
-                    <div className="text-xs font-bold">12 en cocina</div>
+                    <div className="text-[10px] text-muted-foreground">Pedidos ativos</div>
+                    <div className="text-xs font-bold">12 na cozinha</div>
                   </div>
                 </motion.div>
               </div>
@@ -211,22 +206,22 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* Integrations strip */}
+      {/* Faixa de integrações */}
       <section className="border-y bg-secondary/40">
         <div className="container-cluvi py-8">
           <p className="text-center text-xs uppercase tracking-wider text-muted-foreground mb-5">
-            Conecta tu menú Cluvi con
+            Conecte seu cardápio Cluvi com
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-70">
             {[
               "WhatsApp Business",
               "Stripe",
               "Mercado Pago",
-              "Wompi",
+              "PagSeguro",
               "Google Analytics",
               "Meta Ads",
-              "Rappi",
-              "iZettle",
+              "iFood",
+              "Stone",
             ].map((p) => (
               <span key={p} className="text-sm font-semibold text-foreground/70">
                 {p}
@@ -236,16 +231,16 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* FEATURES grid */}
+      {/* FEATURES */}
       <section className="py-20 md:py-28">
         <div className="container-cluvi">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-14">
-            <Badge variant="secondary" className="mb-3">Portafolio</Badge>
+            <Badge variant="secondary" className="mb-3">Portfólio</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-              Descubre nuestro portafolio
+              Conheça nosso portfólio
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Todo lo que necesitas para digitalizar tu operación gastronómica, en un solo lugar.
+              Tudo o que você precisa para digitalizar sua operação gastronômica, em um só lugar.
             </p>
           </motion.div>
 
@@ -253,51 +248,51 @@ export function LandingView() {
             {[
               {
                 icon: QrCode,
-                title: "Menús digitales",
-                desc: "Carta interactiva con fotos, descripciones, alérgenos y traducción automática. Actualiza precios y platillos en tiempo real desde el panel.",
+                title: "Cardápios digitais",
+                desc: "Carta interativa com fotos, descrições, alérgenos e tradução automática. Atualize preços e pratos em tempo real pelo painel.",
                 color: "text-primary",
                 bg: "bg-primary/10",
-                bullets: ["Fotos profesionales", "Multi-idioma", "Sin descargas"],
+                bullets: ["Fotos profissionais", "Multi-idioma", "Sem downloads"],
               },
               {
                 icon: ShoppingBag,
-                title: "Autoservicio por QR",
-                desc: "Los comensales escanean, ordenan y pagan desde su celular. Reduce tiempos de atención y errores de toma de pedido.",
+                title: "Autosserviço via QR",
+                desc: "Os clientes escaneiam, pedem e pagam pelo celular. Reduz tempos de atendimento e erros de anotação.",
                 color: "text-chart-2",
                 bg: "bg-chart-2/10",
-                bullets: ["Pedido directo a cocina", "Pago en mesa", "Propina digital"],
+                bullets: ["Pedido direto à cozinha", "Pagamento na mesa", "Gorjeta digital"],
               },
               {
                 icon: CalendarCheck,
                 title: "Reservas online",
-                desc: "Sistema de reservas con confirmación automática, calendario de mesas y base de datos de comensales.",
+                desc: "Sistema de reservas com confirmação automática, calendário de mesas e banco de dados de clientes.",
                 color: "text-chart-3",
                 bg: "bg-chart-3/10",
-                bullets: ["Confirmación SMS", "Gestión de mesas", "CRM de clientes"],
+                bullets: ["Confirmação por SMS", "Gestão de mesas", "CRM de clientes"],
               },
               {
                 icon: Bike,
-                title: "Sistema de domicilios",
-                desc: "Tu propio canal de domicilios sin comisiones de terceros. Recibe pedidos, asigna repartidores y cobra online.",
+                title: "Sistema de delivery",
+                desc: "Seu próprio canal de delivery sem comissões de terceiros. Receba pedidos, atribua entregadores e cobre online.",
                 color: "text-chart-4",
                 bg: "bg-chart-4/10",
-                bullets: ["0% comisión", "Seguimiento en vivo", "Zonas configurables"],
+                bullets: ["0% de comissão", "Rastreamento ao vivo", "Zonas configuráveis"],
               },
               {
                 icon: Brain,
-                title: "Inteligencia artificial",
-                desc: "Otto, tu asistente IA, recomienda platillos según preferencias del comensal, sugerencias de up-selling y predicción de demanda.",
+                title: "Inteligência artificial",
+                desc: "Otto, seu assistente de IA, recomenda pratos conforme preferências do cliente, sugere up-selling e prevê demanda.",
                 color: "text-chart-5",
                 bg: "bg-chart-5/10",
-                bullets: ["Recomendador", "Predicción de stock", "Análisis de reseñas"],
+                bullets: ["Recomendador", "Previsão de estoque", "Análise de avaliações"],
               },
               {
                 icon: BarChart3,
-                title: "Analítica avanzada",
-                desc: "Dashboard en tiempo real con KPIs clave: ventas, ticket promedio, productos top, horas pico y comportamiento de comensales.",
+                title: "Analytics avançado",
+                desc: "Painel em tempo real com KPIs chave: vendas, ticket médio, produtos top, horários de pico e comportamento de clientes.",
                 color: "text-primary",
                 bg: "bg-primary/10",
-                bullets: ["Tiempo real", "Exporta reportes", "Benchmark sectorial"],
+                bullets: ["Tempo real", "Exporta relatórios", "Benchmark do setor"],
               },
             ].map((f, i) => (
               <motion.div key={f.title} {...fade(i * 0.05)}>
@@ -326,20 +321,20 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* IMPACT stats band */}
+      {/* IMPACTO */}
       <section className="bg-accent text-accent-foreground py-16">
         <div className="container-cluvi">
           <motion.div {...fade()} className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold">El menú es la herramienta de venta</h2>
-            <p className="mt-2 text-accent-foreground/70">más poderosa de tu restaurante</p>
+            <h2 className="text-3xl md:text-4xl font-bold">O cardápio é a ferramenta de venda</h2>
+            <p className="mt-2 text-accent-foreground/70">mais poderosa do seu restaurante</p>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { stat: "+35%", label: "Incremento en ticket promedio", icon: Wallet },
-              { stat: "-80%", label: "Tiempo de espera en mesa", icon: Clock },
-              { stat: "+50%", label: "Rotación de mesas en hora pico", icon: TrendingUp },
-              { stat: "24/7", label: "Disponibilidad de reservas", icon: Globe },
+              { stat: "+35%", label: "Aumento no ticket médio", icon: Wallet },
+              { stat: "-80%", label: "Tempo de espera na mesa", icon: Clock },
+              { stat: "+50%", label: "Rotatividade de mesas no pico", icon: TrendingUp },
+              { stat: "24/7", label: "Disponibilidade de reservas", icon: Globe },
             ].map((s, i) => (
               <motion.div key={s.label} {...fade(i * 0.08)} className="text-center">
                 <div className="grid place-items-center mb-3">
@@ -355,24 +350,24 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* SEGMENTS - Adaptable a cualquier negocio */}
+      {/* SEGMENTOS */}
       <section className="py-20 md:py-28">
         <div className="container-cluvi">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-12">
             <Badge variant="secondary" className="mb-3">Segmentos</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-              Adaptable a cualquier tipo de negocio
+              Adaptável a qualquer tipo de negócio
             </h2>
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
-              { name: "Cafés y brunch", icon: "☕", count: "320+ negocios" },
-              { name: "Restaurantes", icon: "🍽️", count: "1.2k negocios" },
-              { name: "Hoteles y hostales", icon: "🏨", count: "180+ negocios" },
-              { name: "Bares", icon: "🍸", count: "450+ negocios" },
-              { name: "Cinemas", icon: "🎬", count: "60+ negocios" },
-              { name: "Cocina oculta", icon: "👨‍🍳", count: "210+ negocios" },
+              { name: "Cafeterias e brunch", icon: "☕", count: "320+ negócios" },
+              { name: "Restaurantes", icon: "🍽️", count: "1,2 mil negócios" },
+              { name: "Hotéis e pousadas", icon: "🏨", count: "180+ negócios" },
+              { name: "Bares", icon: "🍸", count: "450+ negócios" },
+              { name: "Cinemas", icon: "🎬", count: "60+ negócios" },
+              { name: "Dark kitchen", icon: "👨‍🍳", count: "210+ negócios" },
             ].map((s, i) => (
               <motion.button
                 key={s.name}
@@ -390,16 +385,16 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* TESTIMONIALS */}
+      {/* DEPOIMENTOS */}
       <section className="bg-secondary/40 py-20 md:py-28">
         <div className="container-cluvi">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-12">
-            <Badge variant="secondary" className="mb-3">Testimonios</Badge>
+            <Badge variant="secondary" className="mb-3">Depoimentos</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-              La confianza de los mejores
+              A confiança dos melhores
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Más de 2.500 restaurantes ya transformaron su operación con Cluvi.
+              Mais de 2.500 restaurantes já transformaram sua operação com a Cluvi.
             </p>
           </motion.div>
 
@@ -407,25 +402,25 @@ export function LandingView() {
             {[
               {
                 quote:
-                  "Implementamos Cluvi en 3 sedes y redujimos el tiempo de atención en un 70%. El ticket promedio subió 28% gracias a las sugerencias inteligentes.",
+                  "Implementamos a Cluvi em 3 unidades e reduzimos o tempo de atendimento em 70%. O ticket médio subiu 28% graças às sugestões inteligentes.",
                 author: "Marcela Restrepo",
-                role: "Gerente, El Balcón del Chef",
+                role: "Gerente, A Varanda do Chef",
                 avatar: "MR",
                 rating: 5,
               },
               {
                 quote:
-                  "El dashboard en tiempo real es un cambio de juego. Tomamos decisiones de menú basadas en datos reales, no en intuición. Las reservas se triplicaron.",
-                author: "Andrés Gómez",
-                role: "Chef dueño, Vicio Hamburguesería",
+                  "O painel em tempo real é um divisor de águas. Tomamos decisões de cardápio baseadas em dados reais, não em intuição. As reservas triplicaram.",
+                author: "André Gomes",
+                role: "Chef proprietário, Burger Vício",
                 avatar: "AG",
                 rating: 5,
               },
               {
                 quote:
-                  "El sistema de domicilios sin comisión nos ahorró $14M al mes. La integración con WhatsApp Business fue instantánea y sin fricción.",
-                author: "Laura Jiménez",
-                role: "CEO, Sazón Express",
+                  "O sistema de delivery sem comissão nos economizou R$ 14 mil por mês. A integração com WhatsApp Business foi instantânea e sem atrito.",
+                author: "Laura Jimenez",
+                role: "CEO, Sazão Express",
                 avatar: "LJ",
                 rating: 5,
               },
@@ -458,14 +453,14 @@ export function LandingView() {
         </div>
       </section>
 
-      {/* BLOG TEASERS */}
+      {/* BLOG */}
       <section className="py-20 md:py-28">
         <div className="container-cluvi">
           <motion.div {...fade()} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <Badge variant="secondary" className="mb-3">Blog</Badge>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Digitalizamos un sector, artículo a artículo
+                Digitalizamos um setor, artigo a artigo
               </h2>
             </div>
             <Button variant="outline" onClick={() => setView("contact")}>
@@ -479,22 +474,22 @@ export function LandingView() {
               {
                 tag: "Evento",
                 date: "15 Mar 2025",
-                title: "Cluvi Forward 2025 Medellín: el evento que marcará un antes y un después en la gastronomía",
-                excerpt: "Conoce las tendencias, herramientas y casos de éxito que se presentaron en el mayor evento de hospitality tech de la región.",
+                title: "Cluvi Forward 2025 Curitiba: o evento que marcará um antes e depois na gastronomia",
+                excerpt: "Conheça as tendências, ferramentas e casos de sucesso apresentados no maior evento de hospitality tech da região.",
                 color: "bg-chart-5/15 text-chart-5",
               },
               {
-                tag: "Producto",
+                tag: "Produto",
                 date: "8 Mar 2025",
-                title: "Nuevo Timeline de Reservas en Cluvi: gestión más ágil y precisa para restaurantes",
-                excerpt: "Ahora visualizas tu ocupación por hora y mesa en una sola pantalla. Duplica la productividad de tu hostess.",
+                title: "Novo Timeline de Reservas na Cluvi: gestão mais ágil e precisa para restaurantes",
+                excerpt: "Agora você visualiza sua ocupação por hora e mesa em uma única tela. Dobre a produtividade da sua hostess.",
                 color: "bg-primary/15 text-primary",
               },
               {
-                tag: "Análisis",
+                tag: "Análise",
                 date: "1 Mar 2025",
-                title: "Gestión y Rentabilidad en Restaurantes: Indicadores Clave para un Crecimiento Sostenible",
-                excerpt: "Los 7 KPIs que todo dueño de restaurante debe monitorear semanalmente para tomar decisiones basadas en datos.",
+                title: "Gestão e Rentabilidade em Restaurantes: Indicadores Chave para um Crescimento Sustentável",
+                excerpt: "Os 7 KPIs que todo dono de restaurante deve monitorar semanalmente para tomar decisões baseadas em dados.",
                 color: "bg-chart-2/15 text-chart-2",
               },
             ].map((p, i) => (
@@ -533,9 +528,9 @@ export function LandingView() {
       <section className="bg-secondary/40 py-20">
         <div className="container-cluvi">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-10">
-            <Badge variant="secondary" className="mb-3">Preguntas frecuentes</Badge>
+            <Badge variant="secondary" className="mb-3">Perguntas frequentes</Badge>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Lo que necesitas saber
+              O que você precisa saber
             </h2>
           </motion.div>
 
@@ -543,24 +538,24 @@ export function LandingView() {
             <Accordion type="single" collapsible>
               {[
                 {
-                  q: "¿Necesito instalar algo en mi restaurante?",
-                  a: "No. Cluvi es 100% web. Solo necesitas un celular con cámara para escanear el QR de cada mesa y un navegador. Tus comensales tampoco descargan nada: el menú abre directamente en su navegador.",
+                  q: "Preciso instalar algo no meu restaurante?",
+                  a: "Não. A Cluvi é 100% web. Você só precisa de um celular com câmera para escanear o QR de cada mesa e um navegador. Seus clientes também não baixam nada: o cardápio abre direto no navegador deles.",
                 },
                 {
-                  q: "¿Cuánto cuesta implementar Cluvi?",
-                  a: "Ofrecemos planes desde $79.000 COP/mes para restaurantes pequeños, hasta planes enterprise con multi-sede. Incluye menú digital, pedidos QR, reservas y dashboard analítico. Agenda una demo para cotizar tu caso.",
+                  q: "Quanto custa implementar a Cluvi?",
+                  a: "Oferecemos planos a partir de R$ 149/mês para restaurantes pequenos, até planos enterprise com multi-unidade. Inclui cardápio digital, pedidos QR, reservas e painel analítico. Agende uma demo para cotizar seu caso.",
                 },
                 {
-                  q: "¿Funciona sin internet?",
-                  a: "El menú se carga una vez y funciona offline en el dispositivo del comensal. Los pedidos llegan a tu cocina vía WebSocket en tiempo real cuando hay conexión. Si se cae, los pedidos se encolan y sincronizan al reconectar.",
+                  q: "Funciona sem internet?",
+                  a: "O cardápio é carregado uma vez e funciona offline no dispositivo do cliente. Os pedidos chegam na sua cozinha via WebSocket em tempo real quando há conexão. Se cair, os pedidos são enfileirados e sincronizados ao reconectar.",
                 },
                 {
-                  q: "¿Puedo migrar mi menú actual?",
-                  a: "Sí. Sube tu carta en PDF o Excel y nuestro equipo la importa sin costo. También puedes usar Otto (nuestra IA) para enriquecer descripciones, sugerir fotos y traducir a 8 idiomas automáticamente.",
+                  q: "Posso migrar meu cardápio atual?",
+                  a: "Sim. Envie sua carta em PDF ou Excel e nossa equipe importa sem custo. Você também pode usar o Otto (nossa IA) para enriquecer descrições, sugerir fotos e traduzir para 8 idiomas automaticamente.",
                 },
                 {
-                  q: "¿Cómo recibo los pagos?",
-                  a: "Integramos con Wompi, Mercado Pago, Stripe e iZettle. El comensal paga en su celular y el dinero llega directo a tu cuenta. Incluye propina digital configurable.",
+                  q: "Como recebo os pagamentos?",
+                  a: "Integramos com PagSeguro, Mercado Pago, Stripe e Stone. O cliente paga pelo celular e o dinheiro cai direto na sua conta. Inclui gorjeta digital configurável.",
                 },
               ].map((item, i) => (
                 <AccordionItem key={i} value={`item-${i}`}>
@@ -588,11 +583,11 @@ export function LandingView() {
             <div className="relative">
               <Sparkles className="h-8 w-8 mx-auto mb-4 opacity-80" />
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight max-w-2xl mx-auto">
-                Empieza a digitalizar tu restaurante hoy
+                Comece a digitalizar seu restaurante hoje
               </h2>
               <p className="mt-4 text-lg opacity-90 max-w-xl mx-auto">
-                Sin permanencia, sin costos de implementación. Agenda una demo de 30 minutos
-                y verás tu menú funcionando en vivo.
+                Sem fidelidade, sem custos de implementação. Agende uma demo de 30 minutos
+                e veja seu cardápio funcionando ao vivo.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <Button
@@ -602,7 +597,7 @@ export function LandingView() {
                   onClick={() => setView("contact")}
                 >
                   <CalendarCheck className="h-5 w-5 mr-2" />
-                  Agenda una demo
+                  Agendar uma demo
                 </Button>
                 <Button
                   size="lg"
@@ -610,7 +605,7 @@ export function LandingView() {
                   className="h-12 px-6 text-base bg-white/10 text-white border-white/30 hover:bg-white/20 hover:text-white"
                   onClick={() => setView("menu")}
                 >
-                  Probar demo en vivo
+                  Testar demo ao vivo
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </Button>
               </div>

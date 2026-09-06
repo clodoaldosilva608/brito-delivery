@@ -7,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter } from "@/components/ui/sheet";
-import { useCart, useNav, formatCOP, type CartItem } from "@/lib/store";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter } from "@/components/ui/sheet";
+import { useCart, useNav, formatBRL, type CartItem } from "@/lib/store";
 import { toast } from "sonner";
 import {
   Search,
@@ -80,7 +80,7 @@ export function MenuView() {
         setRestaurantId(d.restaurant.id);
         if (d.categories?.length > 0) setActiveCat(d.categories[0].slug);
       })
-      .catch((e) => toast.error("No pudimos cargar el menú", { description: e.message }))
+      .catch((e) => toast.error("Não foi possível carregar o cardápio", { description: e.message }))
       .finally(() => setLoading(false));
   }, [setRestaurantId]);
 
@@ -110,10 +110,9 @@ export function MenuView() {
       price: product.price,
       imageUrl: product.imageUrl,
     });
-    // Use setTimeout to read the updated cart state after the set call resolves
     setTimeout(() => {
-      toast.success(`${product.name} añadido`, {
-        description: `${useCart.getState().totalItems()} ítems en el carrito`,
+      toast.success(`${product.name} adicionado`, {
+        description: `${useCart.getState().totalItems()} itens no carrinho`,
       });
     }, 0);
   };
@@ -139,14 +138,14 @@ export function MenuView() {
       });
       if (!res.ok) {
         const e = await res.json();
-        throw new Error(e.error || "Error al crear pedido");
+        throw new Error(e.error || "Erro ao criar pedido");
       }
       const { order } = await res.json();
       setOrderConfirmed({ orderNumber: order.orderNumber, total: order.total });
       cart.clear();
       setCartOpen(false);
     } catch (e: any) {
-      toast.error("No se pudo enviar el pedido", { description: e.message });
+      toast.error("Não foi possível enviar o pedido", { description: e.message });
     } finally {
       setSubmitting(false);
     }
@@ -156,7 +155,7 @@ export function MenuView() {
     return (
       <div className="container-cluvi py-20 flex flex-col items-center gap-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
-        <p className="text-muted-foreground">Cargando menú…</p>
+        <p className="text-muted-foreground">Carregando cardápio…</p>
       </div>
     );
   }
@@ -164,14 +163,14 @@ export function MenuView() {
   if (!data) {
     return (
       <div className="container-cluvi py-20 text-center">
-        <p className="text-muted-foreground">No se encontró el menú.</p>
+        <p className="text-muted-foreground">Cardápio não encontrado.</p>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Restaurant header */}
+      {/* Header do restaurante */}
       <div className="bg-gradient-to-b from-accent to-accent/80 text-accent-foreground">
         <div className="container-cluvi py-6">
           <button
@@ -179,7 +178,7 @@ export function MenuView() {
             className="inline-flex items-center gap-1 text-xs text-accent-foreground/70 hover:text-primary transition-colors mb-4"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
-            Volver al inicio
+            Voltar ao início
           </button>
 
           <div className="flex items-start justify-between gap-4">
@@ -197,25 +196,25 @@ export function MenuView() {
               </p>
               {data.table && (
                 <p className="mt-2 text-xs text-accent-foreground/60">
-                  Bienvenido · {data.table.seats} personas · Escanea, ordena y paga desde aquí
+                  Bem-vindo · {data.table.seats} pessoas · Escaneie, peça e pague por aqui
                 </p>
               )}
             </div>
             <div className="hidden sm:block text-right">
-              <div className="text-xs text-accent-foreground/60">Horario</div>
+              <div className="text-xs text-accent-foreground/60">Horário</div>
               <div className="text-sm font-semibold">12:00 — 23:00</div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Sticky category nav + search */}
+      {/* Nav sticky de categorias + busca */}
       <div className="sticky top-16 z-30 bg-background/95 backdrop-blur-lg border-b">
         <div className="container-cluvi py-3 flex items-center gap-3">
           <div className="relative flex-1 max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Buscar plato…"
+              placeholder="Buscar prato…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9 h-9"
@@ -248,7 +247,7 @@ export function MenuView() {
         </div>
       </div>
 
-      {/* Menu content */}
+      {/* Conteúdo do cardápio */}
       <div className="container-cluvi py-6 flex-1">
         {search.trim() === "" && (
           <FeaturedSection
@@ -264,7 +263,7 @@ export function MenuView() {
                 <span className="text-2xl">{cat.icon}</span>
                 <h2 className="text-xl font-bold">{cat.name}</h2>
                 <span className="text-xs text-muted-foreground">
-                  {cat.products.length} {cat.products.length === 1 ? "plato" : "platos"}
+                  {cat.products.length} {cat.products.length === 1 ? "prato" : "pratos"}
                 </span>
               </div>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -278,13 +277,13 @@ export function MenuView() {
 
         {filteredCategories.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-muted-foreground">No encontramos platos para &ldquo;{search}&rdquo;</p>
-            <Button variant="link" onClick={() => setSearch("")}>Limpiar búsqueda</Button>
+            <p className="text-muted-foreground">Não encontramos pratos para &ldquo;{search}&rdquo;</p>
+            <Button variant="link" onClick={() => setSearch("")}>Limpar busca</Button>
           </div>
         )}
       </div>
 
-      {/* Floating cart bar */}
+      {/* Barra flutuante do carrinho */}
       <AnimatePresence>
         {totalItems > 0 && !cartOpen && (
           <motion.div
@@ -304,21 +303,21 @@ export function MenuView() {
                     {totalItems}
                   </span>
                 </div>
-                <span className="text-sm font-semibold">Ver carrito</span>
+                <span className="text-sm font-semibold">Ver carrinho</span>
               </div>
-              <span className="text-sm font-bold">{formatCOP(subtotal)}</span>
+              <span className="text-sm font-bold">{formatBRL(subtotal)}</span>
             </button>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Cart sheet */}
+      {/* Sheet do carrinho */}
       <Sheet open={cartOpen} onOpenChange={setCartOpen}>
         <SheetContent className="w-full sm:max-w-md flex flex-col p-0">
           <SheetHeader className="p-5 border-b">
             <SheetTitle className="flex items-center gap-2">
               <ShoppingCart className="h-5 w-5" />
-              Tu pedido
+              Seu pedido
               {data.table && (
                 <Badge variant="secondary" className="ml-1">Mesa {data.table.code}</Badge>
               )}
@@ -331,7 +330,7 @@ export function MenuView() {
                 <ShoppingBag className="h-7 w-7 text-muted-foreground" />
               </div>
               <p className="text-sm text-muted-foreground">
-                Tu carrito está vacío.<br />Añade algunos platos del menú.
+                Seu carrinho está vazio.<br />Adicione alguns pratos do cardápio.
               </p>
             </div>
           ) : (
@@ -348,15 +347,15 @@ export function MenuView() {
                 <div className="space-y-1.5 w-full text-sm">
                   <div className="flex justify-between text-muted-foreground">
                     <span>Subtotal</span>
-                    <span>{formatCOP(subtotal)}</span>
+                    <span>{formatBRL(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Propina sugerida (10%)</span>
-                    <span>{formatCOP(Math.round(subtotal * 0.1))}</span>
+                    <span>Gorjeta sugerida (10%)</span>
+                    <span>{formatBRL(Math.round(subtotal * 0.1))}</span>
                   </div>
                   <div className="flex justify-between font-bold text-base pt-1.5 border-t">
                     <span>Total</span>
-                    <span>{formatCOP(subtotal + Math.round(subtotal * 0.1))}</span>
+                    <span>{formatBRL(subtotal + Math.round(subtotal * 0.1))}</span>
                   </div>
                 </div>
                 <Button
@@ -367,11 +366,11 @@ export function MenuView() {
                   {submitting ? (
                     <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Enviando…</>
                   ) : (
-                    <>Enviar a cocina · {formatCOP(subtotal + Math.round(subtotal * 0.1))}</>
+                    <>Enviar à cozinha · {formatBRL(subtotal + Math.round(subtotal * 0.1))}</>
                   )}
                 </Button>
                 <p className="text-[10px] text-center text-muted-foreground">
-                  Al enviar aceptas los términos. Pago en mesa o al recibir.
+                  Ao enviar você aceita os termos. Pagamento na mesa ou ao receber.
                 </p>
               </SheetFooter>
             </>
@@ -379,7 +378,7 @@ export function MenuView() {
         </SheetContent>
       </Sheet>
 
-      {/* Confirmation dialog */}
+      {/* Diálogo de confirmação */}
       <AnimatePresence>
         {orderConfirmed && (
           <motion.div
@@ -399,14 +398,14 @@ export function MenuView() {
               <div className="grid place-items-center h-16 w-16 rounded-full bg-chart-2/15 text-chart-2 mx-auto mb-4">
                 <Check className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold mb-1">¡Pedido confirmado!</h3>
+              <h3 className="text-xl font-bold mb-1">Pedido confirmado!</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Tu pedido está en cola. Cocina lo preparará en breve.
+                Seu pedido está na fila. A cozinha vai prepará-lo em breve.
               </p>
               <div className="bg-secondary rounded-xl p-4 space-y-1 mb-5">
-                <div className="text-xs text-muted-foreground">Número de pedido</div>
+                <div className="text-xs text-muted-foreground">Número do pedido</div>
                 <div className="text-2xl font-bold text-primary">#{orderConfirmed.orderNumber}</div>
-                <div className="text-xs text-muted-foreground pt-1">Total: {formatCOP(orderConfirmed.total)}</div>
+                <div className="text-xs text-muted-foreground pt-1">Total: {formatBRL(orderConfirmed.total)}</div>
               </div>
               <div className="flex gap-2">
                 <Button
@@ -417,10 +416,10 @@ export function MenuView() {
                     setView("admin");
                   }}
                 >
-                  Ver en cocina
+                  Ver na cozinha
                 </Button>
                 <Button className="flex-1" onClick={() => setOrderConfirmed(null)}>
-                  Seguir pidiendo
+                  Continuar pedindo
                 </Button>
               </div>
             </motion.div>
@@ -437,7 +436,7 @@ function FeaturedSection({ products, onAdd }: { products: MenuProduct[]; onAdd: 
     <section>
       <div className="flex items-center gap-2 mb-4">
         <Star className="h-5 w-5 fill-chart-4 text-chart-4" />
-        <h2 className="text-xl font-bold">Recomendados del chef</h2>
+        <h2 className="text-xl font-bold">Recomendados do chef</h2>
       </div>
       <div className="flex gap-4 overflow-x-auto pb-2 scroll-thin">
         {products.map((p) => (
@@ -461,21 +460,9 @@ function ProductCard({
 }) {
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow group h-full">
-      {product.imageUrl ? (
-        <div className="aspect-[16/10] overflow-hidden bg-secondary">
-          { }
-          <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-          />
-        </div>
-      ) : (
-        <div className="aspect-[16/10] bg-gradient-to-br from-secondary to-secondary/60 grid place-items-center text-4xl">
-          🍽️
-        </div>
-      )}
+      <div className="aspect-[16/10] bg-gradient-to-br from-secondary to-secondary/60 grid place-items-center text-4xl">
+        {product.imageUrl ? "🍽️" : "🍽️"}
+      </div>
       <CardContent className={`p-4 ${compact ? "" : "flex flex-col h-full"}`}>
         <div className="flex items-start justify-between gap-2 mb-1">
           <h3 className="font-semibold leading-tight">{product.name}</h3>
@@ -493,12 +480,12 @@ function ProductCard({
         </p>
         <div className={`flex items-center justify-between mt-auto ${compact ? "mt-2" : ""}`}>
           <div>
-            <div className="font-bold text-primary">{formatCOP(product.price)}</div>
+            <div className="font-bold text-primary">{formatBRL(product.price)}</div>
             <div className="text-[10px] text-muted-foreground flex items-center gap-1">
               <Clock className="h-3 w-3" />~{product.prepTimeMin} min
             </div>
           </div>
-          <Button size="sm" className="h-8 w-8 p-0" onClick={onAdd} aria-label={`Añadir ${product.name}`}>
+          <Button size="sm" className="h-8 w-8 p-0" onClick={onAdd} aria-label={`Adicionar ${product.name}`}>
             <Plus className="h-4 w-4" />
           </Button>
         </div>
@@ -512,16 +499,11 @@ function CartLine({ item }: { item: CartItem }) {
   return (
     <div className="flex gap-3 p-2 rounded-xl border border-border/60 bg-card">
       <div className="grid place-items-center h-12 w-12 rounded-lg bg-secondary shrink-0 overflow-hidden">
-        {item.imageUrl ? (
-           
-          <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
-        ) : (
-          <span className="text-xl">🍽️</span>
-        )}
+        <span className="text-xl">🍽️</span>
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-sm font-semibold truncate">{item.name}</div>
-        <div className="text-xs text-primary font-bold">{formatCOP(item.price)}</div>
+        <div className="text-xs text-primary font-bold">{formatBRL(item.price)}</div>
         <div className="flex items-center gap-2 mt-1.5">
           <Button
             size="sm"
@@ -551,7 +533,7 @@ function CartLine({ item }: { item: CartItem }) {
         </div>
       </div>
       <div className="text-sm font-bold text-right">
-        {formatCOP(item.price * item.quantity)}
+        {formatBRL(item.price * item.quantity)}
       </div>
     </div>
   );

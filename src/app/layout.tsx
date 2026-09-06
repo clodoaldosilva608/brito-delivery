@@ -4,23 +4,23 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Cluvi – Digitaliza tu restaurante",
+  title: "Cluvi – Digitalize seu restaurante",
   description:
-    "Cluvi es la plataforma SaaS que digitaliza restaurantes: menús digitales con IA, pedidos por QR, reservas, domicilios y analítica avanzada.",
+    "Cluvi é a plataforma SaaS que digitaliza restaurantes: cardápios digitais com IA, pedidos via QR, reservas, delivery e analytics avançado.",
   keywords: [
     "Cluvi",
-    "menú digital",
+    "cardápio digital",
     "QR restaurante",
-    "autoservicio",
+    "autosserviço",
     "reservas",
-    "domicilios",
-    "analítica restaurante",
+    "delivery",
+    "analytics restaurante",
   ],
   authors: [{ name: "Cluvi" }],
   openGraph: {
-    title: "Cluvi – Digitaliza tu restaurante",
+    title: "Cluvi – Digitalize seu restaurante",
     description:
-      "Menús digitales con IA, pedidos por QR, reservas y más. El futuro de la gastronomía.",
+      "Cardápios digitais com IA, pedidos via QR, reservas e mais. O futuro da gastronomia.",
     siteName: "Cluvi",
     type: "website",
   },
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body className="antialiased bg-background text-foreground min-h-screen">
         {children}
         <Toaster />
