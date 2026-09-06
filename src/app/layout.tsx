@@ -4,11 +4,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Cluvi – Digitalize seu restaurante",
+  title: "Mesa – Digitalize seu restaurante",
   description:
-    "Cluvi é a plataforma SaaS que digitaliza restaurantes: cardápios digitais com IA, pedidos via QR, reservas, delivery e analytics avançado.",
+    "Mesa é a plataforma SaaS que digitaliza restaurantes: cardápios digitais com IA, pedidos via QR, reservas, delivery e analytics avançado.",
   keywords: [
-    "Cluvi",
+    "Mesa",
     "cardápio digital",
     "QR restaurante",
     "autosserviço",
@@ -16,12 +16,12 @@ export const metadata: Metadata = {
     "delivery",
     "analytics restaurante",
   ],
-  authors: [{ name: "Cluvi" }],
+  authors: [{ name: "Mesa" }],
   openGraph: {
-    title: "Cluvi – Digitalize seu restaurante",
+    title: "Mesa – Digitalize seu restaurante",
     description:
       "Cardápios digitais com IA, pedidos via QR, reservas e mais. O futuro da gastronomia.",
-    siteName: "Cluvi",
+    siteName: "Mesa",
     type: "website",
   },
 };

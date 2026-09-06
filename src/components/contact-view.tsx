@@ -51,7 +51,7 @@ export function ContactView() {
 
   if (success) {
     return (
-      <div className="container-cluvi py-12">
+      <div className="container-app py-12">
         <button
           onClick={() => setView("home")}
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-4"
@@ -82,7 +82,7 @@ export function ContactView() {
   }
 
   return (
-    <div className="container-cluvi py-6">
+    <div className="container-app py-6">
       <button
         onClick={() => setView("home")}
         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
@@ -99,13 +99,14 @@ export function ContactView() {
             <span className="block text-primary mt-1">restaurante</span>
           </h1>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            Conte sobre seu negócio e um especialista da Cluvi vai entrar em contato para agendar
+            Conte sobre seu negócio e um especialista da Mesa vai entrar em contato para agendar
             uma demo personalizada. Sem compromisso, sem custos ocultos.
           </p>
 
           <div className="mt-6 space-y-3">
             <a
-              href="https://wa.me/554130442616"
+              href="#"
+              onClick={(e) => { e.preventDefault(); toast.info("Configure seu número de WhatsApp nas variáveis de ambiente."); }}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 rounded-xl bg-chart-2/5 border border-chart-2/20 hover:bg-chart-2/10 transition-colors group"
@@ -125,21 +126,21 @@ export function ContactView() {
                 <Mail className="h-5 w-5 text-primary shrink-0" />
                 <div>
                   <div className="text-xs text-muted-foreground">E-mail</div>
-                  <div className="text-sm font-medium">contato@cluvi.com</div>
+                  <div className="text-sm font-medium">contato@exemplo.com</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 rounded-xl bg-secondary/50">
                 <Phone className="h-5 w-5 text-primary shrink-0" />
                 <div>
                   <div className="text-xs text-muted-foreground">Telefone</div>
-                  <div className="text-sm font-medium">+55 41 3044 2616</div>
+                  <div className="text-sm font-medium">+55 11 99999-0000</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 p-4 rounded-xl bg-secondary/50 sm:col-span-2">
                 <MapPin className="h-5 w-5 text-primary shrink-0" />
                 <div>
                   <div className="text-xs text-muted-foreground">Escritórios</div>
-                  <div className="text-sm font-medium">Curitiba · São Paulo · Florianópolis</div>
+                  <div className="text-sm font-medium">Sua cidade · Sua região</div>
                 </div>
               </div>
             </div>
@@ -205,7 +206,7 @@ export function ContactView() {
                   <Input
                     id="c-rest"
                     className="h-10"
-                    placeholder="Ex. A Varanda do Chef"
+                    placeholder="Ex. Cozinha Demo"
                     value={form.restaurantName}
                     onChange={(e) => setForm({ ...form, restaurantName: e.target.value })}
                   />

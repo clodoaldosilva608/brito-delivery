@@ -42,7 +42,7 @@
 }
 
 :root {
-  /* Cluvi brand palette - warm orange + dark espresso */
+  /* Mesa brand palette - warm orange + dark espresso */
   --radius: 0.75rem;
   --background: oklch(0.99 0.005 60);
   --foreground: oklch(0.18 0.02 50);
@@ -50,7 +50,7 @@
   --card-foreground: oklch(0.18 0.02 50);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.02 50);
-  /* Primary = Cluvi orange (#E85D2C ~ oklch(0.66 0.19 42)) */
+  /* Primary = Mesa orange (#E85D2C ~ oklch(0.66 0.19 42)) */
   --primary: oklch(0.66 0.19 42);
   --primary-foreground: oklch(0.99 0 0);
   /* Secondary = warm cream */
@@ -129,7 +129,7 @@
 }
 
 /* Custom utilities */
-@utility container-cluvi {
+@utility container-app {
   width: 100%;
   margin-inline: auto;
   padding-inline: 1.5rem;

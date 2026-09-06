@@ -47,7 +47,7 @@ export function LandingView() {
       {/* HERO */}
       <section className="relative overflow-hidden hero-mesh">
         <div className="absolute inset-0 bg-grain opacity-30 pointer-events-none" />
-        <div className="container-cluvi relative py-20 md:py-28">
+        <div className="container-app relative py-20 md:py-28">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <motion.div {...fade(0)} className="flex flex-col items-start">
               <Badge className="mb-5 bg-primary/10 text-primary border-primary/20 hover:bg-primary/15">
@@ -55,7 +55,7 @@ export function LandingView() {
                 Cardápios digitais com inteligência artificial
               </Badge>
               <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
-                Cluvi é o futuro
+                Mesa é o futuro
                 <br />
                 da <span className="text-primary">gastronomia</span>
               </h1>
@@ -112,10 +112,10 @@ export function LandingView() {
                     <div className="px-5 pt-5 pb-3 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black">
-                          C
+                          M
                         </span>
                         <div>
-                          <div className="text-sm font-bold">A Varanda do Chef</div>
+                          <div className="text-sm font-bold">Cozinha Demo</div>
                           <div className="text-[10px] text-muted-foreground">Mesa M2 · 4 pessoas</div>
                         </div>
                       </div>
@@ -208,9 +208,9 @@ export function LandingView() {
 
       {/* Faixa de integrações */}
       <section className="border-y bg-secondary/40">
-        <div className="container-cluvi py-8">
+        <div className="container-app py-8">
           <p className="text-center text-xs uppercase tracking-wider text-muted-foreground mb-5">
-            Conecte seu cardápio Cluvi com
+            Conecte seu cardápio Mesa com
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 opacity-70">
             {[
@@ -233,7 +233,7 @@ export function LandingView() {
 
       {/* FEATURES */}
       <section className="py-20 md:py-28">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-14">
             <Badge variant="secondary" className="mb-3">Portfólio</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -281,7 +281,7 @@ export function LandingView() {
               {
                 icon: Brain,
                 title: "Inteligência artificial",
-                desc: "Otto, seu assistente de IA, recomenda pratos conforme preferências do cliente, sugere up-selling e prevê demanda.",
+                desc: "Seu assistente de IA recomenda pratos conforme preferências do cliente, sugere up-selling e prevê demanda.",
                 color: "text-chart-5",
                 bg: "bg-chart-5/10",
                 bullets: ["Recomendador", "Previsão de estoque", "Análise de avaliações"],
@@ -323,7 +323,7 @@ export function LandingView() {
 
       {/* IMPACTO */}
       <section className="bg-accent text-accent-foreground py-16">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold">O cardápio é a ferramenta de venda</h2>
             <p className="mt-2 text-accent-foreground/70">mais poderosa do seu restaurante</p>
@@ -352,7 +352,7 @@ export function LandingView() {
 
       {/* SEGMENTOS */}
       <section className="py-20 md:py-28">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-12">
             <Badge variant="secondary" className="mb-3">Segmentos</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
@@ -387,14 +387,14 @@ export function LandingView() {
 
       {/* DEPOIMENTOS */}
       <section className="bg-secondary/40 py-20 md:py-28">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-12">
             <Badge variant="secondary" className="mb-3">Depoimentos</Badge>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
               A confiança dos melhores
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Mais de 2.500 restaurantes já transformaram sua operação com a Cluvi.
+              Mais de 2.500 restaurantes já transformaram sua operação com a Mesa.
             </p>
           </motion.div>
 
@@ -402,26 +402,26 @@ export function LandingView() {
             {[
               {
                 quote:
-                  "Implementamos a Cluvi em 3 unidades e reduzimos o tempo de atendimento em 70%. O ticket médio subiu 28% graças às sugestões inteligentes.",
-                author: "Marcela Restrepo",
-                role: "Gerente, A Varanda do Chef",
-                avatar: "MR",
+                  "Implementamos a Mesa em 3 unidades e reduzimos o tempo de atendimento em 70%. O ticket médio subiu 28% graças às sugestões inteligentes.",
+                author: "Cliente Demo 1",
+                role: "Gerente, Cozinha Demo",
+                avatar: "C1",
                 rating: 5,
               },
               {
                 quote:
                   "O painel em tempo real é um divisor de águas. Tomamos decisões de cardápio baseadas em dados reais, não em intuição. As reservas triplicaram.",
-                author: "André Gomes",
-                role: "Chef proprietário, Burger Vício",
-                avatar: "AG",
+                author: "Cliente Demo 2",
+                role: "Chef proprietário, Burger Demo",
+                avatar: "C2",
                 rating: 5,
               },
               {
                 quote:
                   "O sistema de delivery sem comissão nos economizou R$ 14 mil por mês. A integração com WhatsApp Business foi instantânea e sem atrito.",
-                author: "Laura Jimenez",
-                role: "CEO, Sazão Express",
-                avatar: "LJ",
+                author: "Cliente Demo 3",
+                role: "CEO, Sazão Demo",
+                avatar: "C3",
                 rating: 5,
               },
             ].map((t, i) => (
@@ -455,7 +455,7 @@ export function LandingView() {
 
       {/* BLOG */}
       <section className="py-20 md:py-28">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <Badge variant="secondary" className="mb-3">Blog</Badge>
@@ -474,14 +474,14 @@ export function LandingView() {
               {
                 tag: "Evento",
                 date: "15 Mar 2025",
-                title: "Cluvi Forward 2025 Curitiba: o evento que marcará um antes e depois na gastronomia",
+                title: "Mesa Conference 2025: o evento que marcará um antes e depois na gastronomia",
                 excerpt: "Conheça as tendências, ferramentas e casos de sucesso apresentados no maior evento de hospitality tech da região.",
                 color: "bg-chart-5/15 text-chart-5",
               },
               {
                 tag: "Produto",
                 date: "8 Mar 2025",
-                title: "Novo Timeline de Reservas na Cluvi: gestão mais ágil e precisa para restaurantes",
+                title: "Novo Timeline de Reservas na Mesa: gestão mais ágil e precisa para restaurantes",
                 excerpt: "Agora você visualiza sua ocupação por hora e mesa em uma única tela. Dobre a produtividade da sua hostess.",
                 color: "bg-primary/15 text-primary",
               },
@@ -526,7 +526,7 @@ export function LandingView() {
 
       {/* FAQ */}
       <section className="bg-secondary/40 py-20">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div {...fade()} className="max-w-2xl mx-auto text-center mb-10">
             <Badge variant="secondary" className="mb-3">Perguntas frequentes</Badge>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
@@ -539,10 +539,10 @@ export function LandingView() {
               {[
                 {
                   q: "Preciso instalar algo no meu restaurante?",
-                  a: "Não. A Cluvi é 100% web. Você só precisa de um celular com câmera para escanear o QR de cada mesa e um navegador. Seus clientes também não baixam nada: o cardápio abre direto no navegador deles.",
+                  a: "Não. A Mesa é 100% web. Você só precisa de um celular com câmera para escanear o QR de cada mesa e um navegador. Seus clientes também não baixam nada: o cardápio abre direto no navegador deles.",
                 },
                 {
-                  q: "Quanto custa implementar a Cluvi?",
+                  q: "Quanto custa implementar a Mesa?",
                   a: "Oferecemos planos a partir de R$ 149/mês para restaurantes pequenos, até planos enterprise com multi-unidade. Inclui cardápio digital, pedidos QR, reservas e painel analítico. Agende uma demo para cotizar seu caso.",
                 },
                 {
@@ -551,7 +551,7 @@ export function LandingView() {
                 },
                 {
                   q: "Posso migrar meu cardápio atual?",
-                  a: "Sim. Envie sua carta em PDF ou Excel e nossa equipe importa sem custo. Você também pode usar o Otto (nossa IA) para enriquecer descrições, sugerir fotos e traduzir para 8 idiomas automaticamente.",
+                  a: "Sim. Envie sua carta em PDF ou Excel e nossa equipe importa sem custo. Você também pode usar nosso assistente de IA para enriquecer descrições, sugerir fotos e traduzir para 8 idiomas automaticamente.",
                 },
                 {
                   q: "Como recebo os pagamentos?",
@@ -574,7 +574,7 @@ export function LandingView() {
 
       {/* CTA */}
       <section className="py-20 md:py-28">
-        <div className="container-cluvi">
+        <div className="container-app">
           <motion.div
             {...fade()}
             className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-chart-5 px-6 py-16 md:px-16 md:py-24 text-center text-primary-foreground"

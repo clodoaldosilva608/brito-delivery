@@ -114,7 +114,7 @@ export function AdminView() {
 
   if (loading || !stats) {
     return (
-      <div className="container-cluvi py-20 flex flex-col items-center gap-4">
+      <div className="container-app py-20 flex flex-col items-center gap-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
         <p className="text-muted-foreground">Carregando painel…</p>
       </div>
@@ -125,7 +125,7 @@ export function AdminView() {
 
   return (
     <div className="min-h-screen bg-secondary/30">
-      <div className="container-cluvi py-6">
+      <div className="container-app py-6">
         <button
           onClick={() => setView("home")}
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
@@ -141,7 +141,7 @@ export function AdminView() {
               {refreshing && <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />}
             </h1>
             <p className="text-sm text-muted-foreground">
-              A Varanda do Chef · Atualização automática a cada 20s
+              Cozinha Demo · Atualização automática a cada 20s
             </p>
           </div>
           <Button variant="outline" size="sm" onClick={() => { setRefreshing(true); load().finally(() => setRefreshing(false)); }}>

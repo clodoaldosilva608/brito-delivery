@@ -153,7 +153,7 @@ export function MenuView() {
 
   if (loading) {
     return (
-      <div className="container-cluvi py-20 flex flex-col items-center gap-4">
+      <div className="container-app py-20 flex flex-col items-center gap-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
         <p className="text-muted-foreground">Carregando cardápio…</p>
       </div>
@@ -162,7 +162,7 @@ export function MenuView() {
 
   if (!data) {
     return (
-      <div className="container-cluvi py-20 text-center">
+      <div className="container-app py-20 text-center">
         <p className="text-muted-foreground">Cardápio não encontrado.</p>
       </div>
     );
@@ -172,7 +172,7 @@ export function MenuView() {
     <div className="min-h-screen flex flex-col">
       {/* Header do restaurante */}
       <div className="bg-gradient-to-b from-accent to-accent/80 text-accent-foreground">
-        <div className="container-cluvi py-6">
+        <div className="container-app py-6">
           <button
             onClick={() => setView("home")}
             className="inline-flex items-center gap-1 text-xs text-accent-foreground/70 hover:text-primary transition-colors mb-4"
@@ -210,7 +210,7 @@ export function MenuView() {
 
       {/* Nav sticky de categorias + busca */}
       <div className="sticky top-16 z-30 bg-background/95 backdrop-blur-lg border-b">
-        <div className="container-cluvi py-3 flex items-center gap-3">
+        <div className="container-app py-3 flex items-center gap-3">
           <div className="relative flex-1 max-w-xs">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -248,7 +248,7 @@ export function MenuView() {
       </div>
 
       {/* Conteúdo do cardápio */}
-      <div className="container-cluvi py-6 flex-1">
+      <div className="container-app py-6 flex-1">
         {search.trim() === "" && (
           <FeaturedSection
             products={data.categories.flatMap((c) => c.products).filter((p) => p.isFeatured)}

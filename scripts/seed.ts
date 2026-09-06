@@ -1,9 +1,9 @@
 // scripts/seed.ts
-// Seed demo data for Cluvi platform - Portuguese version
+// Seed demo data for Mesa platform - Portuguese version
 import { db } from "../src/lib/db";
 
 async function main() {
-  console.log("🌱 Seedando dados de demo Cluvi (PT-BR)...");
+  console.log("🌱 Seedando dados de demo Mesa (PT-BR)...");
 
   await db.contactMessage.deleteMany();
   await db.orderItem.deleteMany();
@@ -16,14 +16,14 @@ async function main() {
 
   const restaurant = await db.restaurant.create({
     data: {
-      name: "A Varanda do Chef",
-      slug: "a-varanda-do-chef",
+      name: "Cozinha Demo",
+      slug: "cozinha-demo",
       description:
-        "Cozinha de autor com ingredientes locais. Um lugar onde a tradição encontra a inovação gastronômica.",
+        "Restaurante fictício para demonstração. Edite os dados no painel administrativo após o cadastro.",
       primaryColor: "#E85D2C",
-      address: "Rua das Flores, 123 - Jardim Botânico, Curitiba",
-      phone: "+55 41 3044 2616",
-      email: "ola@avarandadochef.com",
+      address: "Rua Exemplo, 123 - Centro",
+      phone: "+55 11 99999-0000",
+      email: "contato@exemplo.com",
       currency: "BRL",
     },
   });
@@ -79,7 +79,7 @@ async function main() {
     { name: "Duplo Vício", description: "Duplo blend de 150g, cheddar, bacon, cebola caramelizada, molho da casa.", price: 42, category: "hamburgueres", isFeatured: true, prepTimeMin: 18 },
     { name: "Burger de Frango Crocante", description: "Filé de frango empanado, alface, tomate, maionese de chipotle.", price: 34, category: "hamburgueres", isSpicy: true, prepTimeMin: 16 },
     { name: "Burger Vegano", description: "Hambúrguer de lentilha e beterraba, abacate, rúcula e molho de iogurte vegano.", price: 38, category: "hamburgueres", isVegan: true, prepTimeMin: 18 },
-    { name: "Burger Cluvi Especial", description: "Blend 200g, queijo brie, presunto cru, ovo de codorna, pão brioche.", price: 48, category: "hamburgueres", isFeatured: true, prepTimeMin: 20 },
+    { name: "Burger Especial da Casa", description: "Blend 200g, queijo brie, presunto cru, ovo de codorna, pão brioche.", price: 48, category: "hamburgueres", isFeatured: true, prepTimeMin: 20 },
 
     // Massas
     { name: "Spaghetti Carbonara", description: "Massa com bacon, gema de ovo, queijo pecorino e pimenta-do-reino.", price: 39, category: "massas", prepTimeMin: 18 },
@@ -210,14 +210,14 @@ async function main() {
 
   // Reservas
   const customers = [
-    { name: "Camila Restrepo", phone: "+55 41 9555-1212", email: "camila@exemplo.com", size: 2, occasion: "Encontro romântico" },
-    { name: "André Gomes", phone: "+55 41 9444-2323", email: "andre@exemplo.com", size: 4, occasion: "Jantar em família" },
-    { name: "Laura Jimenez", phone: "+55 41 9333-3434", email: "laura@exemplo.com", size: 6, occasion: "Aniversário" },
-    { name: "Sebastião Ortiz", phone: "+55 41 9222-4545", email: "sebas@exemplo.com", size: 2 },
-    { name: "Valentina Ruiz", phone: "+55 41 9111-5656", email: "valen@exemplo.com", size: 3 },
-    { name: "Felipe Cardoso", phone: "+55 41 9999-6767", email: "felipe@exemplo.com", size: 8, occasion: "Jantar de negócios" },
-    { name: "Mariana Lopes", phone: "+55 41 9888-7878", email: "mari@exemplo.com", size: 4 },
-    { name: "Santiago Vera", phone: "+55 41 9777-8989", email: "santi@exemplo.com", size: 2, occasion: "Aniversário de namoro" },
+    { name: "Ana Silva", phone: "+55 11 95555-1001", email: "ana.silva@exemplo.com", size: 2, occasion: "Encontro romântico" },
+    { name: "Bruno Costa", phone: "+55 11 95555-1002", email: "bruno.costa@exemplo.com", size: 4, occasion: "Jantar em família" },
+    { name: "Carla Mendes", phone: "+55 11 95555-1003", email: "carla.mendes@exemplo.com", size: 6, occasion: "Aniversário" },
+    { name: "Diego Ferreira", phone: "+55 11 95555-1004", email: "diego.ferreira@exemplo.com", size: 2 },
+    { name: "Eduarda Lima", phone: "+55 11 95555-1005", email: "eduarda.lima@exemplo.com", size: 3 },
+    { name: "Felipe Souza", phone: "+55 11 95555-1006", email: "felipe.souza@exemplo.com", size: 8, occasion: "Jantar de negócios" },
+    { name: "Gabriela Rocha", phone: "+55 11 95555-1007", email: "gabriela.rocha@exemplo.com", size: 4 },
+    { name: "Henrique Alves", phone: "+55 11 95555-1008", email: "henrique.alves@exemplo.com", size: 2, occasion: "Aniversário de namoro" },
   ];
 
   const times = ["12:30", "13:00", "13:30", "14:00", "19:00", "19:30", "20:00", "20:30", "21:00"];
@@ -246,6 +246,7 @@ async function main() {
 
   console.log("\n🎉 Seed concluído!");
   console.log(`Restaurante: ${restaurant.name} (slug: ${restaurant.slug})`);
+  console.log(`Dados de demonstração - substitua por dados reais via painel.`);
 }
 
 main()

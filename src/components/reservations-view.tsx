@@ -87,7 +87,7 @@ export function ReservationsView() {
 
   if (success) {
     return (
-      <div className="container-cluvi py-12">
+      <div className="container-app py-12">
         <button
           onClick={() => setView("home")}
           className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-4"
@@ -111,7 +111,7 @@ export function ReservationsView() {
                 <PartyPopper className="h-8 w-8" />
               </motion.div>
               <h2 className="text-2xl font-bold">Reserva confirmada!</h2>
-              <p className="opacity-90 text-sm mt-1">Te esperamos na A Varanda do Chef</p>
+              <p className="opacity-90 text-sm mt-1">Te esperamos na Cozinha Demo</p>
             </div>
             <CardContent className="p-6 space-y-3">
               <div className="flex justify-between text-sm py-2 border-b">
@@ -164,7 +164,7 @@ export function ReservationsView() {
   }
 
   return (
-    <div className="container-cluvi py-6">
+    <div className="container-app py-6">
       <button
         onClick={() => setView("home")}
         className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors mb-3"
@@ -186,7 +186,7 @@ export function ReservationsView() {
           </Badge>
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
             Reserve sua mesa na
-            <span className="block text-primary mt-1">A Varanda do Chef</span>
+            <span className="block text-primary mt-1">Cozinha Demo</span>
           </h1>
           <p className="mt-4 text-muted-foreground leading-relaxed">
             Cozinha de autor com ingredientes locais. Confirmação imediata por SMS e e-mail.

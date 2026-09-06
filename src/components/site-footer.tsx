@@ -9,15 +9,15 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto bg-accent text-accent-foreground">
-      <div className="container-cluvi py-14">
+      <div className="container-app py-14">
         <div className="grid gap-10 md:grid-cols-4">
           {/* Marca */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black text-lg">
-                C
+                M
               </span>
-              <span className="text-xl font-bold">Cluvi</span>
+              <span className="text-xl font-bold">Mesa</span>
             </div>
             <p className="mt-3 text-sm text-accent-foreground/70 leading-relaxed">
               O futuro da gastronomia. Digitalize seu restaurante com cardápios inteligentes,
@@ -66,15 +66,15 @@ export function SiteFooter() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2 text-accent-foreground/80">
                 <Mail className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>contato@cluvi.com</span>
+                <span>contato@exemplo.com</span>
               </li>
               <li className="flex items-start gap-2 text-accent-foreground/80">
                 <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>+55 41 3044 2616</span>
+                <span>+55 11 99999-0000</span>
               </li>
               <li className="flex items-start gap-2 text-accent-foreground/80">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>Curitiba · São Paulo · Florianópolis</span>
+                <span>Sua cidade · Sua região</span>
               </li>
             </ul>
             <Button
@@ -89,7 +89,7 @@ export function SiteFooter() {
 
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-accent-foreground/50">
-            © 2024 Cluvi. Todos os direitos reservados.
+            © 2024 Mesa. Todos os direitos reservados.
           </p>
           <div className="flex gap-4 text-xs text-accent-foreground/50">
             <a href="#" className="hover:text-primary transition-colors">Termos</a>

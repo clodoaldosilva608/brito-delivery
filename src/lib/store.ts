@@ -24,7 +24,7 @@ export const useNav = create<NavState>()(
       restaurantId: null,
       setRestaurantId: (id) => set({ restaurantId: id }),
     }),
-    { name: "cluvi-nav" }
+    { name: "mesa-nav" }
   )
 );
 
@@ -82,7 +82,7 @@ export const useCart = create<CartState>()(
       totalItems: () => get().items.reduce((s, i) => s + i.quantity, 0),
       subtotal: () => get().items.reduce((s, i) => s + i.price * i.quantity, 0),
     }),
-    { name: "cluvi-cart" }
+    { name: "mesa-cart" }
   )
 );
 

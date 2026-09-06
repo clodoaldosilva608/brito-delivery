@@ -32,17 +32,17 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-lg supports-[backdrop-filter]:bg-background/70">
-      <div className="container-cluvi flex h-16 items-center justify-between gap-4">
+      <div className="container-app flex h-16 items-center justify-between gap-4">
         <button
           onClick={() => handleNav("home")}
           className="flex items-center gap-2 group"
-          aria-label="Cluvi início"
+          aria-label="Mesa início"
         >
           <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-sm transition-transform group-hover:scale-105">
-            C
+            M
           </span>
           <span className="text-xl font-bold tracking-tight">
-            Cluvi
+            Mesa
           </span>
           <span className="hidden sm:inline-block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground ml-1 px-2 py-0.5 rounded-full bg-secondary">
             Demo
@@ -86,7 +86,7 @@ export function SiteHeader() {
                   <span className="grid place-items-center h-8 w-8 rounded-lg bg-primary text-primary-foreground font-black">
                     C
                   </span>
-                  Cluvi Demo
+                  Mesa Demo
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col gap-1">
