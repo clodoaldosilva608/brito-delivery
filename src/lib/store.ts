@@ -16,7 +16,7 @@ export type View =
   | "owner-menu"
   | "owner-settings"
   | "create-store"
-  // New admin views
+  // Admin views
   | "admin-customize"
   | "admin-info"
   | "admin-status"
@@ -32,7 +32,10 @@ export type View =
   | "admin-users"
   | "admin-customers"
   | "admin-reports"
-  | "admin-stock";
+  | "admin-stock"
+  // Super Admin views
+  | "super-admin-login"
+  | "super-admin";
 
 interface NavState {
   view: View;

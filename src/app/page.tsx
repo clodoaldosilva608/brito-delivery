@@ -20,6 +20,8 @@ import {
   AdminKitchenView, AdminKdsView, AdminDomainView, AdminIntegrationsView,
   AdminUsersView, AdminCustomersView, AdminReportsView, AdminStockView,
 } from "@/components/admin-views";
+import { SuperAdminLoginView } from "@/components/super-admin-login-view";
+import { SuperAdminView } from "@/components/super-admin-view";
 
 export default function Home() {
   const { view } = useNav();
@@ -60,6 +62,9 @@ export default function Home() {
         {view === "admin-customers" && <AdminCustomersView />}
         {view === "admin-reports" && <AdminReportsView />}
         {view === "admin-stock" && <AdminStockView />}
+        {/* Super Admin */}
+        {view === "super-admin-login" && <SuperAdminLoginView />}
+        {view === "super-admin" && <SuperAdminView />}
       </main>
       <SiteFooter />
     </div>

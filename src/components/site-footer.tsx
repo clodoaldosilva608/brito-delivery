@@ -64,9 +64,16 @@ export function SiteFooter() {
           <p className="text-xs text-muted-foreground">
             © 2024 Brito. Todos os direitos reservados.
           </p>
-          <div className="flex gap-4 text-xs text-muted-foreground">
+          <div className="flex gap-4 text-xs text-muted-foreground items-center">
             <a href="#" className="hover:text-primary transition-colors">Termos</a>
             <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
+            <button
+              onClick={() => { setView("super-admin-login"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md border border-border hover:border-primary/40 hover:text-primary transition-colors"
+            >
+              <Shield className="h-3 w-3" />
+              Admin
+            </button>
           </div>
         </div>
       </div>
