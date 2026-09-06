@@ -17,7 +17,7 @@ export async function PATCH(
     await requireAdmin();
     const { id } = await params;
     const body = await req.json();
-    const { isActive, isOpen, name, category, deliveryFee, minOrder, pixKey } = body;
+    const { isActive, isOpen, name, category, deliveryFee, minOrder, pixKey, subscriptionStatus } = body;
 
     const update: any = {};
     if (isActive !== undefined) update.isActive = isActive;
@@ -27,6 +27,14 @@ export async function PATCH(
     if (deliveryFee !== undefined) update.deliveryFee = deliveryFee;
     if (minOrder !== undefined) update.minOrder = minOrder;
     if (pixKey !== undefined) update.pixKey = pixKey;
+    if (subscriptionStatus !== undefined) {
+      update.subscriptionStatus = subscriptionStatus;
+      if (subscriptionStatus === "BLOCKED") {
+        update.isActive = false;
+      } else if (subscriptionStatus === "SUBSCRIBER") {
+        update.isActive = true;
+      }
+    }
 
     const store = await db.store.update({ where: { id }, data: update });
     return NextResponse.json({ store });

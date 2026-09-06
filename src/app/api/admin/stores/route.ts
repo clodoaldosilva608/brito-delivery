@@ -59,6 +59,8 @@ export async function GET(req: NextRequest) {
         minOrder: s.minOrder,
         pixKey: s.pixKey,
         paymentConnected: s.paymentConnected,
+        subscriptionStatus: s.subscriptionStatus,
+        subscriptionEndsAt: s.subscriptionEndsAt,
         createdAt: s.createdAt,
         ordersCount: s._count.orders,
         menuItemsCount: s._count.menuItems,

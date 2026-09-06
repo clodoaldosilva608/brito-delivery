@@ -98,8 +98,11 @@ model Store {
   // Domínio próprio
   customDomain  String?
   domainVerified Boolean @default(false)
-  // Trial
+  // Trial + Assinatura
   trialEndsAt   DateTime?
+  subscriptionStatus String @default("TRIAL") // TRIAL | SUBSCRIBER | BLOCKED
+  subscriptionPlanId String?
+  subscriptionEndsAt DateTime?
   // Estado
   isActive      Boolean  @default(true)
   isOpen        Boolean  @default(true)
@@ -107,6 +110,7 @@ model Store {
   updatedAt     DateTime @updatedAt
 
   owner       Profile      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  subscriptionPlan SubscriptionPlan? @relation(fields: [subscriptionPlanId], references: [id], onDelete: SetNull)
   menuSections MenuSection[]
   menuItems   MenuItem[]
   orders      Order[]
@@ -115,6 +119,24 @@ model Store {
   members     StoreMember[]
 
   @@index([category])
+  @@index([isActive])
+}
+
+model SubscriptionPlan {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  price       Float
+  billingCycle String  @default("MONTHLY") // MONTHLY | YEARLY
+  features    String?  // JSON array of feature strings
+  isActive    Boolean  @default(true)
+  maxStores   Int      @default(1)
+  maxMenuItems Int     @default(100)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  stores Store[]
+
   @@index([isActive])
 }
 
