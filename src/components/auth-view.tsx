@@ -56,7 +56,13 @@ export function AuthView() {
       }
       await refresh();
       toast.success(mode === "login" ? "Bem-vindo de volta!" : "Conta criada!");
-      setView("home");
+      // Redirect: owners e admins vão para o dashboard, clientes para home
+      const roles = data.profile?.roles || [];
+      if (roles.includes("OWNER") || roles.includes("ADMIN")) {
+        setView("dashboard");
+      } else {
+        setView("home");
+      }
     } catch (e: any) {
       toast.error(e.message);
     } finally {

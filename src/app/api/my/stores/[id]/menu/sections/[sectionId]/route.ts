@@ -3,9 +3,10 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 
-async function ensureOwnedBy(storeId: string, ownerId: string) {
+async function ensureOwnedBy(storeId: string, ownerId: string, isAdmin: boolean = false) {
   const store = await db.store.findUnique({ where: { id: storeId } });
-  if (!store || store.ownerId !== ownerId) throw new Error("FORBIDDEN");
+  if (!store) throw new Error("FORBIDDEN");
+  if (!isAdmin && store.ownerId !== ownerId) throw new Error("FORBIDDEN");
   return store;
 }
 
@@ -22,7 +23,7 @@ export async function PATCH(
   try {
     const session = await requireAuth();
     const { id, sectionId } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
 
     const body = await req.json();
     const parsed = UpdateSectionSchema.safeParse(body);
@@ -49,7 +50,7 @@ export async function DELETE(
   try {
     const session = await requireAuth();
     const { id, sectionId } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
     await db.menuSection.delete({ where: { id: sectionId } });
     return NextResponse.json({ success: true });
   } catch (e: any) {

@@ -43,7 +43,7 @@ export function SiteHeader() {
     handleNav("home");
   };
 
-  const isOwner = profile?.roles?.includes("OWNER");
+  const isOwner = profile?.roles?.includes("OWNER") || profile?.roles?.includes("ADMIN");
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/90 backdrop-blur-lg">

@@ -3,9 +3,10 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 
-async function ensureOwnedBy(storeId: string, ownerId: string) {
+async function ensureOwnedBy(storeId: string, ownerId: string, isAdmin: boolean = false) {
   const store = await db.store.findUnique({ where: { id: storeId } });
-  if (!store || store.ownerId !== ownerId) throw new Error("FORBIDDEN");
+  if (!store) throw new Error("FORBIDDEN");
+  if (!isAdmin && store.ownerId !== ownerId) throw new Error("FORBIDDEN");
 }
 
 const CreateAreaSchema = z.object({
@@ -17,7 +18,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const session = await requireAuth();
     const { id } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
     const areas = await db.kitchenArea.findMany({
       where: { storeId: id },
       orderBy: { position: "asc" },
@@ -34,7 +35,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   try {
     const session = await requireAuth();
     const { id } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
     const body = await req.json();
     const parsed = CreateAreaSchema.safeParse(body);
     if (!parsed.success) return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });

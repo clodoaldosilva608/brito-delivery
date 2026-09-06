@@ -28,8 +28,9 @@ export async function PATCH(
       return NextResponse.json({ error: "Pedido não encontrado" }, { status: 404 });
     }
 
-    // Dono da loja pode mudar status; cliente só pode CANCELAR (se ainda PENDING)
-    const isOwner = order.store.ownerId === session.sub;
+    // Dono da loja ou ADMIN pode mudar status; cliente só pode CANCELAR (se ainda PENDING)
+    const isAdmin = session.roles.includes("ADMIN");
+    const isOwner = order.store.ownerId === session.sub || isAdmin;
     const isCustomer = order.customerId === session.sub;
 
     if (!isOwner && !isCustomer) {

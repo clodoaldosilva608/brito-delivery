@@ -14,9 +14,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "storeId obrigatório" }, { status: 400 });
     }
 
-    // Verificar posse
+    // Verificar posse (ADMIN tem acesso a todas)
     const store = await db.store.findUnique({ where: { id: storeId } });
-    if (!store || store.ownerId !== session.sub) {
+    const isAdmin = session.roles.includes("ADMIN");
+    if (!store || (!isAdmin && store.ownerId !== session.sub)) {
       return NextResponse.json({ error: "Acesso negado" }, { status: 403 });
     }
 

@@ -3,9 +3,10 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 
-async function ensureOwnedBy(storeId: string, ownerId: string) {
+async function ensureOwnedBy(storeId: string, ownerId: string, isAdmin: boolean = false) {
   const store = await db.store.findUnique({ where: { id: storeId } });
-  if (!store || store.ownerId !== ownerId) throw new Error("FORBIDDEN");
+  if (!store) throw new Error("FORBIDDEN");
+  if (!isAdmin && store.ownerId !== ownerId) throw new Error("FORBIDDEN");
   return store;
 }
 
@@ -17,7 +18,7 @@ export async function GET(
   try {
     const session = await requireAuth();
     const { id } = await params;
-    const store = await ensureOwnedBy(id, session.sub);
+    const store = await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
 
     const full = await db.store.findUnique({
       where: { id },
@@ -111,7 +112,7 @@ export async function PATCH(
   try {
     const session = await requireAuth();
     const { id } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
 
     const body = await req.json();
     const parsed = UpdateStoreSchema.safeParse(body);
@@ -152,7 +153,7 @@ export async function DELETE(
   try {
     const session = await requireAuth();
     const { id } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
     await db.store.update({ where: { id }, data: { isActive: false } });
     return NextResponse.json({ success: true });
   } catch (e: any) {

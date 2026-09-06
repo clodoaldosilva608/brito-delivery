@@ -12,12 +12,13 @@ function slugify(s: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-// GET /api/my/stores — lista lojas do dono logado
+// GET /api/my/stores — lista lojas do dono logado (ADMIN vê todas)
 export async function GET() {
   try {
     const session = await requireAuth();
+    const isAdmin = session.roles.includes("ADMIN");
     const stores = await db.store.findMany({
-      where: { ownerId: session.sub },
+      where: isAdmin ? {} : { ownerId: session.sub },
       orderBy: { createdAt: "desc" },
       include: {
         _count: { select: { orders: true, menuItems: true } },

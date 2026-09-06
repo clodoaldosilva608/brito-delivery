@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { requireAuth } from "@/lib/auth";
 
-async function ensureOwnedBy(storeId: string, ownerId: string) {
+async function ensureOwnedBy(storeId: string, ownerId: string, isAdmin: boolean = false) {
   const store = await db.store.findUnique({ where: { id: storeId } });
-  if (!store || store.ownerId !== ownerId) throw new Error("FORBIDDEN");
+  if (!store) throw new Error("FORBIDDEN");
+  if (!isAdmin && store.ownerId !== ownerId) throw new Error("FORBIDDEN");
 }
 
 // GET /api/my/stores/[id]/customers — clientes derivados de pedidos
@@ -12,7 +13,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   try {
     const session = await requireAuth();
     const { id } = await params;
-    await ensureOwnedBy(id, session.sub);
+    await ensureOwnedBy(id, session.sub, session.roles.includes("ADMIN"));
 
     // Agrupa pedidos por customerName+phone
     const orders = await db.order.findMany({
