@@ -1,102 +1,125 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { db } from "@/lib/db";
+import { requireAuth } from "@/lib/auth";
 
-// GET /api/orders?restaurantId=xxx - list orders for restaurant
-export async function GET(req: NextRequest) {
-  const restaurantId = req.nextUrl.searchParams.get("restaurantId");
-  const status = req.nextUrl.searchParams.get("status");
+const CreateOrderSchema = z.object({
+  storeId: z.string().min(1),
+  customerName: z.string().min(2, "Nome obrigatório"),
+  customerPhone: z.string().min(8, "Telefone inválido"),
+  cep: z.string().min(8, "CEP inválido"),
+  street: z.string().min(3, "Rua obrigatória"),
+  number: z.string().min(1, "Número obrigatório"),
+  complement: z.string().optional().nullable(),
+  neighborhood: z.string().min(2, "Bairro obrigatório"),
+  city: z.string().min(2, "Cidade obrigatória"),
+  paymentMethod: z.enum(["PIX", "CARD", "ON_DELIVERY"]),
+  paymentDetail: z.string().optional().nullable(),
+  notes: z.string().optional().nullable(),
+  items: z.array(
+    z.object({
+      itemId: z.string(),
+      quantity: z.number().int().min(1).max(99),
+      notes: z.string().optional().nullable(),
+    })
+  ).min(1, "Selecione ao menos 1 item"),
+});
 
-  if (!restaurantId) {
-    return NextResponse.json({ error: "restaurantId obrigatório" }, { status: 400 });
-  }
-
-  const where: any = { restaurantId };
-  if (status && status !== "ALL") {
-    where.status = status;
-  }
-
-  const orders = await db.order.findMany({
-    where,
-    orderBy: { createdAt: "desc" },
-    take: 100,
-    include: {
-      items: true,
-      table: true,
-    },
-  });
-
-  return NextResponse.json({ orders });
-}
-
-// POST /api/orders - create new order
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { restaurantId, tableId, items, customerName, notes, channel, tip } = body;
+    const session = await requireAuth();
 
-    if (!restaurantId || !items || !Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ error: "Campos obrigatórios faltando" }, { status: 400 });
+    const body = await req.json();
+    const parsed = CreateOrderSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Dados inválidos", details: parsed.error.flatten() },
+        { status: 400 }
+      );
+    }
+    const data = parsed.data;
+
+    // Validar loja e itens
+    const store = await db.store.findUnique({
+      where: { id: data.storeId },
+    });
+    if (!store || !store.isActive) {
+      return NextResponse.json({ error: "Loja indisponível" }, { status: 400 });
     }
 
-    // Validate products and compute total
-    const productIds = items.map((i: any) => i.productId);
-    const products = await db.product.findMany({
-      where: { id: { in: productIds }, restaurantId },
+    const items = await db.menuItem.findMany({
+      where: {
+        id: { in: data.items.map((i) => i.itemId) },
+        storeId: store.id,
+        isAvailable: true,
+      },
+    });
+    if (items.length !== data.items.length) {
+      return NextResponse.json(
+        { error: "Um ou mais itens não estão disponíveis" },
+        { status: 400 }
+      );
+    }
+
+    const itemMap = new Map(items.map((it) => [it.id, it]));
+    let subtotal = 0;
+    const orderItemsData = data.items.map((i) => {
+      const it = itemMap.get(i.itemId)!;
+      subtotal += it.price * i.quantity;
+      return {
+        itemId: it.id,
+        name: it.name,
+        unitPrice: it.price,
+        quantity: i.quantity,
+        notes: i.notes || null,
+      };
     });
 
-    const productMap = new Map(products.map((p) => [p.id, p]));
-    let subtotal = 0;
-    const orderItemsData: any[] = [];
-
-    for (const item of items) {
-      const product = productMap.get(item.productId);
-      if (!product) {
-        return NextResponse.json({ error: `Produto ${item.productId} não encontrado` }, { status: 400 });
-      }
-      const qty = Math.max(1, Math.min(99, parseInt(item.quantity) || 1));
-      subtotal += product.price * qty;
-      orderItemsData.push({
-        productId: product.id,
-        name: product.name,
-        unitPrice: product.price,
-        quantity: qty,
-        notes: item.notes || null,
-      });
+    if (subtotal < store.minOrder) {
+      return NextResponse.json(
+        { error: `Pedido mínimo de R$ ${store.minOrder.toFixed(2)} não atingido` },
+        { status: 400 }
+      );
     }
 
-    const tipAmount = Math.max(0, parseFloat(tip) || 0);
-    const total = subtotal + tipAmount;
+    const total = subtotal + store.deliveryFee;
 
-    // Get next order number
     const lastOrder = await db.order.findFirst({
-      where: { restaurantId },
       orderBy: { orderNumber: "desc" },
     });
     const orderNumber = (lastOrder?.orderNumber ?? 1000) + 1;
 
     const order = await db.order.create({
       data: {
-        restaurantId,
-        tableId: tableId || null,
+        storeId: store.id,
+        customerId: session.sub,
         orderNumber,
         status: "PENDING",
-        channel: channel || "QR",
-        customerName: customerName || null,
-        notes: notes || null,
+        customerName: data.customerName,
+        customerPhone: data.customerPhone,
+        cep: data.cep,
+        street: data.street,
+        number: data.number,
+        complement: data.complement || null,
+        neighborhood: data.neighborhood,
+        city: data.city,
+        paymentMethod: data.paymentMethod,
+        paymentDetail: data.paymentDetail || null,
         subtotal,
-        tip: tipAmount,
+        deliveryFee: store.deliveryFee,
         total,
+        notes: data.notes || null,
         items: { create: orderItemsData },
       },
-      include: {
-        items: true,
-        table: true,
-      },
+      include: { items: true, store: true },
     });
 
     return NextResponse.json({ order }, { status: 201 });
   } catch (e: any) {
-    console.error("Erro ao criar pedido:", e);
-    return NextResponse.json({ error: e.message }, { status: 500 });
+    if (e.message === "UNAUTHORIZED") {
+      return NextResponse.json({ error: "Faça login para finalizar o pedido" }, { status: 401 });
+    }
+    console.error("Create order error:", e);
+    return NextResponse.json({ error: e.message || "Erro interno" }, { status: 500 });
   }
 }

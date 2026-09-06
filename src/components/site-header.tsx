@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useNav } from "@/lib/store";
+import { useEffect } from "react";
+import { useNav, useCart, useSession } from "@/lib/store";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Sheet,
   SheetContent,
@@ -10,71 +11,122 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Menu, QrCode, UtensilsCrossed, LayoutDashboard, CalendarCheck, Phone } from "lucide-react";
+import {
+  Menu,
+  ShoppingCart,
+  Store,
+  Home,
+  Package,
+  LayoutDashboard,
+  LogIn,
+  LogOut,
+  UtensilsCrossed,
+} from "lucide-react";
 
 export function SiteHeader() {
   const { view, setView } = useNav();
-  const [open, setOpen] = useState(false);
+  const totalItems = useCart((s) => s.totalItems());
+  const { profile, refresh, loading } = useSession();
 
-  const navItems: { label: string; view: typeof view; icon: any }[] = [
-    { label: "Início", view: "home", icon: UtensilsCrossed },
-    { label: "Cardápio QR", view: "menu", icon: QrCode },
-    { label: "Reservas", view: "reservations", icon: CalendarCheck },
-    { label: "Painel", view: "admin", icon: LayoutDashboard },
-    { label: "Contato", view: "contact", icon: Phone },
-  ];
+  useEffect(() => {
+    refresh();
+  }, [refresh, view]);
 
   const handleNav = (v: typeof view) => {
     setView(v);
-    setOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    await refresh();
+    handleNav("home");
+  };
+
+  const isOwner = profile?.roles?.includes("OWNER");
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/85 backdrop-blur-lg supports-[backdrop-filter]:bg-background/70">
-      <div className="container-app flex h-16 items-center justify-between gap-4">
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/90 backdrop-blur-lg">
+      <div className="container-brito flex h-16 items-center justify-between gap-4">
         <button
           onClick={() => handleNav("home")}
           className="flex items-center gap-2 group"
-          aria-label="Mesa início"
+          aria-label="Brito início"
         >
           <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black text-lg shadow-sm transition-transform group-hover:scale-105">
-            M
+            B
           </span>
-          <span className="text-xl font-bold tracking-tight">
-            Mesa
-          </span>
-          <span className="hidden sm:inline-block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground ml-1 px-2 py-0.5 rounded-full bg-secondary">
-            Demo
-          </span>
+          <span className="text-xl font-bold tracking-tight">Brito</span>
         </button>
 
-        {/* Nav desktop */}
+        {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item) => (
+          <button
+            onClick={() => handleNav("home")}
+            className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+              view === "home" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+            }`}
+          >
+            Início
+          </button>
+          {profile && (
             <button
-              key={item.view}
-              onClick={() => handleNav(item.view)}
+              onClick={() => handleNav("orders")}
               className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                view === item.view
-                  ? "bg-primary/10 text-primary"
+                view === "orders" ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              }`}
+            >
+              Meus pedidos
+            </button>
+          )}
+          {isOwner && (
+            <button
+              onClick={() => handleNav("dashboard")}
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                ["dashboard", "owner-orders", "owner-menu", "owner-settings", "create-store"].includes(view)
+                  ? "bg-primary/15 text-primary"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               }`}
             >
-              {item.label}
+              Minha loja
             </button>
-          ))}
+          )}
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            className="hidden sm:inline-flex"
-            onClick={() => handleNav("menu")}
+          {/* Cart */}
+          <button
+            onClick={() => handleNav("cart")}
+            className="relative grid place-items-center h-9 w-9 rounded-lg hover:bg-muted transition-colors"
+            aria-label="Carrinho"
           >
-            Ver cardápio demo
-          </Button>
-          <Sheet open={open} onOpenChange={setOpen}>
+            <ShoppingCart className="h-5 w-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-[10px] font-bold rounded-full h-4 min-w-4 px-1 grid place-items-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+
+          {/* Auth */}
+          {!loading && profile ? (
+            <div className="hidden md:flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground">
+                <LogOut className="h-4 w-4 mr-1.5" />
+                Sair
+              </Button>
+            </div>
+          ) : (
+            !loading && (
+              <Button size="sm" onClick={() => handleNav("auth")} className="hidden md:inline-flex">
+                <LogIn className="h-4 w-4 mr-1.5" />
+                Entrar
+              </Button>
+            )
+          )}
+
+          {/* Mobile menu */}
+          <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden" aria-label="Abrir menu">
                 <Menu className="h-5 w-5" />
@@ -84,37 +136,56 @@ export function SiteHeader() {
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
                   <span className="grid place-items-center h-8 w-8 rounded-lg bg-primary text-primary-foreground font-black">
-                    C
+                    B
                   </span>
-                  Mesa Demo
+                  Brito
                 </SheetTitle>
               </SheetHeader>
               <nav className="mt-6 flex flex-col gap-1">
-                {navItems.map((item) => (
+                <MobileItem icon={Home} label="Início" onClick={() => handleNav("home")} active={view === "home"} />
+                {profile && (
+                  <MobileItem icon={Package} label="Meus pedidos" onClick={() => handleNav("orders")} active={view === "orders"} />
+                )}
+                {isOwner && (
+                  <>
+                    <MobileItem icon={LayoutDashboard} label="Painel da loja" onClick={() => handleNav("dashboard")} active={view === "dashboard"} />
+                    <MobileItem icon={Store} label="Criar loja" onClick={() => handleNav("create-store")} active={view === "create-store"} />
+                  </>
+                )}
+                <MobileItem icon={ShoppingCart} label="Carrinho" onClick={() => handleNav("cart")} active={view === "cart"} />
+                {profile ? (
                   <button
-                    key={item.view}
-                    onClick={() => handleNav(item.view)}
-                    className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg transition-colors text-left ${
-                      view === item.view
-                        ? "bg-primary/10 text-primary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                    }`}
+                    onClick={handleLogout}
+                    className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-left text-muted-foreground hover:text-foreground hover:bg-muted mt-2"
                   >
-                    <item.icon className="h-4 w-4" />
-                    {item.label}
+                    <LogOut className="h-4 w-4" />
+                    Sair ({profile.name.split(" ")[0]})
                   </button>
-                ))}
+                ) : (
+                  <Button className="mt-2" onClick={() => handleNav("auth")}>
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Entrar / Cadastrar
+                  </Button>
+                )}
               </nav>
-              <Button
-                className="mt-6 w-full"
-                onClick={() => handleNav("menu")}
-              >
-                Abrir cardápio digital
-              </Button>
             </SheetContent>
           </Sheet>
         </div>
       </div>
     </header>
+  );
+}
+
+function MobileItem({ icon: Icon, label, onClick, active }: any) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg text-left transition-colors ${
+        active ? "bg-primary/15 text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+      }`}
+    >
+      <Icon className="h-4 w-4" />
+      {label}
+    </button>
   );
 }

@@ -1,252 +1,407 @@
 // scripts/seed.ts
-// Seed demo data for Mesa platform - Portuguese version
+// Seed demo data for Brito - multi-store food delivery platform
 import { db } from "../src/lib/db";
+import { hashPassword } from "../src/lib/auth";
 
 async function main() {
-  console.log("🌱 Seedando dados de demo Mesa (PT-BR)...");
+  console.log("🌱 Seedando Brito - plataforma de delivery multi-loja...");
 
-  await db.contactMessage.deleteMany();
+  // Cleanup
   await db.orderItem.deleteMany();
   await db.order.deleteMany();
-  await db.reservation.deleteMany();
-  await db.product.deleteMany();
-  await db.category.deleteMany();
-  await db.table.deleteMany();
-  await db.restaurant.deleteMany();
+  await db.menuItem.deleteMany();
+  await db.menuSection.deleteMany();
+  await db.store.deleteMany();
+  await db.userRole.deleteMany();
+  await db.profile.deleteMany();
 
-  const restaurant = await db.restaurant.create({
+  // ====== PROFILES ======
+  const ownerPwd = await hashPassword("senha123");
+  const customerPwd = await hashPassword("senha123");
+
+  // Donos de loja
+  const owners = [];
+  const ownerData = [
+    { name: "Marco Aurélio", email: "marco@brito.demo" },
+    { name: "Júlia Tanaka", email: "julia@brito.demo" },
+    { name: "Pedro Silva", email: "pedro@brito.demo" },
+    { name: "Ana Beatriz", email: "ana@brito.demo" },
+    { name: "Carlos Mendes", email: "carlos@brito.demo" },
+  ];
+  for (const o of ownerData) {
+    const profile = await db.profile.create({
+      data: {
+        name: o.name,
+        email: o.email,
+        phone: "+55 11 98888-0000",
+        password: ownerPwd,
+        roles: { create: { role: "OWNER" } },
+      },
+    });
+    owners.push(profile);
+  }
+
+  // Cliente demo
+  const customer = await db.profile.create({
     data: {
-      name: "Cozinha Demo",
-      slug: "cozinha-demo",
-      description:
-        "Restaurante fictício para demonstração. Edite os dados no painel administrativo após o cadastro.",
-      primaryColor: "#E85D2C",
-      address: "Rua Exemplo, 123 - Centro",
-      phone: "+55 11 99999-0000",
-      email: "contato@exemplo.com",
-      currency: "BRL",
+      name: "Cliente Demo",
+      email: "cliente@brito.demo",
+      phone: "+55 11 97777-1111",
+      password: customerPwd,
+      roles: { create: { role: "CUSTOMER" } },
     },
   });
 
-  console.log("✓ Restaurante criado:", restaurant.name);
+  console.log(`✓ ${owners.length + 1} profiles criados (5 donos + 1 cliente)`);
 
-  const categoriesData = [
-    { name: "Entradas", slug: "entradas", icon: "🥗", position: 0 },
-    { name: "Sopas", slug: "sopas", icon: "🍲", position: 1 },
-    { name: "Pratos Principais", slug: "principais", icon: "🍽️", position: 2 },
-    { name: "Hambúrgueres", slug: "hamburgueres", icon: "🍔", position: 3 },
-    { name: "Massas", slug: "massas", icon: "🍝", position: 4 },
-    { name: "Sobremesas", slug: "sobremesas", icon: "🍰", position: 5 },
-    { name: "Bebidas", slug: "bebidas", icon: "🥤", position: 6 },
-    { name: "Café e Chá", slug: "cafe", icon: "☕", position: 7 },
-    { name: "Drinks", slug: "drinks", icon: "🍸", position: 8 },
+  // ====== STORES ======
+  const storesData = [
+    {
+      ownerId: owners[0].id,
+      slug: "pizza-forneiro",
+      name: "Pizza Forneiro",
+      description: "Pizzas artesanais em forno a lenha, massa de fermentação natural de 48h. Ingredientes selecionados e bordas recheadas.",
+      category: "pizza",
+      logoUrl: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=200&q=80",
+      coverUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&q=80",
+      address: "Rua das Oliveiras, 150 - Vila Madalena",
+      cep: "05435-010",
+      phone: "+55 11 3456-7890",
+      openingHours: "Ter-Dom 18h-23h30",
+      deliveryFee: 7.9,
+      minOrder: 25,
+      avgDeliveryMin: 45,
+      rating: 4.8,
+      pixKey: "marco@brito.demo",
+      paymentLink: "https://mpago.la/demo-pizza-forneiro",
+    },
+    {
+      ownerId: owners[1].id,
+      slug: "burger-vila",
+      name: "Burger Vila",
+      description: "Hambúrgueres smash com blend exclusivo de carnes nobres, pão brioche assado na hora e molhos da casa.",
+      category: "burger",
+      logoUrl: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&q=80",
+      coverUrl: "https://images.unsplash.com/photo-1550317138-10000687a72b?w=1200&q=80",
+      address: "Av. Paulista, 2000 - Bela Vista",
+      cep: "01310-100",
+      phone: "+55 11 3456-1111",
+      openingHours: "Seg-Dom 12h-23h",
+      deliveryFee: 5.9,
+      minOrder: 20,
+      avgDeliveryMin: 30,
+      rating: 4.7,
+      pixKey: "julia@brito.demo",
+      paymentLink: "https://mpago.la/demo-burger-vila",
+    },
+    {
+      ownerId: owners[2].id,
+      slug: "sushi-tanaka",
+      name: "Sushi Tanaka",
+      description: "Cozinha japonesa autêntica com peixes frescos importados. Combos, sashimis e temakis preparados na hora.",
+      category: "japones",
+      logoUrl: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=200&q=80",
+      coverUrl: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=1200&q=80",
+      address: "Rua Liberdade, 500 - Liberdade",
+      cep: "01502-000",
+      phone: "+55 11 3456-2222",
+      openingHours: "Seg-Sáb 11h30-22h",
+      deliveryFee: 9.9,
+      minOrder: 35,
+      avgDeliveryMin: 50,
+      rating: 4.9,
+      pixKey: "pedro@brito.demo",
+      paymentLink: "https://mpago.la/demo-sushi-tanaka",
+    },
+    {
+      ownerId: owners[3].id,
+      slug: "doceria-mel",
+      name: "Doceria Mel",
+      description: "Doces artesanais, bolos de pote, brigadeiros gourmet e sobremesas sem glúten. Feito com manteiga real e chocolate belga.",
+      category: "doces",
+      logoUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200&q=80",
+      coverUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=1200&q=80",
+      address: "Rua dos Pinheiros, 800 - Pinheiros",
+      cep: "05422-000",
+      phone: "+55 11 3456-3333",
+      openingHours: "Ter-Sáb 10h-20h",
+      deliveryFee: 4.9,
+      minOrder: 15,
+      avgDeliveryMin: 25,
+      rating: 4.6,
+      pixKey: "ana@brito.demo",
+      paymentLink: "https://mpago.la/demo-doceria-mel",
+    },
+    {
+      ownerId: owners[4].id,
+      slug: "verde-saudavel",
+      name: "Verde Saudável",
+      description: "Bowls, saladas montadas, sucos naturais e marmitas fitness. Ingredientes orgânicos e contagem calórica em cada prato.",
+      category: "saudavel",
+      logoUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&q=80",
+      coverUrl: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80",
+      address: "Rua Haddock Lobo, 300 - Cerqueira César",
+      cep: "01414-000",
+      phone: "+55 11 3456-4444",
+      openingHours: "Seg-Sex 8h-19h, Sáb 9h-16h",
+      deliveryFee: 6.5,
+      minOrder: 22,
+      avgDeliveryMin: 35,
+      rating: 4.7,
+      pixKey: "carlos@brito.demo",
+      paymentLink: "https://mpago.la/demo-verde-saudavel",
+    },
   ];
 
-  const categories = [];
-  for (const c of categoriesData) {
-    const cat = await db.category.create({
-      data: { ...c, restaurantId: restaurant.id },
-    });
-    categories.push(cat);
+  const stores = [];
+  for (const s of storesData) {
+    const store = await db.store.create({ data: s });
+    stores.push(store);
   }
-  console.log(`✓ ${categories.length} categorias criadas`);
+  console.log(`✓ ${stores.length} lojas criadas`);
 
-  const cat = (slug: string) => categories.find((c) => c.slug === slug)!;
+  // ====== MENU: helper ======
+  type SectionInput = { name: string; items: any[] };
 
-  const productsData: any[] = [
-    // Entradas
-    { name: "Ceviche de Manga", description: "Manga verde marinada em limão, coentro e pimenta, acompanhada de chips de banana-da-terra.", price: 28, category: "entradas", isVegan: true, isFeatured: true, prepTimeMin: 10 },
-    { name: "Tostones com Guacamole", description: "Tostones crocantes com guacamole caseiro e pico de gallo.", price: 22, category: "entradas", isVegan: true, prepTimeMin: 12 },
-    { name: "Bolo de Milho com Queijo", description: "Bolo de milho cremoso com queijo da serra derretido.", price: 18, category: "entradas", prepTimeMin: 10 },
-    { name: "Croquetas de Presunto", description: "Croquetas crocantes e cremosas de presunto ibérico (6 unidades).", price: 25, category: "entradas", prepTimeMin: 15 },
-    { name: "Tábola de Queijos", description: "Seleção de queijos artesanais, frutas da estação e geleia de pimentão.", price: 42, category: "entradas", isFeatured: true, prepTimeMin: 8 },
-
-    // Sopas
-    { name: "Sopa de Feijão Preto", description: "Tradicional sopa de feijão preto com linguiça defumada, arroz e couve.", price: 32, category: "sopas", prepTimeMin: 20 },
-    { name: "Caldo de Mocotó", description: "Caldo substancioso de mocotó com legumes, hortelã e vinagrete.", price: 36, category: "sopas", prepTimeMin: 25 },
-    { name: "Creme de Abóbora", description: "Cremosa sopa de abóbora com toque de gengibre e croutons.", price: 24, category: "sopas", isVegan: true, prepTimeMin: 12 },
-    { name: "Borscht", description: "Sopa de beterraba no estilo leste-europeu com creme azedo.", price: 28, category: "sopas", prepTimeMin: 15 },
-
-    // Pratos Principais
-    { name: "Feijoada Completa", description: "O clássico: feijão preto, carnes defumadas, arroz, couve, farofa, laranja e torresmo.", price: 48, category: "principais", isFeatured: true, prepTimeMin: 25 },
-    { name: "Frango Grelhado", description: "Filé de frango marinado com ervas, guarnição de batatas rústicas e salada fresca.", price: 38, category: "principais", prepTimeMin: 20 },
-    { name: "Salmão na Parrilla", description: "Filé de salmão com molho de maracujá, quinoa e legumes salteados.", price: 62, category: "principais", isFeatured: true, prepTimeMin: 22 },
-    { name: "Ancho ao Vinho", description: "Bife ancho em redução de vinho tinto, purê de batata trufado e aspargos.", price: 72, category: "principais", prepTimeMin: 30 },
-    { name: "Risoto de Cogumelos", description: "Risoto cremoso com mix de cogumelos, parmesão e azeite de trufa.", price: 44, category: "principais", prepTimeMin: 22 },
-    { name: "Costela BBQ", description: "Costela de porco glaceada com BBQ de café, batatas baby e cebolas confitadas.", price: 56, category: "principais", prepTimeMin: 28 },
-
-    // Hambúrgueres
-    { name: "Duplo Vício", description: "Duplo blend de 150g, cheddar, bacon, cebola caramelizada, molho da casa.", price: 42, category: "hamburgueres", isFeatured: true, prepTimeMin: 18 },
-    { name: "Burger de Frango Crocante", description: "Filé de frango empanado, alface, tomate, maionese de chipotle.", price: 34, category: "hamburgueres", isSpicy: true, prepTimeMin: 16 },
-    { name: "Burger Vegano", description: "Hambúrguer de lentilha e beterraba, abacate, rúcula e molho de iogurte vegano.", price: 38, category: "hamburgueres", isVegan: true, prepTimeMin: 18 },
-    { name: "Burger Especial da Casa", description: "Blend 200g, queijo brie, presunto cru, ovo de codorna, pão brioche.", price: 48, category: "hamburgueres", isFeatured: true, prepTimeMin: 20 },
-
-    // Massas
-    { name: "Spaghetti Carbonara", description: "Massa com bacon, gema de ovo, queijo pecorino e pimenta-do-reino.", price: 39, category: "massas", prepTimeMin: 18 },
-    { name: "Lasanha à Bolonhesa", description: "Camadas de massa com ragu de carne, bechamel e parmesão gratinado.", price: 42, category: "massas", prepTimeMin: 25 },
-    { name: "Fettuccine Alfredo", description: "Fettuccine em molho cremoso de parmesão e manteiga.", price: 36, category: "massas", prepTimeMin: 16 },
-    { name: "Ravioli de Espinafre", description: "Raviólis recheados com espinafre e ricota em molho de tomate fresco.", price: 41, category: "massas", prepTimeMin: 18 },
-
-    // Sobremesas
-    { name: "Pudim de Leite", description: "Pudim clássico de leite condensado com calda de caramelo.", price: 18, category: "sobremesas", isFeatured: true, prepTimeMin: 5 },
-    { name: "Petit Gateau", description: "Bolo de chocolate quente com sorvete de creme e calda de frutas vermelhas.", price: 22, category: "sobremesas", prepTimeMin: 8 },
-    { name: "Tiramisù", description: "Clássico italiano com café espresso, mascarpone e cacau.", price: 20, category: "sobremesas", prepTimeMin: 5 },
-    { name: "Brigadeiro Gourmet", description: "Brigadeiro belga com chocolate 70% e flor de sal (3 unidades).", price: 16, category: "sobremesas", prepTimeMin: 5 },
-    { name: "Cheesecake de Maracujá", description: "Torta de queijo com coulis de maracujá.", price: 21, category: "sobremesas", prepTimeMin: 5 },
-
-    // Bebidas
-    { name: "Limondade de Coco", description: "Refrescante limonada com creme de coco e gelo batido.", price: 14, category: "bebidas", isFeatured: true, prepTimeMin: 5 },
-    { name: "Limonada com Hortelã", description: "Limonada natural com hortelã fresca.", price: 11, category: "bebidas", isVegan: true, prepTimeMin: 4 },
-    { name: "Suco de Maracujá", description: "Suco natural de maracujá com água ou leite.", price: 12, category: "bebidas", isVegan: true, prepTimeMin: 4 },
-    { name: "Água Tônica Premium", description: "Água tônica com limão e pepino.", price: 10, category: "bebidas", prepTimeMin: 2 },
-    { name: "Refrigerante 350ml", description: "Coca-Cola, Guaraná ou Fanta.", price: 8, category: "bebidas", prepTimeMin: 2 },
-
-    // Café e Chá
-    { name: "Espresso", description: "Café espresso simples, grãos de origem Cerrado Mineiro.", price: 7, category: "cafe", prepTimeMin: 3 },
-    { name: "Capuccino", description: "Espresso com leite vaporizado e espuma cremosa.", price: 11, category: "cafe", prepTimeMin: 4 },
-    { name: "Latte de Baunilha", description: "Latte com xarope de baunilha e arte no leite.", price: 13, category: "cafe", prepTimeMin: 5 },
-    { name: "Chá Gelado de Frutas Vermelhas", description: "Chá preto com frutas vermelhas e hortelã.", price: 11, category: "cafe", isVegan: true, prepTimeMin: 4 },
-    { name: "Chocolate Quente", description: "Chocolate espesso com marshmallows e canela.", price: 12, category: "cafe", prepTimeMin: 5 },
-
-    // Drinks
-    { name: "Caipirinha", description: "Cachaça artesanal, limão, açúcar e gelo. O clássico brasileiro.", price: 22, category: "drinks", isFeatured: true, prepTimeMin: 5 },
-    { name: "Mojito Cubano", description: "Rum branco, hortelã, limão, açúcar e soda.", price: 26, category: "drinks", prepTimeMin: 5 },
-    { name: "Margarita Clássica", description: "Tequila, triple sec, suco de limão e sal.", price: 28, category: "drinks", prepTimeMin: 5 },
-    { name: "Aperol Spritz", description: "Aperol, prosecco e soda com laranja.", price: 32, category: "drinks", prepTimeMin: 4 },
-    { name: "Negroni", description: "Gin, vermute tinto e Campari com laranja.", price: 34, category: "drinks", prepTimeMin: 4 },
-  ];
-
-  for (let i = 0; i < productsData.length; i++) {
-    const p = productsData[i];
-    await db.product.create({
-      data: {
-        name: p.name,
-        description: p.description,
-        price: p.price,
-        isFeatured: p.isFeatured ?? false,
-        isVegan: p.isVegan ?? false,
-        isSpicy: p.isSpicy ?? false,
-        prepTimeMin: p.prepTimeMin ?? 15,
-        position: i,
-        restaurantId: restaurant.id,
-        categoryId: cat(p.category).id,
-      },
-    });
+  async function createMenu(storeId: string, sections: SectionInput[]) {
+    for (let si = 0; si < sections.length; si++) {
+      const sec = sections[si];
+      const section = await db.menuSection.create({
+        data: { storeId, name: sec.name, position: si },
+      });
+      for (let ii = 0; ii < sec.items.length; ii++) {
+        const it = sec.items[ii];
+        await db.menuItem.create({
+          data: {
+            sectionId: section.id,
+            storeId,
+            name: it.name,
+            description: it.description,
+            price: it.price,
+            imageUrl: it.imageUrl,
+            isAvailable: it.isAvailable ?? true,
+            position: ii,
+          },
+        });
+      }
+    }
   }
-  console.log(`✓ ${productsData.length} produtos criados`);
 
-  const tablesData = [
-    { code: "M1", seats: 2, area: "Salão" },
-    { code: "M2", seats: 4, area: "Salão" },
-    { code: "M3", seats: 4, area: "Salão" },
-    { code: "M4", seats: 6, area: "Salão" },
-    { code: "T1", seats: 2, area: "Terraço" },
-    { code: "T2", seats: 4, area: "Terraço" },
-    { code: "T3", seats: 8, area: "Terraço" },
-    { code: "B1", seats: 2, area: "Balcão" },
-    { code: "B2", seats: 2, area: "Balcão" },
-    { code: "B3", seats: 2, area: "Balcão" },
-  ];
+  // ====== Pizza Forneiro ======
+  await createMenu(stores[0].id, [
+    {
+      name: "Pizzas Salgadas",
+      items: [
+        { name: "Margherita", description: "Molho de tomate San Marzano, mussarela de búfala, manjericão fresco e azeite extra virgem.", price: 42.9, imageUrl: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80" },
+        { name: "Calabresa Artesanal", description: "Calabresa defumada fatiada, cebola roxa, mussarela e orégano.", price: 45.9, imageUrl: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80" },
+        { name: "Quatro Queijos", description: "Mussarela, gorgonzola, parmesão e provolone com toque de noz-moscada.", price: 49.9, imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80" },
+        { name: "Portuguesa Premium", description: "Presunto, ovos, cebola, ervilha, azeitona preta e mussarela.", price: 47.9, imageUrl: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" },
+        { name: "Frango com Catupiry", description: "Frango desfiado temperado, catupiry original, cebola e milho.", price: 46.9, imageUrl: "https://images.unsplash.com/photo-1571997478779-2adcbbe9ab2f?w=600&q=80" },
+      ],
+    },
+    {
+      name: "Pizzas Doces",
+      items: [
+        { name: "Chocolate com Morango", description: "Chocolate ao leite derretido, morangos frescos e leite condensado.", price: 39.9, imageUrl: "https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80" },
+        { name: "Brigadeiro Gourmet", description: "Brigadeiro belga 70%, granulado belga e leite condensado.", price: 38.9, imageUrl: "https://images.unsplash.com/photo-1559054663-e8d23213f55c?w=600&q=80" },
+      ],
+    },
+    {
+      name: "Bebidas",
+      items: [
+        { name: "Coca-Cola 2L", description: "Refrigerante gelado.", price: 12.9 },
+        { name: "Suco Natural de Laranja 500ml", description: "Laranja espremida na hora.", price: 9.9 },
+        { name: "Água com Gás 500ml", description: "Água mineral com gás.", price: 4.9 },
+      ],
+    },
+  ]);
 
-  for (const t of tablesData) {
-    const qrToken = `${restaurant.slug}-${t.code.toLowerCase()}-${Math.random().toString(36).slice(2, 8)}`;
-    await db.table.create({
-      data: { ...t, qrToken, restaurantId: restaurant.id },
-    });
-  }
-  console.log(`✓ ${tablesData.length} mesas criadas`);
+  // ====== Burger Vila ======
+  await createMenu(stores[1].id, [
+    {
+      name: "Smash Burgers",
+      items: [
+        { name: "Smash Clássico", description: "Blend 120g smash, cheddar duplo, picles, cebola caramelizada e molho da casa no pão brioche.", price: 28.9, imageUrl: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=600&q=80" },
+        { name: "Smash Bacon", description: "Blend 120g, cheddar, bacon crocante, cebola roxa e maionese defumada.", price: 32.9, imageUrl: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&q=80" },
+        { name: "Smash Duplo", description: "Dois blends 120g, cheddar triplo, picles e molho da casa.", price: 38.9, imageUrl: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=600&q=80" },
+        { name: "Smash Vegano", description: "Hambúrguer de grão-de-bico, queijo vegano, rúcula e maionese de ervas.", price: 30.9, imageUrl: "https://images.unsplash.com/photo-1525059696034-4967a8e1dca2?w=600&q=80" },
+      ],
+    },
+    {
+      name: "Acompanhamentos",
+      items: [
+        { name: "Batata Frita Rústica", description: "Batatas com casca, alecrim e parmesão. Serve 1 pessoa.", price: 16.9, imageUrl: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=80" },
+        { name: "Onion Rings", description: "Anéis de cebola empanados com molho barbecue. 8 unidades.", price: 18.9, imageUrl: "https://images.unsplash.com/photo-1639024471283-03518883512d?w=600&q=80" },
+        { name: "Nuggets de Frango", description: "10 nuggets crocantes com molho de sua escolha.", price: 17.9 },
+      ],
+    },
+    {
+      name: "Bebidas",
+      items: [
+        { name: "Milkshake Ovomaltine", description: "500ml com calda e crocante de ovomaltine.", price: 19.9, imageUrl: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80" },
+        { name: "Coca-Cola Lata 350ml", description: "Gelada.", price: 6.9 },
+        { name: "Cerveja Artesanal IPA 350ml", description: "IPA local, 6% álcool.", price: 14.9 },
+      ],
+    },
+  ]);
 
-  // Pedidos demo dos últimos 7 dias
-  const tables = await db.table.findMany({ where: { restaurantId: restaurant.id } });
-  const products = await db.product.findMany({ where: { restaurantId: restaurant.id } });
+  // ====== Sushi Tanaka ======
+  await createMenu(stores[2].id, [
+    {
+      name: "Combos",
+      items: [
+        { name: "Combo Tanaka 30 peças", description: "10 nigiris, 12 sashimis, 8 hosomakis variados. Serve 2 pessoas.", price: 89.9, imageUrl: "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600&q=80" },
+        { name: "Combo Individual 18 peças", description: "6 nigiris, 6 sashimis, 6 hosomakis.", price: 54.9, imageUrl: "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=600&q=80" },
+        { name: "Combo Familia 50 peças", description: "Serve 4 pessoas. Variados.", price: 139.9, imageUrl: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
+      ],
+    },
+    {
+      name: "Sashimis",
+      items: [
+        { name: "Sashimi Salmão 10 peças", description: "Fatias frescas de salmão importado.", price: 39.9, imageUrl: "https://images.unsplash.com/photo-1607301405390-d831c242f59b?w=600&q=80" },
+        { name: "Sashimi Atum 8 peças", description: "Atum fresco fatiado.", price: 34.9 },
+        { name: "Sashimi Mix 12 peças", description: "Salmão, atum e branco.", price: 44.9 },
+      ],
+    },
+    {
+      name: "Temakis",
+      items: [
+        { name: "Temaki Salmão", description: "Cone de algas com salmão, cream cheese e arroz.", price: 22.9, imageUrl: "https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80" },
+        { name: "Temaki Camarão", description: "Camarão tempurá, cream cheese e molho tarê.", price: 24.9 },
+      ],
+    },
+    {
+      name: "Bebidas",
+      items: [
+        { name: "Sake Quente 180ml", description: "Sake tradicional servido quente.", price: 18.9 },
+        { name: "Chá Verde Gelado 400ml", description: "Chá verde japonês com gelo.", price: 8.9 },
+        { name: "Água Mineral 500ml", description: "Sem gás.", price: 4.5 },
+      ],
+    },
+  ]);
 
-  const statuses = ["PENDING", "PREPARING", "READY", "DELIVERED", "DELIVERED", "DELIVERED"];
-  const channels = ["QR", "QR", "QR", "DELIVERY", "TAKEOUT"];
+  // ====== Doceria Mel ======
+  await createMenu(stores[3].id, [
+    {
+      name: "Bolos de Pote",
+      items: [
+        { name: "Bolo de Pote Brigadeiro", description: "Massa de chocolate com brigadeiro belga e granulado. 200ml.", price: 14.9, imageUrl: "https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80" },
+        { name: "Bolo de Pote Doce de Leite", description: "Massa branca com doce de leite argentino. 200ml.", price: 14.9 },
+        { name: "Bolo de Pote Maracujá", description: "Massa branca com cream cheese e coulis de maracujá. 200ml.", price: 15.9 },
+      ],
+    },
+    {
+      name: "Brigadeiros Gourmet",
+      items: [
+        { name: "Brigadeiro Belga (6un)", description: "Chocolate belga 70% com granulado importado.", price: 19.9, imageUrl: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&q=80" },
+        { name: "Brigadeiro Pistache (6un)", description: "Brigadeiro branco com pistache triturado.", price: 24.9 },
+        { name: "Brigadeiro Morango (6un)", description: "Brigadeiro branco com liofilizado de morango.", price: 22.9 },
+      ],
+    },
+    {
+      name: "Sobremesas",
+      items: [
+        { name: "Petit Gateau", description: "Bolo de chocolate quente com sorvete de creme.", price: 18.9, imageUrl: "https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80" },
+        { name: "Cheesecake de Frutas Vermelhas", description: "Cheesecake cremoso com calda de frutas vermelhas.", price: 16.9, imageUrl: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80" },
+      ],
+    },
+  ]);
+
+  // ====== Verde Saudável ======
+  await createMenu(stores[4].id, [
+    {
+      name: "Bowls",
+      items: [
+        { name: "Bowl Poke Salmão", description: "Base de arroz integral, salmão grelhado, edamame, abacate, manga, gergelim e molho tarê. 450g.", price: 34.9, imageUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80" },
+        { name: "Bowl Vegano", description: "Base de quinoa, grão-de-bico, abacate, beterraba, cenoura e molho de tahine. 450g.", price: 29.9, imageUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80" },
+        { name: "Bowl Frango", description: "Base de arroz integral, frango grelhado, brócolis, cenoura e molho de iogurte. 450g.", price: 32.9, imageUrl: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" },
+      ],
+    },
+    {
+      name: "Saladas Montadas",
+      items: [
+        { name: "Salada Caesar Fitness", description: "Alface, frango grelhado, croutons integrais e molho caesar light. 350g.", price: 26.9, imageUrl: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&q=80" },
+        { name: "Salada Mediterrânea", description: "Rúcula, tomate seco, queijo feta, azeitonas e azeite. 350g.", price: 28.9 },
+      ],
+    },
+    {
+      name: "Sucos e Vitaminas",
+      items: [
+        { name: "Suco Verde Detox 400ml", description: "Couve, maçã, gengibre, limão e hortelã.", price: 12.9, imageUrl: "https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=600&q=80" },
+        { name: "Vitamina de Banana 400ml", description: "Banana, leite, aveia e mel.", price: 11.9 },
+        { name: "Suco de Laranja 400ml", description: "Laranja espremida na hora.", price: 9.9 },
+      ],
+    },
+  ]);
+
+  const totalItems = await db.menuItem.count();
+  console.log(`✓ ${totalItems} itens de cardápio criados`);
+
+  // ====== PEDIDOS DEMO ======
   const now = Date.now();
-
+  const statuses = ["PENDING", "ACCEPTED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED", "DELIVERED", "DELIVERED"];
+  const paymentMethods = ["PIX", "CARD", "ON_DELIVERY"];
   let orderNumber = 1000;
-  for (let dayOffset = 6; dayOffset >= 0; dayOffset--) {
-    const ordersCount = 8 + Math.floor(Math.random() * 14);
+
+  for (let dayOffset = 4; dayOffset >= 0; dayOffset--) {
+    const ordersCount = 3 + Math.floor(Math.random() * 4);
     for (let i = 0; i < ordersCount; i++) {
-      const itemsCount = 1 + Math.floor(Math.random() * 4);
-      const items: any[] = [];
+      const store = stores[Math.floor(Math.random() * stores.length)];
+      const items = await db.menuItem.findMany({ where: { storeId: store.id }, take: 10 });
+      if (items.length === 0) continue;
+      const itemsCount = 1 + Math.floor(Math.random() * 3);
       let subtotal = 0;
+      const orderItems: any[] = [];
       for (let j = 0; j < itemsCount; j++) {
-        const p = products[Math.floor(Math.random() * products.length)];
+        const it = items[Math.floor(Math.random() * items.length)];
         const qty = 1 + Math.floor(Math.random() * 2);
-        items.push({
-          productId: p.id,
-          name: p.name,
-          unitPrice: p.price,
+        orderItems.push({
+          itemId: it.id,
+          name: it.name,
+          unitPrice: it.price,
           quantity: qty,
         });
-        subtotal += p.price * qty;
+        subtotal += it.price * qty;
       }
-      const tip = Math.random() > 0.5 ? Math.round(subtotal * 0.1) : 0;
-      const total = subtotal + tip;
-      const table = Math.random() > 0.3 ? tables[Math.floor(Math.random() * tables.length)] : null;
-      const hoursAgo = dayOffset * 24 + Math.floor(Math.random() * 12) + 8;
+      const total = subtotal + store.deliveryFee;
+      const hoursAgo = dayOffset * 24 + Math.floor(Math.random() * 20) + 2;
       const createdAt = new Date(now - hoursAgo * 60 * 60 * 1000);
+      const status = dayOffset === 0
+        ? statuses[Math.floor(Math.random() * statuses.length)]
+        : "DELIVERED";
+      const paymentMethod = paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
 
       orderNumber++;
       await db.order.create({
         data: {
-          restaurantId: restaurant.id,
-          tableId: table?.id ?? null,
+          storeId: store.id,
+          customerId: customer.id,
           orderNumber,
-          status: dayOffset === 0 ? statuses[Math.floor(Math.random() * statuses.length)] : "DELIVERED",
-          channel: channels[Math.floor(Math.random() * channels.length)],
-          customerName: ["Carlos", "Maria", "André", "Laura", "João", "Sofia", "Pedro", "Daniela"][Math.floor(Math.random() * 8)],
+          status,
+          customerName: customer.name,
+          customerPhone: customer.phone || "",
+          cep: "01310-100",
+          street: "Av. Paulista",
+          number: "1000",
+          complement: "Apto 42",
+          neighborhood: "Bela Vista",
+          city: "São Paulo",
+          paymentMethod,
+          paymentDetail: paymentMethod === "ON_DELIVERY" ? "Dinheiro, troco para R$ 100" : null,
           subtotal,
-          tip,
+          deliveryFee: store.deliveryFee,
           total,
           createdAt,
-          items: { create: items },
+          items: { create: orderItems },
         },
       });
     }
   }
   console.log(`✓ ~${orderNumber - 1000} pedidos demo criados`);
 
-  // Reservas
-  const customers = [
-    { name: "Ana Silva", phone: "+55 11 95555-1001", email: "ana.silva@exemplo.com", size: 2, occasion: "Encontro romântico" },
-    { name: "Bruno Costa", phone: "+55 11 95555-1002", email: "bruno.costa@exemplo.com", size: 4, occasion: "Jantar em família" },
-    { name: "Carla Mendes", phone: "+55 11 95555-1003", email: "carla.mendes@exemplo.com", size: 6, occasion: "Aniversário" },
-    { name: "Diego Ferreira", phone: "+55 11 95555-1004", email: "diego.ferreira@exemplo.com", size: 2 },
-    { name: "Eduarda Lima", phone: "+55 11 95555-1005", email: "eduarda.lima@exemplo.com", size: 3 },
-    { name: "Felipe Souza", phone: "+55 11 95555-1006", email: "felipe.souza@exemplo.com", size: 8, occasion: "Jantar de negócios" },
-    { name: "Gabriela Rocha", phone: "+55 11 95555-1007", email: "gabriela.rocha@exemplo.com", size: 4 },
-    { name: "Henrique Alves", phone: "+55 11 95555-1008", email: "henrique.alves@exemplo.com", size: 2, occasion: "Aniversário de namoro" },
-  ];
-
-  const times = ["12:30", "13:00", "13:30", "14:00", "19:00", "19:30", "20:00", "20:30", "21:00"];
-  for (let dayOffset = 0; dayOffset < 5; dayOffset++) {
-    const date = new Date(now + dayOffset * 24 * 60 * 60 * 1000);
-    const dateStr = date.toISOString().slice(0, 10);
-    const count = 3 + Math.floor(Math.random() * 4);
-    for (let i = 0; i < count; i++) {
-      const c = customers[Math.floor(Math.random() * customers.length)];
-      await db.reservation.create({
-        data: {
-          restaurantId: restaurant.id,
-          customerName: c.name,
-          phone: c.phone,
-          email: c.email,
-          partySize: c.size,
-          date: dateStr,
-          time: times[Math.floor(Math.random() * times.length)],
-          occasion: c.occasion ?? null,
-          status: dayOffset === 0 && Math.random() > 0.5 ? "SEATED" : "CONFIRMED",
-        },
-      });
-    }
-  }
-  console.log("✓ Reservas criadas");
-
   console.log("\n🎉 Seed concluído!");
-  console.log(`Restaurante: ${restaurant.name} (slug: ${restaurant.slug})`);
-  console.log(`Dados de demonstração - substitua por dados reais via painel.`);
+  console.log("Login cliente: cliente@brito.demo / senha123");
+  console.log("Login dono: marco@brito.demo / senha123");
 }
 
 main()

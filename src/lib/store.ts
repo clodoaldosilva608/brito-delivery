@@ -3,15 +3,30 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export type View = "home" | "menu" | "admin" | "reservations" | "contact";
+// ====== NAV ======
+export type View =
+  | "home"
+  | "store"
+  | "cart"
+  | "checkout"
+  | "orders"
+  | "auth"
+  | "dashboard"
+  | "owner-orders"
+  | "owner-menu"
+  | "owner-settings"
+  | "create-store";
 
 interface NavState {
   view: View;
   setView: (v: View) => void;
-  tableToken: string | null;
-  setTableToken: (t: string | null) => void;
-  restaurantId: string | null;
-  setRestaurantId: (id: string | null) => void;
+  goToStore: (slug: string) => void;
+  // Store context
+  storeSlug: string | null;
+  setStoreSlug: (s: string | null) => void;
+  // Owner dashboard context
+  activeStoreId: string | null;
+  setActiveStoreId: (id: string | null) => void;
 }
 
 export const useNav = create<NavState>()(
@@ -19,17 +34,19 @@ export const useNav = create<NavState>()(
     (set) => ({
       view: "home",
       setView: (v) => set({ view: v }),
-      tableToken: null,
-      setTableToken: (t) => set({ tableToken: t }),
-      restaurantId: null,
-      setRestaurantId: (id) => set({ restaurantId: id }),
+      goToStore: (slug) => set({ storeSlug: slug, view: "store" }),
+      storeSlug: null,
+      setStoreSlug: (s) => set({ storeSlug: s }),
+      activeStoreId: null,
+      setActiveStoreId: (id) => set({ activeStoreId: id }),
     }),
-    { name: "mesa-nav" }
+    { name: "brito-nav" }
   )
 );
 
+// ====== CART ======
 export interface CartItem {
-  productId: string;
+  itemId: string;
   name: string;
   price: number;
   imageUrl: string | null;
@@ -38,10 +55,15 @@ export interface CartItem {
 }
 
 interface CartState {
+  storeId: string | null;
+  storeName: string | null;
+  storeSlug: string | null;
+  deliveryFee: number;
+  minOrder: number;
   items: CartItem[];
-  add: (item: Omit<CartItem, "quantity">, qty?: number) => void;
-  remove: (productId: string) => void;
-  updateQty: (productId: string, qty: number) => void;
+  add: (item: Omit<CartItem, "quantity">, store: { id: string; name: string; slug: string; deliveryFee: number; minOrder: number }, qty?: number) => boolean;
+  remove: (itemId: string) => void;
+  updateQty: (itemId: string, qty: number) => void;
   clear: () => void;
   totalItems: () => number;
   subtotal: () => number;
@@ -50,51 +72,97 @@ interface CartState {
 export const useCart = create<CartState>()(
   persist(
     (set, get) => ({
+      storeId: null,
+      storeName: null,
+      storeSlug: null,
+      deliveryFee: 0,
+      minOrder: 0,
       items: [],
-      add: (item, qty = 1) =>
-        set((state) => {
-          const existing = state.items.find((i) => i.productId === item.productId);
+      add: (item, store, qty = 1) => {
+        const state = get();
+        // Bloquear multi-loja: se já tem itens de outra loja, não adiciona
+        if (state.storeId && state.storeId !== store.id && state.items.length > 0) {
+          return false;
+        }
+        set((s) => {
+          const existing = s.items.find((i) => i.itemId === item.itemId);
           if (existing) {
             return {
-              items: state.items.map((i) =>
-                i.productId === item.productId
-                  ? { ...i, quantity: i.quantity + qty }
-                  : i
+              storeId: store.id,
+              storeName: store.name,
+              storeSlug: store.slug,
+              deliveryFee: store.deliveryFee,
+              minOrder: store.minOrder,
+              items: s.items.map((i) =>
+                i.itemId === item.itemId ? { ...i, quantity: i.quantity + qty } : i
               ),
             };
           }
-          return { items: [...state.items, { ...item, quantity: qty }] };
-        }),
-      remove: (productId) =>
-        set((state) => ({
-          items: state.items.filter((i) => i.productId !== productId),
+          return {
+            storeId: store.id,
+            storeName: store.name,
+            storeSlug: store.slug,
+            deliveryFee: store.deliveryFee,
+            minOrder: store.minOrder,
+            items: [...s.items, { ...item, quantity: qty }],
+          };
+        });
+        return true;
+      },
+      remove: (itemId) =>
+        set((s) => ({
+          items: s.items.filter((i) => i.itemId !== itemId),
         })),
-      updateQty: (productId, qty) =>
-        set((state) => ({
+      updateQty: (itemId, qty) =>
+        set((s) => ({
           items:
             qty <= 0
-              ? state.items.filter((i) => i.productId !== productId)
-              : state.items.map((i) =>
-                  i.productId === productId ? { ...i, quantity: qty } : i
+              ? s.items.filter((i) => i.itemId !== itemId)
+              : s.items.map((i) =>
+                  i.itemId === itemId ? { ...i, quantity: qty } : i
                 ),
         })),
-      clear: () => set({ items: [] }),
+      clear: () => set({ items: [], storeId: null, storeName: null, storeSlug: null, deliveryFee: 0, minOrder: 0 }),
       totalItems: () => get().items.reduce((s, i) => s + i.quantity, 0),
       subtotal: () => get().items.reduce((s, i) => s + i.price * i.quantity, 0),
     }),
-    { name: "mesa-cart" }
+    { name: "brito-cart" }
   )
 );
 
-export function formatCOP(amount: number): string {
-  // Mantido para compatibilidade, mas formatado em BRL
-  return new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(amount);
+// ====== SESSION (client-side mirror) ======
+interface SessionProfile {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  roles: string[];
 }
+
+interface SessionState {
+  profile: SessionProfile | null;
+  loading: boolean;
+  setProfile: (p: SessionProfile | null) => void;
+  setLoading: (b: boolean) => void;
+  refresh: () => Promise<void>;
+}
+
+export const useSession = create<SessionState>((set) => ({
+  profile: null,
+  loading: true,
+  setProfile: (p) => set({ profile: p, loading: false }),
+  setLoading: (b) => set({ loading: b }),
+  refresh: async () => {
+    try {
+      set({ loading: true });
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+      set({ profile: data.profile, loading: false });
+    } catch {
+      set({ profile: null, loading: false });
+    }
+  },
+}));
 
 export function formatBRL(amount: number): string {
   return new Intl.NumberFormat("pt-BR", {

@@ -4,24 +4,24 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Mesa – Digitalize seu restaurante",
+  title: "Brito — Peça comida dos melhores restaurantes",
   description:
-    "Mesa é a plataforma SaaS que digitaliza restaurantes: cardápios digitais com IA, pedidos via QR, reservas, delivery e analytics avançado.",
+    "Brito é o marketplace de delivery onde qualquer restaurante cria sua loja e você pede em segundos. Cardápios completos, pagamento via Pix, cartão ou na entrega.",
   keywords: [
-    "Mesa",
-    "cardápio digital",
-    "QR restaurante",
-    "autosserviço",
-    "reservas",
+    "Brito",
     "delivery",
-    "analytics restaurante",
+    "restaurantes",
+    "pedir comida",
+    "pizza",
+    "hambúrguer",
+    "japonês",
+    "marketplace gastronômico",
   ],
-  authors: [{ name: "Mesa" }],
+  authors: [{ name: "Brito" }],
   openGraph: {
-    title: "Mesa – Digitalize seu restaurante",
-    description:
-      "Cardápios digitais com IA, pedidos via QR, reservas e mais. O futuro da gastronomia.",
-    siteName: "Mesa",
+    title: "Brito — Peça comida dos melhores restaurantes",
+    description: "Cardápios completos, Pix, cartão ou na entrega. Peça já.",
+    siteName: "Brito",
     type: "website",
   },
 };

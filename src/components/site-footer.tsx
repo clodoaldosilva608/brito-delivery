@@ -2,99 +2,71 @@
 
 import { useNav } from "@/lib/store";
 import { Button } from "@/components/ui/button";
-import { QrCode, LayoutDashboard, Mail, Instagram, Linkedin, Facebook, MapPin, Phone } from "lucide-react";
+import { UtensilsCrossed, Store, Truck, Shield } from "lucide-react";
 
 export function SiteFooter() {
   const { setView } = useNav();
 
   return (
-    <footer className="mt-auto bg-accent text-accent-foreground">
-      <div className="container-app py-14">
+    <footer className="mt-auto border-t border-border bg-card">
+      <div className="container-brito py-12">
         <div className="grid gap-10 md:grid-cols-4">
-          {/* Marca */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
               <span className="grid place-items-center h-9 w-9 rounded-xl bg-primary text-primary-foreground font-black text-lg">
-                M
+                B
               </span>
-              <span className="text-xl font-bold">Mesa</span>
+              <span className="text-xl font-bold">Brito</span>
             </div>
-            <p className="mt-3 text-sm text-accent-foreground/70 leading-relaxed">
-              O futuro da gastronomia. Digitalize seu restaurante com cardápios inteligentes,
-              pedidos via QR e analytics avançado.
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+              O marketplace onde restaurantes criam sua loja e clientes pedem comida boa em segundos.
             </p>
-            <div className="mt-4 flex gap-2">
-              <a href="#" aria-label="Instagram" className="grid place-items-center h-9 w-9 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a href="#" aria-label="LinkedIn" className="grid place-items-center h-9 w-9 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                <Linkedin className="h-4 w-4" />
-              </a>
-              <a href="#" aria-label="Facebook" className="grid place-items-center h-9 w-9 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
-                <Facebook className="h-4 w-4" />
-              </a>
-            </div>
           </div>
 
-          {/* Produto */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent-foreground/60 mb-4">Produto</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Para clientes</h3>
             <ul className="space-y-2.5 text-sm">
-              <li><button onClick={() => setView("menu")} className="text-accent-foreground/80 hover:text-primary transition-colors">Cardápio digital</button></li>
-              <li><button onClick={() => setView("menu")} className="text-accent-foreground/80 hover:text-primary transition-colors">Pedidos via QR</button></li>
-              <li><button onClick={() => setView("reservations")} className="text-accent-foreground/80 hover:text-primary transition-colors">Reservas</button></li>
-              <li><button onClick={() => setView("admin")} className="text-accent-foreground/80 hover:text-primary transition-colors">Painel</button></li>
-              <li><button onClick={() => setView("contact")} className="text-accent-foreground/80 hover:text-primary transition-colors">Delivery</button></li>
+              <li><button onClick={() => setView("home")} className="text-foreground/80 hover:text-primary transition-colors text-left">Buscar restaurantes</button></li>
+              <li><button onClick={() => setView("orders")} className="text-foreground/80 hover:text-primary transition-colors text-left">Meus pedidos</button></li>
+              <li><button onClick={() => setView("cart")} className="text-foreground/80 hover:text-primary transition-colors text-left">Carrinho</button></li>
             </ul>
           </div>
 
-          {/* Soluções */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent-foreground/60 mb-4">Soluções</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Para restaurantes</h3>
             <ul className="space-y-2.5 text-sm">
-              <li><button className="text-accent-foreground/80 hover:text-primary transition-colors text-left">Restaurantes</button></li>
-              <li><button className="text-accent-foreground/80 hover:text-primary transition-colors text-left">Cafeterias e brunch</button></li>
-              <li><button className="text-accent-foreground/80 hover:text-primary transition-colors text-left">Bares</button></li>
-              <li><button className="text-accent-foreground/80 hover:text-primary transition-colors text-left">Hotéis</button></li>
-              <li><button className="text-accent-foreground/80 hover:text-primary transition-colors text-left">Dark kitchen</button></li>
+              <li><button onClick={() => setView("create-store")} className="text-foreground/80 hover:text-primary transition-colors text-left">Cadastrar minha loja</button></li>
+              <li><button onClick={() => setView("dashboard")} className="text-foreground/80 hover:text-primary transition-colors text-left">Painel do dono</button></li>
+              <li><button onClick={() => setView("owner-menu")} className="text-foreground/80 hover:text-primary transition-colors text-left">Gerenciar cardápio</button></li>
             </ul>
           </div>
 
-          {/* Contato */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-accent-foreground/60 mb-4">Contato</h3>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Diferenciais</h3>
             <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2 text-accent-foreground/80">
-                <Mail className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>contato@exemplo.com</span>
+              <li className="flex items-start gap-2 text-foreground/80">
+                <Truck className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                <span>Pagamento via Pix, cartão ou na entrega</span>
               </li>
-              <li className="flex items-start gap-2 text-accent-foreground/80">
-                <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>+55 11 99999-0000</span>
+              <li className="flex items-start gap-2 text-foreground/80">
+                <Store className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                <span>Qualquer restaurante pode abrir loja</span>
               </li>
-              <li className="flex items-start gap-2 text-accent-foreground/80">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span>Sua cidade · Sua região</span>
+              <li className="flex items-start gap-2 text-foreground/80">
+                <Shield className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+                <span>Sem cobrança automática, você controla</span>
               </li>
             </ul>
-            <Button
-              size="sm"
-              className="mt-4"
-              onClick={() => { setView("contact"); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            >
-              Agende uma demo
-            </Button>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-accent-foreground/50">
-            © 2024 Mesa. Todos os direitos reservados.
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground">
+            © 2024 Brito. Todos os direitos reservados.
           </p>
-          <div className="flex gap-4 text-xs text-accent-foreground/50">
+          <div className="flex gap-4 text-xs text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Termos</a>
             <a href="#" className="hover:text-primary transition-colors">Privacidade</a>
-            <a href="#" className="hover:text-primary transition-colors">Cookies</a>
           </div>
         </div>
       </div>
